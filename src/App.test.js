@@ -3,6 +3,6 @@ import App from './App';
 
 test('renders Quizeal (Dummy Test)', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Quizeal/i);
+  const linkElement = screen.getByText(/uizeal/i);
   expect(linkElement).toBeInTheDocument();
 });
