@@ -11,6 +11,7 @@ import {
   ListItem,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import logo from '../resources/logo.png';
 
 // Custom Style for Material UI
 const useStyles = makeStyles((theme) => ({
@@ -71,9 +72,22 @@ export default function NavBar() {
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
-          <Typography variant='h6' className={classes.title}>
-            <Link to='/' className={'styleLink'} style={{ color: 'white' }}>
-              QuizeaL
+          <Typography variant='h5' className={classes.title}>
+            <Link
+              to='/'
+              className={'styleLink'}
+              style={{
+                color: 'white',
+                textTransform: 'uppercase',
+              }}
+            >
+              <img
+                width='35px'
+                src={logo}
+                alt='Logo'
+                style={{ paddingRight: '2px' }}
+              />
+              uizeaL
             </Link>
           </Typography>
           <IconButton
