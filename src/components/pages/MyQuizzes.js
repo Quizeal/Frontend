@@ -151,7 +151,7 @@ const sortModel = [
   },
 ];
 
-export default function MyQuizes() {
+export default function MyQuizzes() {
   const [quizSelected, updateQuizSelected] = useState('past');
   const [columnsM, updateColumns] = useState(columnsP);
   const [rowsM, updateRows] = useState(rowsP);

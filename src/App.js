@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import MyQuizes from './components/pages/MyQuizzes';
+import MyQuizzes from './components/pages/MyQuizzes';
 import './App.css';
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       Quizeal
       <Router>
         <Switch>
-          <Route exact path='/my-quizzes' component={MyQuizes} />
+          <Route exact path='/my-quizzes' component={MyQuizzes} />
         </Switch>
       </Router>
     </Fragment>
