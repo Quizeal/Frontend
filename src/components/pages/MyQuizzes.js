@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react';
-import { Button, ButtonGroup, Typography, Grid } from '@material-ui/core';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import LinkIcon from '@material-ui/icons/Link';
+import { Button, ButtonGroup, Typography, Grid } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { dummyUserJSON } from '../../data';
-import { useState, useEffect } from 'react';
+import LinkIcon from '@material-ui/icons/Link';
+import DescriptionIcon from '@material-ui/icons/Description';
 
+// Columns of Table
 const columnsP = [
   {
     field: 'id',
@@ -72,7 +73,6 @@ const columnsP = [
     },
   },
 ];
-
 const columnsC = [
   {
     field: 'id',
@@ -112,11 +112,6 @@ const columnsC = [
     flex: 0.75,
     headerAlign: 'center',
     align: 'center',
-    // valueGetter: (params) =>
-    //   `${params.getValue(params.id, 'marksObtained')}/${params.getValue(
-    //     params.id,
-    //     'quizMarks'
-    //   )} `,
   },
   {
     field: 'viewId',
@@ -132,7 +127,7 @@ const columnsC = [
           <Button
             variant='contained'
             color='primary'
-            endIcon={<LinkIcon />}
+            endIcon={<DescriptionIcon />}
             fullWidth
           >
             View
@@ -142,11 +137,13 @@ const columnsC = [
     },
   },
 ];
-const rows = dummyUserJSON.quizTaken;
 
+// Dummy Data for UI
+const rows = dummyUserJSON.quizTaken;
 const rowsP = rows.filter((row) => row.quizGiven);
 const rowsC = rows.filter((row) => !row.quizGiven);
 
+// Model for byDefault Sorting Table
 const sortModel = [
   {
     field: 'date',
@@ -155,9 +152,9 @@ const sortModel = [
 ];
 
 export default function MyQuizes() {
+  const [quizSelected, updateQuizSelected] = useState('past');
   const [columnsM, updateColumns] = useState(columnsP);
   const [rowsM, updateRows] = useState(rowsP);
-  const [quizSelected, updateQuizSelected] = useState('past');
 
   const onChange = (e) => {
     if (e === 'past') {
@@ -174,8 +171,6 @@ export default function MyQuizes() {
   useEffect(() => {
     document.title = 'Quizeal | My Quizzes';
   }, []);
-
-  //   const variationP = quizSelected === 'past' ? 'outlined' : ''
 
   return (
     <Fragment>
@@ -214,9 +209,6 @@ export default function MyQuizes() {
             checkboxSelection
             disableSelectionOnClick
             sortModel={sortModel}
-            // components={{
-            //   Toolbar: GridToolbar,
-            // }}
           />
         </Grid>
       </Grid>

@@ -1,7 +1,7 @@
+import { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MyQuizes from './components/pages/MyQuizzes';
 import './App.css';
-import { Fragment } from 'react';
 
 function App() {
   return (
