@@ -139,6 +139,7 @@ const columnsC = [
 ];
 
 // Dummy Data for UI
+// This will be handled in more efficient way after api is completed for same
 const rows = dummyUserJSON.quizTaken;
 const rowsP = rows.filter((row) => row.quizGiven);
 const rowsC = rows.filter((row) => !row.quizGiven);
