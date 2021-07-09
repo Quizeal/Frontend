@@ -19,6 +19,7 @@ import Feedback from './components/extra/Feedback';
 import Me from './components/extra/Me';
 import Setting from './components/extra/Setting';
 import Developers from './components/extra/Developers';
+import About from './components/extra/About';
 import MiniDrawer from './components/layout/MiniDrawer';
 import {
   createTheme,
@@ -58,6 +59,7 @@ function App() {
               <Route exact path='/signup' component={Signup} />
               <Route exact path='/feedback' component={Feedback} />
               <Route exact path='/developers' component={Developers} />
+              <Route exact path='/about' component={About} />
               <PrivateRoute exact path='/me' component={Me} />
               <PrivateRoute exact path='/settings' component={Setting} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
