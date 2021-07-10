@@ -1,0 +1,2 @@
+export const SET_MYALERT = 'SET_MYALERT';
+export const REMOVE_MYALERT = 'REMOVE_MYALERT';
