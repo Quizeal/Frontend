@@ -7,10 +7,10 @@ import home from '../../resources/home.gif';
 
 const useStyles = makeStyles((theme) => ({
   section: {
-    padding: '70px',
+    padding: theme.spacing(10),
     maxWidth: '100%',
     [theme.breakpoints.down('xs')]: {
-      padding: null,
+      padding: theme.spacing(6),
     },
   },
 }));
@@ -19,11 +19,16 @@ export default function Home() {
   const classes = useStyles();
 
   return (
-    <Grid container spacing={5} className={classes.section}>
-      <Grid item xs={12} md={6} justify='center'>
+    <Grid
+      container
+      spacing={5}
+      justifyContent='center'
+      className={classes.section}
+    >
+      <Grid item xs={12} md={6}>
         <Grid
           container
-          justifyContent='start'
+          justifyContent='flex-start'
           spacing={2}
           style={{ gridGap: '20px' }}
         >
@@ -50,7 +55,7 @@ export default function Home() {
         xs={12}
         md={6}
         className={classes.sectionRight}
-        justify='center'
+        // justifyContent='center'
       >
         <Typography
           variant='h4'

@@ -175,7 +175,7 @@ export default function MyQuizzes() {
 
   return (
     <Fragment>
-      <Grid container justify='center'>
+      <Grid container justifyContent='center'>
         <Grid item xs={12}>
           <Typography variant='h4' align='center' style={{ padding: '20px' }}>
             My Quizzes
