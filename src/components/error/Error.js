@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { Container, Grid, Typography } from '@material-ui/core';
+import { Button, Container, Grid, Typography } from '@material-ui/core';
 import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import errorGif from '../../resources/error.gif';
 
 const Error = () => {
@@ -22,9 +23,14 @@ const Error = () => {
           <Typography variant='h6' style={{ fontWeight: 'bold' }}>
             Error Code: 404
           </Typography>
+          <Link to='/'>
+            <Button color='primary' variant='contained'>
+              Home
+            </Button>
+          </Link>
         </Grid>
         <Grid item>
-          <img src={errorGif} alt='Error Gif' height='100%' width='100%' />
+          <img src={errorGif} alt='Error Gif' height='90%' width='80%' />
         </Grid>
       </Grid>
     </Container>
