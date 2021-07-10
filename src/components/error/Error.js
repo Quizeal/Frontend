@@ -18,7 +18,7 @@ export default function Error() {
         </Typography>
       </Grid>
       <Grid item>
-        <img src={errorGif} height='100%' width='100%' />
+        <img src={errorGif} alt='Error Gif' height='100%' width='100%' />
       </Grid>
     </Grid>
   );
