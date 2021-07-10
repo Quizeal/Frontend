@@ -11,7 +11,7 @@ import {
   ListItem,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import logo from '../resources/logo.png';
+import logo from '../../resources/logo.png';
 
 // Custom Style for Material UI
 const useStyles = makeStyles((theme) => ({
