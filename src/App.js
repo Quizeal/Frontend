@@ -5,6 +5,7 @@ import Navbar from './components/layout/NavBar';
 import './App.css';
 import Error from './components/error/Error';
 import MyAlert from './components/layout/MyAlert';
+import Home from './components/layout/Home';
 
 // REDUX
 import { Provider } from 'react-redux';
@@ -18,6 +19,7 @@ function App() {
           <Navbar />
           <MyAlert />
           <Switch>
+            <Route exact path='/' component={Home} />
             <Route exact path='/my-quizzes' component={MyQuizzes} />
             <Route path='*' component={Error} />
           </Switch>
