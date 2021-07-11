@@ -31,17 +31,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function QAReport(props) {
   const classes = useStyles();
+  const report = props.report;
 
   const { question, options } = props.qaSet;
 
   const validateAnswer = (ans, marked) => {
     if (ans) return 'success';
     else if (ans !== marked && props.type !== 'list') return 'danger';
-    // return 'default';
   };
 
   return (
-    <Card className={classes.qACard}>
+    <Card className={classes.qACard} variant='outlined'>
       <CardContent>{question}</CardContent>
       <Divider />
       <Grid container className={classes.root}>
@@ -64,16 +64,20 @@ export default function QAReport(props) {
           );
         })}
       </Grid>
-      <Divider />
-      <CardActions className={classes.qActionStyle}>
-        <Button
-          color='primary'
-          variant='contained'
-          onClick={() => props.deleteQuestion(props.qaSet.id)}
-        >
-          Delete
-        </Button>
-      </CardActions>
+      {/* <Divider /> */}
+      {!report ? (
+        <CardActions className={classes.qActionStyle}>
+          <Button
+            color='primary'
+            variant='contained'
+            onClick={() => props.deleteQuestion(props.qaSet.id)}
+          >
+            Delete
+          </Button>
+        </CardActions>
+      ) : (
+        ''
+      )}
     </Card>
   );
 }

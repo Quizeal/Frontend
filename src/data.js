@@ -1,3 +1,85 @@
+export const qaList = [
+  {
+    question:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+    options: [
+      { data: '0.0018', ans: false, marked: false },
+      { data: '0.018', ans: true, marked: true },
+      { data: '0.18', ans: false, marked: false },
+    ],
+  },
+  {
+    question:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+    options: [
+      { data: '12', ans: false, marked: true },
+      { data: '13', ans: false, marked: false },
+      { data: '14', ans: false, marked: false },
+      { data: '15', ans: true, marked: false },
+    ],
+  },
+  {
+    question:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+    options: [
+      { data: 'New York Bulls', ans: false, marked: false },
+      { data: 'Los Angeles Kings', ans: false, marked: true },
+      { data: 'Golden State Warriros', ans: true, marked: false },
+      { data: 'Huston Rocket', ans: true, marked: false },
+    ],
+  },
+  {
+    question:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+    options: [
+      { data: 'New York Bulls', ans: false, marked: false },
+      { data: 'Los Angeles Kings', ans: false, marked: true },
+      { data: 'Golden State Warriros', ans: true, marked: false },
+      { data: 'Huston Rocket', ans: true, marked: false },
+    ],
+  },
+  {
+    question:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+    options: [
+      { data: 'New York Bulls', ans: false, marked: false },
+      { data: 'Los Angeles Kings', ans: false, marked: true },
+      { data: 'Golden State Warriros', ans: true, marked: false },
+      { data: 'Huston Rocket', ans: true, marked: false },
+    ],
+  },
+  {
+    question:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+    options: [
+      { data: 'New York Bulls', ans: false, marked: false },
+      { data: 'Los Angeles Kings', ans: false, marked: true },
+      { data: 'Golden State Warriros', ans: true, marked: false },
+      { data: 'Huston Rocket', ans: true, marked: false },
+    ],
+  },
+  {
+    question:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+    options: [
+      { data: 'New York Bulls', ans: false, marked: false },
+      { data: 'Los Angeles Kings', ans: false, marked: true },
+      { data: 'Golden State Warriros', ans: true, marked: false },
+      { data: 'Huston Rocket', ans: true, marked: false },
+    ],
+  },
+  {
+    question:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+    options: [
+      { data: 'New York Bulls', ans: false, marked: false },
+      { data: 'Los Angeles Kings', ans: false, marked: true },
+      { data: 'Golden State Warriros', ans: true, marked: false },
+      { data: 'Huston Rocket', ans: true, marked: false },
+    ],
+  },
+];
+
 // JSON structure of User
 export const dummyUserJSON = {
   profile: {
