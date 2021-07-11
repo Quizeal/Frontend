@@ -3,3 +3,10 @@
   font-style: none;
   color: inherit;
 }
+
+.danger {
+  background-color: #e57373 !important;
+}
+.success {
+  background-color: #81c784 !important;
+}

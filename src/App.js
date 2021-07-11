@@ -6,11 +6,12 @@ import './App.css';
 import Error from './components/error/Error';
 import MyAlert from './components/layout/MyAlert';
 import Home from './components/layout/Home';
+import CreateQuiz from './components/quiz/CreateQuiz';
+import QAReport from './components/quiz/QuizReport';
 
 // REDUX
 import { Provider } from 'react-redux';
 import store from './store';
-import CreateQuiz from './components/quiz/CreateQuiz';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route exact path='/' component={Home} />
             <Route exact path='/my-quizzes' component={MyQuizzes} />
             <Route exact path='/create-quiz' component={CreateQuiz} />
+            <Route path='/quiz-report/:id' component={QAReport} />
             <Route path='*' component={Error} />
           </Switch>
         </Fragment>

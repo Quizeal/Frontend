@@ -59,7 +59,7 @@ const columnsP = [
     align: 'center',
     renderCell: (params) => {
       return (
-        <Link to={`/report/${params.id}`}>
+        <Link to={`/quiz-report/${params.id}`}>
           <Button
             variant='contained'
             color='primary'
@@ -123,7 +123,7 @@ const columnsC = [
     align: 'center',
     renderCell: (params) => {
       return (
-        <Link to={`/report/${params.id}`}>
+        <Link to={`/quiz-view/${params.id}`}>
           <Button
             variant='contained'
             color='primary'
