@@ -18,15 +18,9 @@ export default function BackdropSpinner() {
   const handleClose = () => {
     setOpen(false);
   };
-  // const handleToggle = () => {
-  //   setOpen(!open);
-  // };
 
   return (
     <div>
-      {/* <Button variant='outlined' color='primary' onClick={handleToggle}>
-        Show backdrop
-      </Button> */}
       <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
         <CircularProgress color='primary' />
       </Backdrop>
