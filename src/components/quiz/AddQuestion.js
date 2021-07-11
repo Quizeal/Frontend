@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddQuestion = ({ setMyAlert, addQuestion }) => {
+const AddQuestion = ({ setMyAlert, ...props }) => {
   const classes = useStyles();
   const [questionDetails, updateQuestionDetails] = useState({
     id: uuidv4(),
@@ -58,6 +58,7 @@ const AddQuestion = ({ setMyAlert, addQuestion }) => {
       },
     ],
     optionsCount: 1,
+    questionMarks: 1,
   });
 
   const onChange = (e) => {
@@ -81,6 +82,7 @@ const AddQuestion = ({ setMyAlert, addQuestion }) => {
       question: '',
       options: [{ data: '', ans: false }],
       optionsCount: 1,
+      questionMarks: 1,
     });
   };
 
@@ -130,12 +132,11 @@ const AddQuestion = ({ setMyAlert, addQuestion }) => {
       return;
     }
     options.forEach((o) => delete o.id);
-    addQuestion({ ...questionDetails, options: options });
+    props.addQuestion({ ...questionDetails, options: options });
     clearQuestionDetails();
   };
 
-  const { question, options, optionsCount } = questionDetails;
-
+  const { question, options, optionsCount, questionMarks } = questionDetails;
   return (
     <Card>
       <CardContent>
@@ -146,12 +147,12 @@ const AddQuestion = ({ setMyAlert, addQuestion }) => {
           multiline
           name='question'
           value={question}
-          fullWidth
+          fullWidth={true}
           onChange={(e) => onChange(e)}
         />
       </CardContent>
       <Divider variant='middle' />
-      <CardActions>
+      <CardActions style={{ justifyContent: 'space-between' }}>
         <Fab
           size='medium'
           color='primary'
@@ -162,8 +163,18 @@ const AddQuestion = ({ setMyAlert, addQuestion }) => {
           Add Option
           <AddIcon />
         </Fab>
+        <TextField
+          id='basic'
+          size='small'
+          label='Question Marks'
+          variant='outlined'
+          name='questionMarks'
+          type='number'
+          value={questionMarks}
+          onChange={(e) => onChange(e)}
+        />
       </CardActions>
-      <Grid container className={classes.root} justify='center'>
+      <Grid container xs={12} className={classes.root} justify='center'>
         {options.map((option, index) => {
           return (
             <AddOption
@@ -178,7 +189,6 @@ const AddQuestion = ({ setMyAlert, addQuestion }) => {
         })}
       </Grid>
       <Divider variant='middle' />
-
       <CardActions className={classes.qActionStyle}>
         <ButtonGroup
           variant='contained'

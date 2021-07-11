@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AddOption(props) {
   const classes = useStyles();
   return (
-    <Grid item className={classes.option} xs={11} sm={11} md={8} lg={6}>
+    <Grid container className={classes.option} xs={11} sm={11} md={8} lg={6}>
       <TextField
         id='basic'
         label={`Option ${props.number + 1}`}
