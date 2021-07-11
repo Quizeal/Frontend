@@ -60,7 +60,7 @@ export default function Home() {
         <Typography
           variant='h4'
           align='center'
-          style={{ 'padding-bottom': '10px' }}
+          style={{ paddingBottom: '10px' }}
         >
           <img src={home} alt='home' width='95%'></img>
         </Typography>

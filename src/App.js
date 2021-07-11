@@ -10,6 +10,7 @@ import Home from './components/layout/Home';
 // REDUX
 import { Provider } from 'react-redux';
 import store from './store';
+import CreateQuiz from './components/quiz/CreateQuiz';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/my-quizzes' component={MyQuizzes} />
+            <Route exact path='/create-quiz' component={CreateQuiz} />
             <Route path='*' component={Error} />
           </Switch>
         </Fragment>

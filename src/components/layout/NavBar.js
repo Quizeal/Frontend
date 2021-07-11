@@ -42,7 +42,13 @@ export default function NavBar() {
   // [
   const autherized = true;
 
-  const authDrawerList = ['Profile', 'Dashboard', 'My Quizzes', 'Logout'];
+  const authDrawerList = [
+    'Profile',
+    'Dashboard',
+    'My Quizzes',
+    'Create Quiz',
+    'Logout',
+  ];
   const unAuthDrawerList = ['SignIn', 'SignUp'];
   const drawerList = autherized ? authDrawerList : unAuthDrawerList;
   // ]

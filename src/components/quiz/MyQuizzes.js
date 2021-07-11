@@ -152,7 +152,7 @@ const sortModel = [
   },
 ];
 
-export default function MyQuizzes() {
+export default function MyQuizzes(props) {
   const [quizSelected, updateQuizSelected] = useState('past');
   const [columnsM, updateColumns] = useState(columnsP);
   const [rowsM, updateRows] = useState(rowsP);
@@ -170,7 +170,7 @@ export default function MyQuizzes() {
   };
 
   useEffect(() => {
-    document.title = 'Quizeal | My Quizzes';
+    document.title = 'Quizeal | Home';
   }, []);
 
   return (
@@ -181,7 +181,7 @@ export default function MyQuizzes() {
             My Quizzes
           </Typography>
         </Grid>
-        <Grid item sm={10} md={8}>
+        <Grid item xs={11}>
           <ButtonGroup
             color='primary'
             aria-label='outlined primary button group'
