@@ -53,7 +53,7 @@ export default function Home() {
           <Typography variant='h4'>
             The ultimate Quiz taking platform for the present times.
           </Typography>
-          <Link to='/signin'>
+          <Link to='/signup'>
             <Button variant='contained' color='primary'>
               Get Started
             </Button>
