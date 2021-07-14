@@ -12,6 +12,7 @@ import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import Dashboard from './components/dashboard/Dashboard';
 import QuizTest from './components/quiz/quiz-test/QuizTest';
+import QuizView from './components/quiz/QuizView';
 
 // REDUX
 import { Provider } from 'react-redux';
@@ -32,7 +33,8 @@ function App() {
             <Route exact path='/my-quizzes' component={MyQuizzes} />
             <Route exact path='/create-quiz' component={CreateQuiz} />
             <Route exact path='/quiz/:quiz_id' component={QuizTest} />
-            <Route path='/quiz-report/:id' component={QAReport} />
+            <Route path='/quiz-view/:quiz_id' component={QuizView} />
+            <Route path='/quiz-report/:quiz_id' component={QAReport} />
             <Route path='*' component={Error} />
           </Switch>
         </Fragment>
