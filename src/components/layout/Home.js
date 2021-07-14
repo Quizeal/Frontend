@@ -40,7 +40,7 @@ export default function Home() {
           container
           justifyContent='flex-start'
           spacing={2}
-          style={{ gridGap: '20px' }}
+          style={{ gridGap: '20px', flexDirection: 'column' }}
         >
           <div
             style={{ display: 'flex', flexDirection: 'row', alignItems: 'end' }}

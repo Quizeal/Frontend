@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     padding: '30px 50px',
   },
+  list: {
+    width: 250,
+  },
 }));
 
 export default function NavBar() {
@@ -37,61 +40,61 @@ export default function NavBar() {
 
   const [navbarState, updateNavbarState] = useState(false);
   const toggleNavbarState = () => {
-    console.log('hi');
     const presentState = navbarState;
     updateNavbarState(!presentState);
   };
 
-  const autherized = false;
-  // Need to set up after signIn/singUp login completion
-  // [
-
-  // const authDrawerList = [
-  //   'Profile',
-  //   'Dashboard',
-  //   'My Quizzes',
-  //   'Create Quiz',
-  //   'Logout',
-  // ];
-  // const unAuthDrawerList = ['SignIn', 'SignUp'];
-  // const drawerList = autherized ? authDrawerList : unAuthDrawerList;
-  // ]
+  const authorized = true;
 
   const list = () => (
     <Fragment>
-      {autherized ? (
-        <DashboardNavbar hideDrawer={toggleNavbarState} />
+      {authorized ? (
+        <div className={classes.list}>
+          <DashboardNavbar hideDrawer={toggleNavbarState} />
+        </div>
       ) : (
-        <List component='nav' aria-label='main mailbox folders'>
-          <ListItem button>
-            <ListItemIcon>
-              <AccountBoxIcon />
-            </ListItemIcon>
-            <ListItemText primary='Sign Up' />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <LockIcon />
-            </ListItemIcon>
-            <ListItemText primary='Log In' />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <InfoIcon />
-            </ListItemIcon>
-            <ListItemText primary='About' />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <FeedbackIcon />
-            </ListItemIcon>
-            <ListItemText primary='Feedback' />
-          </ListItem>
+        <List
+          component='nav'
+          aria-label='main mailbox folders'
+          className={classes.list}
+          onClick={toggleNavbarState}
+        >
+          <Link className={'styleLink'} to='/signup'>
+            <ListItem button>
+              <ListItemIcon>
+                <AccountBoxIcon />
+              </ListItemIcon>
+              <ListItemText primary='Sign Up' />
+            </ListItem>
+          </Link>
+          <Link className={'styleLink'} to='/login'>
+            <ListItem button>
+              <ListItemIcon>
+                <LockIcon />
+              </ListItemIcon>
+              <ListItemText primary='Log In' />
+            </ListItem>
+          </Link>
+          <Link className={'styleLink'} to='/about'>
+            <ListItem button>
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
+              <ListItemText primary='About' />
+            </ListItem>
+          </Link>
+          <Link className={'styleLink'} to='/feedback'>
+            <ListItem button>
+              <ListItemIcon>
+                <FeedbackIcon />
+              </ListItemIcon>
+              <ListItemText primary='Feedback' />
+            </ListItem>
+          </Link>
         </List>
       )}
     </Fragment>
   );
-
   return (
     <div className={classes.root}>
       <AppBar position='static'>
@@ -116,14 +119,32 @@ export default function NavBar() {
           </Typography>
 
           <Hidden smDown>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <Button color='inherit'>FeedBack</Button>
-              <Button color='inherit'>About</Button>
-              <Button color='inherit'>Log In</Button>
-              <Button color='inherit' variant='outlined' size='small'>
-                Sign Up
-              </Button>
-            </div>
+            {authorized ? (
+              <Button color='inherit'>Logout</Button>
+            ) : (
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <Button color='inherit'>
+                  <Link className={'styleLink'} to='/feedback'>
+                    FeedBack
+                  </Link>
+                </Button>
+                <Button color='inherit'>
+                  <Link className={'styleLink'} to='/about'>
+                    About
+                  </Link>
+                </Button>
+                <Button color='inherit'>
+                  <Link className={'styleLink'} to='/login'>
+                    Log In
+                  </Link>
+                </Button>
+                <Button color='inherit' variant='outlined'>
+                  <Link className={'styleLink'} to='/signup'>
+                    Sign Up
+                  </Link>
+                </Button>
+              </div>
+            )}
           </Hidden>
           <Hidden mdUp>
             <IconButton
