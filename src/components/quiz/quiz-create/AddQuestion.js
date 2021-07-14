@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core';
 import AddOption from './AddOption';
 import { v4 as uuidv4 } from 'uuid';
 import AddIcon from '@material-ui/icons/Add';
-import { setMyAlert } from '../../actions/myAlert';
+import { setMyAlert } from '../../../actions/myAlert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
