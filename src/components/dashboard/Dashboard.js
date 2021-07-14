@@ -20,7 +20,9 @@ const Dashboard = () => {
           <DashboardNavbar />
         </div>
       </Hidden>
-      <div style={{ flexGrow: 5, padding: '20px' }}>{/* <Outlet /> */}</div>
+      <div style={{ flexGrow: 4, padding: '2rem' }}>
+        Default Layout (pending)
+      </div>
     </div>
   );
 };

@@ -10,11 +10,11 @@ import CreateQuiz from './components/quiz/CreateQuiz';
 import QAReport from './components/quiz/QuizReport';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
-import Dashboard from './components/dashboard/Dashboard';
 
 // REDUX
 import { Provider } from 'react-redux';
 import store from './store';
+import Dashboard from './components/dashboard/Dashboard';
 
 function App() {
   return (
