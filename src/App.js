@@ -6,14 +6,15 @@ import './App.css';
 import Error from './components/error/Error';
 import MyAlert from './components/layout/MyAlert';
 import Home from './components/layout/Home';
-import CreateQuiz from './components/quiz/CreateQuiz';
+import CreateQuiz from './components/quiz/quiz-create/CreateQuiz';
 import QAReport from './components/quiz/QuizReport';
+import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
+import QuizTest from './components/quiz/quiz-test/QuizTest';
 
 // REDUX
 import { Provider } from 'react-redux';
 import store from './store';
-import Login from './components/auth/Login';
-import Signup from './components/auth/Signup';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/my-quizzes' component={MyQuizzes} />
             <Route exact path='/create-quiz' component={CreateQuiz} />
+            <Route exact path='/quiz/:quiz_id' component={QuizTest} />
             <Route path='/quiz-report/:id' component={QAReport} />
             <Route path='*' component={Error} />
           </Switch>

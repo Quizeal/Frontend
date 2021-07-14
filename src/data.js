@@ -1,11 +1,23 @@
 export const qaList = [
   {
-    question:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+    question: ' How does a ‘Subsistence Crisis’ happen? ',
     options: [
-      { data: '0.0018', ans: false, marked: false },
-      { data: '0.018', ans: true, marked: true },
-      { data: '0.18', ans: false, marked: false },
+      {
+        data: 'Bad harvest leads to scarcity of grains ',
+        ans: false,
+        marked: false,
+      },
+      {
+        data: 'Food prices rise and the poorest cannot buy bread',
+        ans: true,
+        marked: true,
+      },
+      {
+        data: 'Leads to weaker bodies, diseases, deaths and even food riots ',
+        ans: false,
+        marked: false,
+      },
+      { data: 'All the above ', ans: false, marked: false },
     ],
   },
   {
@@ -20,12 +32,63 @@ export const qaList = [
   },
   {
     question:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+      'Which of the following statements is untrue about the Third Estate ',
     options: [
-      { data: 'New York Bulls', ans: false, marked: false },
-      { data: 'Los Angeles Kings', ans: false, marked: true },
-      { data: 'Golden State Warriros', ans: true, marked: false },
-      { data: 'Huston Rocket', ans: true, marked: false },
+      {
+        data: 'The Third Estate was made of the poor only ',
+        ans: false,
+        marked: false,
+      },
+      {
+        data: 'Within the Third Estate some were rich and some were poor ',
+        ans: false,
+        marked: true,
+      },
+      {
+        data: 'Richer members of the Third Estate owned lands ',
+        ans: true,
+        marked: false,
+      },
+      {
+        data: 'Peasants were obliged to serve in the army, or build roads ',
+        ans: true,
+        marked: false,
+      },
+    ],
+  },
+  {
+    question:
+      ' In the meeting of the Estates General, the members of the Third Estate demanded that ',
+    options: [
+      {
+        data: 'All the three Estates should have one vote altogether ',
+        ans: false,
+        marked: false,
+      },
+      {
+        data: 'Each member of the three Estates should have one vote ',
+        ans: false,
+        marked: true,
+      },
+      { data: 'Each Estate should have one vote ', ans: true, marked: false },
+      { data: 'None of the above ', ans: true, marked: false },
+    ],
+  },
+  {
+    question: ' A guillotine was ____________________ ',
+    options: [
+      {
+        data: 'A device consisting of two poles and a blade with which a person was beheaded ',
+        ans: false,
+        marked: false,
+      },
+      {
+        data: 'A fine sword with which heads were cut off ',
+        ans: false,
+        marked: true,
+      },
+      { data: 'A special noose to hang people ', ans: true, marked: false },
+      { data: 'none of the above ', ans: true, marked: false },
     ],
   },
   {
@@ -40,37 +103,24 @@ export const qaList = [
   },
   {
     question:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+      ' What was the ‘Subsistence Crisis’ which occurred frequently in France? ',
     options: [
-      { data: 'New York Bulls', ans: false, marked: false },
-      { data: 'Los Angeles Kings', ans: false, marked: true },
-      { data: 'Golden State Warriros', ans: true, marked: false },
-      { data: 'Huston Rocket', ans: true, marked: false },
+      {
+        data: 'An extreme situation endangering the basic means of livelihood ',
+        ans: false,
+        marked: false,
+      },
+      { data: 'Subsidy in food grains ', ans: false, marked: true },
+      {
+        data: 'Large-scale production of food grains ',
+        ans: true,
+        marked: false,
+      },
+      { data: 'None of the above ', ans: true, marked: false },
     ],
   },
   {
-    question:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
-    options: [
-      { data: 'New York Bulls', ans: false, marked: false },
-      { data: 'Los Angeles Kings', ans: false, marked: true },
-      { data: 'Golden State Warriros', ans: true, marked: false },
-      { data: 'Huston Rocket', ans: true, marked: false },
-    ],
-  },
-  {
-    question:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
-    options: [
-      { data: 'New York Bulls', ans: false, marked: false },
-      { data: 'Los Angeles Kings', ans: false, marked: true },
-      { data: 'Golden State Warriros', ans: true, marked: false },
-      { data: 'Huston Rocket', ans: true, marked: false },
-    ],
-  },
-  {
-    question:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type andscrambled it to make a type specimen book. It has survived not only five centuries",
+    question: ' The word livres stands for: ',
     options: [
       { data: 'New York Bulls', ans: false, marked: false },
       { data: 'Los Angeles Kings', ans: false, marked: true },

@@ -13,13 +13,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import QAList from './QAList';
+import QAList from '../QAList';
 import AddQuestion from './AddQuestion';
 
 // REDUX
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setMyAlert } from '../../actions/myAlert';
+import { setMyAlert } from '../../../actions/myAlert';
 import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
