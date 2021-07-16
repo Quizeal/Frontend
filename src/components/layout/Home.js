@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Grid, Button, Typography, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from '../../resources/logo.png';
 import home from '../../resources/home.gif';
 import { useHistory } from 'react-router';
+import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -13,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       padding: theme.spacing(6),
     },
+    minHeight: '95vh',
   },
 }));
 
@@ -29,71 +31,78 @@ export default function Home() {
   };
 
   return (
-    <Grid
-      container
-      spacing={5}
-      justifyContent='center'
-      className={classes.section}
-    >
-      <Grid item xs={12} md={6}>
-        <Grid
-          container
-          justifyContent='flex-start'
-          spacing={2}
-          style={{ gridGap: '20px' }}
-        >
-          <div
-            style={{ display: 'flex', flexDirection: 'row', alignItems: 'end' }}
+    <Fragment>
+      <Grid
+        container
+        spacing={5}
+        justifyContent='center'
+        className={classes.section}
+      >
+        <Grid item xs={12} md={6}>
+          <Grid
+            container
+            justifyContent='flex-start'
+            spacing={2}
+            style={{ gridGap: '20px' }}
           >
-            <img src={logo} alt='logo' width='30%' />
-            <Typography variant='h1' style={{ textTransform: 'uppercase' }}>
-              uizeal
-            </Typography>
-          </div>
-          <Typography variant='h4'>
-            The ultimate Quiz taking platform for the present times.
-          </Typography>
-          <Link to='/signup'>
-            <Button variant='contained' color='primary'>
-              Get Started
-            </Button>
-          </Link>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: '5px',
-            }}
-          >
-            <TextField
-              id='outlined-basic'
-              label='Add Quiz Code'
-              variant='outlined'
-              value={quizCode}
-              onChange={(e) => onChange(e)}
-              size='small'
-            />
-            <Button
-              color='primary'
-              variant='contained'
-              disabled={!Boolean(quizCode)}
-              onClick={goToQuiz}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'end',
+              }}
             >
-              Start
-            </Button>
-          </div>
+              <img src={logo} alt='logo' width='30%' />
+              <Typography variant='h1' style={{ textTransform: 'uppercase' }}>
+                uizeal
+              </Typography>
+            </div>
+            <Typography variant='h4'>
+              The ultimate Quiz taking platform for the present times.
+            </Typography>
+            <Link to='/signup'>
+              <Button variant='contained' color='primary'>
+                Get Started
+              </Button>
+            </Link>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: '5px',
+              }}
+            >
+              <TextField
+                id='outlined-basic'
+                label='Add Quiz Code'
+                variant='outlined'
+                value={quizCode}
+                onChange={(e) => onChange(e)}
+                size='small'
+              />
+              <Button
+                color='primary'
+                variant='contained'
+                disabled={!Boolean(quizCode)}
+                onClick={goToQuiz}
+              >
+                Start
+              </Button>
+            </div>
+          </Grid>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography
+            variant='h4'
+            align='center'
+            style={{ paddingBottom: '10px' }}
+          >
+            <img src={home} alt='home' width='95%'></img>
+          </Typography>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Typography
-          variant='h4'
-          align='center'
-          style={{ paddingBottom: '10px' }}
-        >
-          <img src={home} alt='home' width='95%'></img>
-        </Typography>
-      </Grid>
-    </Grid>
+      <Footer />
+    </Fragment>
   );
 }
