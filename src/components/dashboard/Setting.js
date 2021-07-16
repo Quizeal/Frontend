@@ -1,3 +1,14 @@
+import { Fragment } from 'react';
+import {
+  Card,
+  CardContent,
+  Typography,
+  Divider,
+  TextField,
+  Button,
+  CardActions,
+} from '@material-ui/core';
+
 const Setting = () => {
   return (
     <Fragment>

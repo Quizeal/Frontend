@@ -1,3 +1,14 @@
+import {
+  TextField,
+  Card,
+  CardContent,
+  Typography,
+  Divider,
+  Button,
+  CardActions,
+} from '@material-ui/core';
+import { Fragment } from 'react';
+
 const Profile = (props) => {
   return (
     <Fragment>
