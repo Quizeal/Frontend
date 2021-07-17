@@ -35,7 +35,7 @@ const Error = () => {
           container
           justifyContent='flex-start'
           spacing={2}
-          style={{ gridGap: '20px' }}
+          style={{ gridGap: '10px', flexDirection: 'column' }}
         >
           <Typography variant='h1'>Oops!</Typography>
           <Typography variant='h4'>
@@ -44,6 +44,12 @@ const Error = () => {
           </Typography>
           <Typography variant='h6' style={{ fontWeight: 'bold' }}>
             Error Code: 404
+          </Typography>
+          <Typography
+            variant='subtitle2'
+            style={{ fontWeight: 'lighter', fontStyle: 'italic' }}
+          >
+            (This site is under construction)
           </Typography>
           <Link to='/'>
             <Button color='primary' variant='contained'>
