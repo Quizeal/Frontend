@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import {
   Grid,
   TextField,
@@ -63,6 +63,10 @@ export default function Dashboard() {
     // fETCH DATA FROM QUIZ api
     history.push(`/quiz/${quizCode}`);
   };
+
+  useEffect(() => {
+    document.title = 'Quizeal | Dashboard';
+  }, []);
 
   return (
     <Fragment>

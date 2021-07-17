@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     padding: 0,
     alignItems: 'center',
-    flexGrow: 1,
+    display: 'flex',
   },
   optionStyle: {
     flexGrow: 1,
@@ -29,42 +29,44 @@ const useStyles = makeStyles((theme) => ({
 export default function AddOption(props) {
   const classes = useStyles();
   return (
-    <Grid container className={classes.option} xs={11} sm={11} md={8} lg={6}>
-      <TextField
-        id='basic'
-        label={`Option ${props.number + 1}`}
-        variant='outlined'
-        name={props.number}
-        multiline
-        value={props.option.data}
-        className={classes.optionStyle}
-        onChange={(e) => props.updateOption(e)}
-      />
-      <Tooltip
-        title='Turn ON, if this is the correct option.'
-        aria-label='add'
-        placement={'top'}
-      >
-        <Switch
-          checked={props.option.ans}
-          onChange={(e) => props.updateOption(e, 'toggleAnswer')}
+    <Grid container justifyContent='center'>
+      <Grid item xs={11} sm={11} md={8} lg={6} className={classes.option}>
+        <TextField
+          id='basic'
+          label={`Option ${props.number + 1}`}
+          variant='outlined'
           name={props.number}
-          color='primary'
-          inputProps={{ 'aria-label': 'primary checkbox' }}
+          multiline
+          value={props.option.data}
+          className={classes.optionStyle}
+          onChange={(e) => props.updateOption(e)}
         />
-      </Tooltip>
-      {props.count > 1 ? (
-        <Tooltip title='Delete Option' aria-label='add' placement={'top'}>
-          <IconButton
-            aria-label='delete'
-            onClick={() => props.deleteOption(props.option.id)}
-          >
-            <CancelSharpIcon />
-          </IconButton>
+        <Tooltip
+          title='Turn ON, if this is the correct option.'
+          aria-label='add'
+          placement={'top'}
+        >
+          <Switch
+            checked={props.option.ans}
+            onChange={(e) => props.updateOption(e, 'toggleAnswer')}
+            name={props.number}
+            color='primary'
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+          />
         </Tooltip>
-      ) : (
-        ''
-      )}
+        {props.count > 1 ? (
+          <Tooltip title='Delete Option' aria-label='add' placement={'top'}>
+            <IconButton
+              aria-label='delete'
+              onClick={() => props.deleteOption(props.option.id)}
+            >
+              <CancelSharpIcon />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          ''
+        )}
+      </Grid>
     </Grid>
   );
 }
