@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -13,18 +13,67 @@ import {
   DialogTitle,
   DialogContent,
 } from '@material-ui/core';
+import MySnackbar from '../layout/MySnackbar';
 
 const Setting = (props) => {
   const classes = props.classes;
   const [open, setOpen] = React.useState(false);
+  const [alert, setAlert] = useState({ status: false, msg: '' });
+  const [form, setForm] = useState({
+    oldPassword: null,
+    newPassword: null,
+    confirmNewPassword: null,
+  });
 
-  const handleClickOpen = () => {
+  const handleClickOpenDialog = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleCloseDialog = () => {
     setOpen(false);
   };
+
+  const onChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleClose = () => {
+    setAlert({ ...alert, status: false });
+  };
+
+  const deleteAccount = () => {
+    console.log('DELETE ACCOUNT');
+  };
+
+  const update = () => {
+    const { oldPassword, newPassword, confirmNewPassword } = form;
+    if (!oldPassword || !newPassword || !confirmNewPassword) {
+      setAlert({
+        ...alert,
+        status: true,
+        msg: 'Please fill the required fields.',
+      });
+      return;
+    }
+    if (newPassword && newPassword.length < 8) {
+      setAlert({
+        ...alert,
+        status: true,
+        msg: 'Password length should be min 8 characters',
+      });
+      return;
+    }
+    if (newPassword !== confirmNewPassword) {
+      setAlert({
+        ...alert,
+        status: true,
+        msg: 'New Password does not match',
+      });
+      return;
+    }
+    console.log('PASSWORD UPDATED');
+  };
+
   return (
     <Fragment>
       <Card className={classes.card}>
@@ -44,14 +93,14 @@ const Setting = (props) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size='small' color='primary' onClick={handleClickOpen}>
+          <Button size='small' color='primary' onClick={handleClickOpenDialog}>
             Setting
           </Button>
         </CardActions>
       </Card>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleCloseDialog}
         aria-labelledby='form-dialog-title'
       >
         <DialogTitle id='form-dialog-title'>Account Setting</DialogTitle>
@@ -65,16 +114,35 @@ const Setting = (props) => {
             <Divider />
             <CardContent>
               <TextField
+                onChange={onChange}
                 id='outlined-basic'
-                label='Password'
+                label='Old Password'
                 variant='outlined'
                 fullWidth
+                required
+                type='password'
+                name='oldPassword'
                 style={{ marginBottom: '10px' }}
               />
               <TextField
+                onChange={onChange}
                 id='outlined-basic'
-                label='Confirm Password'
+                label='New Password'
                 variant='outlined'
+                fullWidth
+                required
+                type='password'
+                name='newPassword'
+                style={{ marginBottom: '10px' }}
+              />
+              <TextField
+                onChange={onChange}
+                id='outlined-basic'
+                label='Confirm New Password'
+                variant='outlined'
+                type='password'
+                required
+                name='confirmNewPassword'
                 fullWidth
               />
             </CardContent>
@@ -83,6 +151,7 @@ const Setting = (props) => {
                 variant='contained'
                 color='primary'
                 style={{ backgroundColor: '#f44336' }}
+                onClick={update}
               >
                 Update
               </Button>
@@ -103,6 +172,7 @@ const Setting = (props) => {
                 variant='contained'
                 color='primary'
                 style={{ backgroundColor: '#f44336' }}
+                onClick={deleteAccount}
               >
                 Delete Account
               </Button>
@@ -110,6 +180,7 @@ const Setting = (props) => {
           </Card>
         </DialogContent>
       </Dialog>
+      <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );
 };
