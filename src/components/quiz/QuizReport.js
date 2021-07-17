@@ -157,7 +157,7 @@ export default function QuizReport() {
           Question and Answers
         </Typography>
         {questions.map((qa, index) => {
-          return <QAList key={index} report={true} key={index} qaSet={qa} />;
+          return <QAList report={true} key={index} qaSet={qa} />;
         })}
       </Grid>
     </Grid>

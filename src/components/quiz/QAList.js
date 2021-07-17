@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
 export default function QAList(props) {
   const classes = useStyles();
   const edit = props.edit;
-  const view = props.view;
-  const report = props.report;
+  // const view = props.view;
+  // const report = props.report;
 
   const { question, options } = props.qaSet;
 
