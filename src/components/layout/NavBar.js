@@ -44,7 +44,7 @@ export default function NavBar() {
     updateNavbarState(!presentState);
   };
 
-  const authorized = true;
+  const authorized = false;
 
   const list = () => (
     <Fragment>
