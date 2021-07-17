@@ -82,12 +82,17 @@ export default function QuizReport() {
   } = reportData;
 
   return (
-    <Grid container spacing={5} className={classes.section}>
-      <Grid item sm={12} md={6} justify='center'>
-        <Grid container justify='center' spacing={2}>
+    <Grid
+      container
+      spacing={5}
+      className={classes.section}
+      justifyContent='center'
+    >
+      <Grid item sm={12} md={6}>
+        <Grid container justifyContent='center' spacing={2}>
           <Grid item>
             <Paper className={classes.paper}>
-              <Typography variant='h7' align='center'>
+              <Typography variant='subtitle1' align='center'>
                 Marks
               </Typography>
               <Typography variant='h4' align='center'>
@@ -97,7 +102,7 @@ export default function QuizReport() {
           </Grid>
           <Grid item>
             <Paper className={classes.paper}>
-              <Typography variant='h7' align='center'>
+              <Typography variant='subtitle1' align='center'>
                 Rank
               </Typography>
               <Typography variant='h4' align='center'>
@@ -107,7 +112,7 @@ export default function QuizReport() {
           </Grid>
           <Grid item>
             <Paper className={classes.paper}>
-              <Typography variant='h7' align='center'>
+              <Typography variant='subtitle1' align='center'>
                 Accuracy
               </Typography>
               <Typography variant='h4' align='center'>
@@ -117,7 +122,7 @@ export default function QuizReport() {
           </Grid>
           <Grid item>
             <Paper className={classes.paper}>
-              <Typography variant='h7' align='center'>
+              <Typography variant='subtitle1' align='center'>
                 Percentile
               </Typography>
               <Typography variant='h4' align='center'>
@@ -143,22 +148,16 @@ export default function QuizReport() {
         </Grid>
       </Grid>
       <Divider orientation='vertical' flexItem className={classes.divider} />
-      <Grid
-        item
-        sm={12}
-        md={6}
-        className={classes.sectionRight}
-        justify='center'
-      >
+      <Grid item sm={12} md={6} className={classes.sectionRight}>
         <Typography
           variant='h4'
           align='center'
-          style={{ 'padding-bottom': '10px' }}
+          style={{ paddingBottom: '10px' }}
         >
           Question and Answers
         </Typography>
         {questions.map((qa, index) => {
-          return <QAList report={true} key={index} qaSet={qa} />;
+          return <QAList key={index} report={true} key={index} qaSet={qa} />;
         })}
       </Grid>
     </Grid>

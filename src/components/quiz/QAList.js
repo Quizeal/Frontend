@@ -29,15 +29,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function QAReport(props) {
+export default function QAList(props) {
   const classes = useStyles();
+  const edit = props.edit;
+  const view = props.view;
   const report = props.report;
 
   const { question, options } = props.qaSet;
 
   const validateAnswer = (ans, marked) => {
-    if (ans) return 'success';
-    else if (ans !== marked && props.type !== 'list') return 'danger';
+    // This will be handled after final JSON structure is out
+    // if (ans) return 'success';
+    return '';
+    // if (ans) return 'success';
+    // else if (ans !== marked && props.type !== 'list') return 'danger';
   };
 
   return (
@@ -47,12 +52,12 @@ export default function QAReport(props) {
       <Grid container className={classes.root}>
         {options.map((option, index) => {
           return (
-            <div className={classes.option}>
+            <div className={classes.option} key={index}>
               <Button
                 variant='contained'
                 disabled
                 size='small'
-                color='primary'
+                // color='primary'
                 className={`${classes.optionStyle} ${validateAnswer(
                   option.ans,
                   option.marked
@@ -65,7 +70,7 @@ export default function QAReport(props) {
         })}
       </Grid>
       {/* <Divider /> */}
-      {!report ? (
+      {edit ? (
         <CardActions className={classes.qActionStyle}>
           <Button
             color='primary'

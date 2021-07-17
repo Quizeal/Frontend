@@ -42,7 +42,7 @@ const QuizView = () => {
         Question and Answers
       </Typography>
       {questions.map((qa, index) => {
-        return <QAList report={true} key={index} qaSet={qa} />;
+        return <QAList view={true} key={index} qaSet={qa} />;
       })}
     </Container>
   );

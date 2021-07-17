@@ -97,7 +97,7 @@ export default function Dashboard() {
               <CardActions>
                 <Link to='/my-quizzes'>
                   <Button size='small' color='primary'>
-                    See your quizzes
+                    See my quizzes
                   </Button>
                 </Link>
               </CardActions>

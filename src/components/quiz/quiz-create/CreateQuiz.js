@@ -21,7 +21,6 @@ import MySnackbar from '../../layout/MySnackbar';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setMyAlert } from '../../../actions/myAlert';
-import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   sectionDetail: {
@@ -83,6 +82,11 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
       ...newQuiz,
       questions: newQuestionsArray,
     });
+    setAlert({
+      ...alert,
+      status: true,
+      msg: 'Question deleted successfully!',
+    });
   };
 
   const addQuestion = (question) => {
@@ -92,7 +96,6 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
       [newQuiz.questions]: presentQuestions.push(question),
     });
   };
-  let history = useHistory();
 
   const onSubmit = () => {
     const { quizName, teacherName, questions } = newQuiz;
@@ -216,6 +219,7 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
                   key={index}
                   number={index}
                   deleteQuestion={deleteQuestion}
+                  edit={true}
                   qaSet={qa}
                   type='list'
                 />
