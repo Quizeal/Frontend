@@ -70,7 +70,7 @@ export default function Login() {
       setAlert({
         ...alert,
         status: true,
-        msg: 'Email and Password is required.',
+        msg: 'Please fill the required fields.',
       });
       return;
     }

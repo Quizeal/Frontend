@@ -44,7 +44,7 @@ export default function NavBar() {
     updateNavbarState(!presentState);
   };
 
-  const authorized = false;
+  const authorized = true;
 
   const list = () => (
     <Fragment>
@@ -95,6 +95,11 @@ export default function NavBar() {
       )}
     </Fragment>
   );
+
+  const logout = () => {
+    console.log('LOGOUT SUCCESSFULLY');
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position='static'>
@@ -118,12 +123,16 @@ export default function NavBar() {
             </Link>
           </Typography>
 
-          <Hidden smDown>
-            {authorized ? (
-              <Button color='inherit' style={{ marginRight: '10px' }}>
-                Logout
-              </Button>
-            ) : (
+          {authorized ? (
+            <Button
+              color='inherit'
+              style={{ marginRight: '10px' }}
+              onClick={logout}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Hidden smDown>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <Button color='inherit'>
                   <Link className={'styleLink'} to='/feedback'>
@@ -146,8 +155,8 @@ export default function NavBar() {
                   </Link>
                 </Button>
               </div>
-            )}
-          </Hidden>
+            </Hidden>
+          )}
           <Hidden mdUp>
             <IconButton
               edge='start'

@@ -42,7 +42,7 @@ const Setting = (props) => {
   };
 
   const deleteAccount = () => {
-    console.log('DELETE ACCOUNT');
+    console.log('ACCOUNT DELETED');
   };
 
   const update = () => {
