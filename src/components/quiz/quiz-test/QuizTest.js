@@ -64,6 +64,10 @@ const QuizTest = () => {
     });
   };
 
+  const onSubmit = () => {
+    console.log(responses);
+  };
+
   return (
     <Container>
       <Grid
@@ -114,7 +118,7 @@ const QuizTest = () => {
           activeStep={activeStep}
         />
       </div>
-      <Button variant='contained' color='primary'>
+      <Button variant='contained' color='primary' onClick={onSubmit}>
         Submit Quiz
       </Button>
     </Container>

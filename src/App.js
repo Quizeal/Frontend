@@ -7,7 +7,7 @@ import Error from './components/error/Error';
 // import MyAlert from './components/layout/MyAlert';
 import Home from './components/layout/Home';
 import CreateQuiz from './components/quiz/quiz-create/CreateQuiz';
-import QAReport from './components/quiz/QuizReport';
+import QuizReport from './components/quiz/QuizReport';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import Dashboard from './components/dashboard/Dashboard';
@@ -34,7 +34,7 @@ function App() {
             <Route exact path='/create-quiz' component={CreateQuiz} />
             <Route exact path='/quiz/:quiz_id' component={QuizTest} />
             <Route path='/quiz-view/:quiz_id' component={QuizView} />
-            <Route path='/quiz-report/:quiz_id' component={QAReport} />
+            <Route path='/quiz-report/:quiz_id' component={QuizReport} />
             <Route path='*' component={Error} />
           </Switch>
         </Fragment>

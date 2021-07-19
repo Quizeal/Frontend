@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -17,6 +17,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { setMyAlert } from '../../../actions/myAlert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import MySnackbar from '../../layout/MySnackbar';
 
 // Customized Styling of Material UI Components
 const useStyles = makeStyles((theme) => ({
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddQuestion = ({ setMyAlert, ...props }) => {
   const classes = useStyles();
+  const [alert, setAlert] = useState({ status: false, msg: '' });
   const [questionDetails, updateQuestionDetails] = useState({
     id: uuidv4(),
     question: '',
@@ -60,6 +62,10 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
     optionsCount: 1,
     questionMarks: 1,
   });
+
+  const handleClose = () => {
+    setAlert({ ...alert, status: false });
+  };
 
   const onChange = (e) => {
     updateQuestionDetails({
@@ -120,86 +126,98 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
   const onSubmit = () => {
     const { question, options } = questionDetails;
     if (!question) {
-      setMyAlert('Please fill question Details', 'warning');
+      setAlert({ ...alert, status: true, msg: 'Please fill question Details' });
       return;
     }
     if (!options.every((o) => o.data !== '')) {
-      setMyAlert('Please fill all options', 'warning');
+      setAlert({ ...alert, status: true, msg: 'Please fill all options' });
       return;
     }
     if (!options.some((o) => o.ans === true)) {
-      setMyAlert('Please mark the correct answer', 'warning');
+      setAlert({
+        ...alert,
+        status: true,
+        msg: 'Please mark the correct answer',
+      });
       return;
     }
     options.forEach((o) => delete o.id);
     props.addQuestion({ ...questionDetails, options: options });
     clearQuestionDetails();
+    setAlert({
+      ...alert,
+      status: true,
+      msg: 'Question added successfully!',
+    });
   };
 
   const { question, options, optionsCount, questionMarks } = questionDetails;
   return (
-    <Card>
-      <CardContent>
-        <TextField
-          id='outlined-basic'
-          label='Question'
-          variant='outlined'
-          multiline
-          name='question'
-          value={question}
-          fullWidth={true}
-          onChange={(e) => onChange(e)}
-        />
-      </CardContent>
-      <Divider variant='middle' />
-      <CardActions style={{ justifyContent: 'space-between' }}>
-        <Fab
-          size='medium'
-          color='primary'
-          aria-label='add'
-          onClick={addOption}
-          variant='extended'
-        >
-          Add Option
-          <AddIcon />
-        </Fab>
-        <TextField
-          id='basic'
-          size='small'
-          label='Question Marks'
-          variant='outlined'
-          name='questionMarks'
-          type='number'
-          value={questionMarks}
-          onChange={(e) => onChange(e)}
-        />
-      </CardActions>
-      <Grid container xs={12} className={classes.root} justify='center'>
-        {options.map((option, index) => {
-          return (
-            <AddOption
-              key={index}
-              number={index}
-              option={option}
-              updateOption={updateOption}
-              deleteOption={deleteOption}
-              count={optionsCount}
-            />
-          );
-        })}
-      </Grid>
-      <Divider variant='middle' />
-      <CardActions className={classes.qActionStyle}>
-        <ButtonGroup
-          variant='contained'
-          color='primary'
-          aria-label='contained primary button group'
-        >
-          <Button onClick={onSubmit}>Add</Button>
-          <Button onClick={clearQuestionDetails}>Clear</Button>
-        </ButtonGroup>
-      </CardActions>
-    </Card>
+    <Fragment>
+      <Card>
+        <CardContent>
+          <TextField
+            id='outlined-basic'
+            label='Question'
+            variant='outlined'
+            multiline
+            name='question'
+            value={question}
+            fullWidth={true}
+            onChange={(e) => onChange(e)}
+          />
+        </CardContent>
+        <Divider variant='middle' />
+        <CardActions style={{ justifyContent: 'space-between' }}>
+          <Fab
+            size='medium'
+            color='primary'
+            aria-label='add'
+            onClick={addOption}
+            variant='extended'
+          >
+            Add Option
+            <AddIcon />
+          </Fab>
+          <TextField
+            id='basic'
+            size='small'
+            label='Question Marks'
+            variant='outlined'
+            name='questionMarks'
+            type='number'
+            value={questionMarks}
+            onChange={(e) => onChange(e)}
+          />
+        </CardActions>
+        <Grid container className={classes.root} justifyContent='center'>
+          {options.map((option, index) => {
+            return (
+              <AddOption
+                key={index}
+                number={index}
+                option={option}
+                updateOption={updateOption}
+                deleteOption={deleteOption}
+                count={optionsCount}
+              />
+            );
+          })}
+        </Grid>
+        <Divider variant='middle' />
+        <CardActions className={classes.qActionStyle}>
+          <ButtonGroup
+            variant='contained'
+            color='primary'
+            aria-label='contained primary button group'
+          >
+            <Button onClick={onSubmit}>Add</Button>
+            <Button onClick={clearQuestionDetails}>Clear</Button>
+          </ButtonGroup>
+        </CardActions>
+      </Card>
+      <MySnackbar alert={alert} close={handleClose} />
+    </Fragment>
   );
 };
 

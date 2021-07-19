@@ -15,12 +15,12 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import QAList from '../QAList';
 import AddQuestion from './AddQuestion';
+import MySnackbar from '../../layout/MySnackbar';
 
 // REDUX
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setMyAlert } from '../../../actions/myAlert';
-import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   sectionDetail: {
@@ -45,22 +45,27 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
   const classes = useStyles();
   const [selectedDateTime, handleDateTimeChange] = useState(new Date());
   const [selectedDuration, handleDurationChange] = useState(new Date());
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [alert, setAlert] = useState({ status: false, msg: '' });
 
   const [newQuiz, updateQuiz] = useState({
-    quizName: null,
-    teacherName: null,
+    quizName: undefined,
+    teacherName: undefined,
     quizDuration: new Date().getTime(),
     quizDateTime: new Date(),
     questions: [],
   });
 
-  const handleClickOpen = () => {
+  const handleClickOpenDialog = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleCloseDialog = () => {
     setOpen(false);
+  };
+
+  const handleClose = () => {
+    setAlert({ ...alert, status: false });
   };
 
   const onChange = (e) =>
@@ -77,6 +82,11 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
       ...newQuiz,
       questions: newQuestionsArray,
     });
+    setAlert({
+      ...alert,
+      status: true,
+      msg: 'Question deleted successfully!',
+    });
   };
 
   const addQuestion = (question) => {
@@ -86,24 +96,27 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
       [newQuiz.questions]: presentQuestions.push(question),
     });
   };
-  let history = useHistory();
 
   const onSubmit = () => {
     const { quizName, teacherName, questions } = newQuiz;
     if (!(quizName && teacherName)) {
-      setMyAlert('Please fill quiz Details', 'warning');
+      setAlert({
+        ...alert,
+        status: true,
+        msg: 'Please fill the required fields',
+      });
       return;
     }
     if (!questions.length > 0) {
-      setMyAlert('Please add Questions', 'warning');
+      setAlert({ ...alert, status: true, msg: 'Please add Questions' });
       return;
     }
     questions.forEach((e) => {
       delete e.id;
     });
-    console.log({ ...newQuiz, questions: questions });
-    setMyAlert('Successfully Created Quiz', 'success');
-    history.push('/');
+
+    // history.push('/');
+    console.log('Successfully Created Quiz', newQuiz);
   };
   const { questions, quizName, teacherName } = newQuiz;
 
@@ -177,7 +190,7 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
           variant='contained'
           aria-label='outlined secondary button group'
         >
-          <Button onClick={handleClickOpen}>Show Questions Added</Button>
+          <Button onClick={handleClickOpenDialog}>Show Questions Added</Button>
           <Button>Questions Added - {questions.length}</Button>
         </ButtonGroup>
         <Button
@@ -191,7 +204,7 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
       </Grid>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleCloseDialog}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'
       >
@@ -206,6 +219,7 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
                   key={index}
                   number={index}
                   deleteQuestion={deleteQuestion}
+                  edit={true}
                   qaSet={qa}
                   type='list'
                 />
@@ -214,7 +228,7 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color='primary'>
+          <Button onClick={handleCloseDialog} color='primary'>
             Close
           </Button>
         </DialogActions>
@@ -223,6 +237,7 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
       <Grid container justifyContent='center'>
         <AddQuestion addQuestion={addQuestion} />
       </Grid>
+      <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );
 };
