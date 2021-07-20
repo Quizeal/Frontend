@@ -1,14 +1,12 @@
+import React, { Fragment, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Divider, Grid, Grow, Typography } from '@material-ui/core';
-import React from 'react';
-import { Fragment, useState } from 'react';
 import DevelopersCard from './DevelopersCard';
 
 // REDUC
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { githubProfile } from '../../actions/auth';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
