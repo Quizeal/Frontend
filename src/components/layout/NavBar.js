@@ -19,6 +19,11 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import LockIcon from '@material-ui/icons/Lock';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 
+// REDUX
+import { connect } from 'react-redux';
+import { logout } from '../../actions/auth';
+import PropTypes from 'prop-types';
+
 // Custom Style for Material UI
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar() {
+const NavBar = ({ logout, isAuthenticated }) => {
   const classes = useStyles();
 
   const [navbarState, updateNavbarState] = useState(false);
@@ -44,11 +49,9 @@ export default function NavBar() {
     updateNavbarState(!presentState);
   };
 
-  const authorized = true;
-
   const list = () => (
     <Fragment>
-      {authorized ? (
+      {isAuthenticated ? (
         <div className={classes.list}>
           <DashboardNavbar hideDrawer={toggleNavbarState} />
         </div>
@@ -96,10 +99,6 @@ export default function NavBar() {
     </Fragment>
   );
 
-  const logout = () => {
-    console.log('LOGOUT SUCCESSFULLY');
-  };
-
   return (
     <div className={classes.root}>
       <AppBar position='static'>
@@ -123,7 +122,7 @@ export default function NavBar() {
             </Link>
           </Typography>
 
-          {authorized ? (
+          {isAuthenticated ? (
             <Button
               color='inherit'
               style={{ marginRight: '10px' }}
@@ -179,4 +178,15 @@ export default function NavBar() {
       </AppBar>
     </div>
   );
-}
+};
+
+NavBar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { logout })(NavBar);

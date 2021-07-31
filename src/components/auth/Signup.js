@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Divider,
@@ -18,6 +18,11 @@ import logo from '../../resources/logo.png';
 import { useState } from 'react';
 import MySnackbar from '../layout/MySnackbar';
 import { Fragment } from 'react';
+
+// REDUX
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { signup } from '../../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -42,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Signup() {
+const Signup = ({ signup, auth }) => {
   const classes = useStyles();
   const [form, setForm] = useState({
     firstName: null,
@@ -64,7 +69,7 @@ export default function Signup() {
 
   const onSubmit = () => {
     // Validations
-    const { firstName, email, password, confirmPassword } = form;
+    const { firstName, lastName, email, password, confirmPassword } = form;
     var pattern = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
     if (!email || !password || !firstName) {
       setAlert({
@@ -98,12 +103,16 @@ export default function Signup() {
       });
       return;
     }
-    console.log('SIGNUP SUCCESSFULLY');
+    signup({ name: `${firstName} ${lastName}`, email, password });
   };
 
   useEffect(() => {
     document.title = 'Quizeal | Sign Up';
   }, []);
+
+  if (auth.isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -215,4 +224,15 @@ export default function Signup() {
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );
-}
+};
+
+Signup.propTypes = {
+  signup: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { signup })(Signup);
