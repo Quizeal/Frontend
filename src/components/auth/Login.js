@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import {
   Button,
   CssBaseline,
@@ -11,13 +11,16 @@ import {
   Container,
   Divider,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import GoogleAccount from '../layout/GoogleAccount';
-import logo from '../../resources/logo.png';
-import { useState } from 'react';
 import MySnackbar from '../layout/MySnackbar';
-import { Fragment } from 'react';
+import logo from '../../resources/logo.png';
+
+// REDUX
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -42,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+const Login = ({ login, auth }) => {
   const classes = useStyles();
   const [form, setForm] = useState({
     email: null,
@@ -90,8 +93,12 @@ export default function Login() {
       });
       return;
     }
-    console.log('LOGIN SUCCESSFULLY');
+    login(email, password);
   };
+
+  if (auth.isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -170,4 +177,15 @@ export default function Login() {
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );
-}
+};
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { login })(Login);

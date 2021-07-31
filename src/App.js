@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MyQuizzes from './components/quiz/MyQuizzes';
 import Navbar from './components/layout/NavBar';
@@ -17,8 +17,12 @@ import QuizView from './components/quiz/QuizView';
 // REDUX
 import { Provider } from 'react-redux';
 import store from './store';
+// import { loadUser } from './actions/auth';
 
 function App() {
+  // useEffect(() => {
+  //   store.dispatch(loadUser());
+  // }, []);
   return (
     <Provider store={store}>
       <Router>

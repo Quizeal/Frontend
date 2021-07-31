@@ -12,12 +12,16 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Profile from './Profile';
 import SendIcon from '@material-ui/icons/Send';
 import Setting from './Setting';
 import MySnackbar from '../layout/MySnackbar';
+
+// REDUX
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
   root: {
@@ -37,7 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Dashboard() {
+const Dashboard = ({ isAuthenticated }) => {
   const classes = useStyles();
   const history = useHistory();
   const [quizCode, setQuizCode] = useState('');
@@ -67,6 +71,10 @@ export default function Dashboard() {
   useEffect(() => {
     document.title = 'Quizeal | Dashboard';
   }, []);
+
+  if (!isAuthenticated) {
+    return <Redirect to='/' />;
+  }
 
   return (
     <Fragment>
@@ -187,4 +195,14 @@ export default function Dashboard() {
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );
-}
+};
+
+Dashboard.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Dashboard);
