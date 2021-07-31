@@ -1,4 +1,5 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
+// import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MyQuizzes from './components/quiz/MyQuizzes';
 import Navbar from './components/layout/NavBar';
