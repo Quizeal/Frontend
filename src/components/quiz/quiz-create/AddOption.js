@@ -37,7 +37,7 @@ export default function AddOption(props) {
           variant='outlined'
           name={props.number}
           multiline
-          value={props.option.data}
+          value={props.option.option_name}
           className={classes.optionStyle}
           onChange={(e) => props.updateOption(e)}
         />
@@ -47,7 +47,7 @@ export default function AddOption(props) {
           placement={'top'}
         >
           <Switch
-            checked={props.option.ans}
+            checked={props.option.is_correct}
             onChange={(e) => props.updateOption(e, 'toggleAnswer')}
             name={props.number}
             color='primary'

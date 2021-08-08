@@ -32,22 +32,18 @@ const useStyles = makeStyles((theme) => ({
 export default function QAList(props) {
   const classes = useStyles();
   const edit = props.edit;
-  // const view = props.view;
-  // const report = props.report;
 
-  const { question, options } = props.qaSet;
+  const { question_name, options } = props.qaSet;
 
   const validateAnswer = (ans, marked) => {
-    // This will be handled after final JSON structure is out
-    // if (ans) return 'success';
+    if (ans) return 'success';
+    if (ans !== marked && props.report) return 'danger';
     return '';
-    // if (ans) return 'success';
-    // else if (ans !== marked && props.type !== 'list') return 'danger';
   };
 
   return (
     <Card className={classes.qACard} variant='outlined'>
-      <CardContent>{question}</CardContent>
+      <CardContent>{question_name}</CardContent>
       <Divider />
       <Grid container className={classes.root}>
         {options.map((option, index) => {
@@ -59,11 +55,11 @@ export default function QAList(props) {
                 size='small'
                 // color='primary'
                 className={`${classes.optionStyle} ${validateAnswer(
-                  option.ans,
-                  option.marked
+                  option.is_correct,
+                  option.is_marked
                 )}`}
               >
-                {option.data}
+                {option.option_name}
               </Button>
             </div>
           );

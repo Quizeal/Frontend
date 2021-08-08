@@ -2,14 +2,14 @@ import React from 'react';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 
 export default function SelectOption(props) {
-  const { data, marked } = props.option;
+  const { option_name, is_marked } = props.option;
   return (
     <ToggleButton
-      value={data}
-      selected={marked}
-      onChange={() => props.update(data)}
+      value={option_name}
+      selected={is_marked}
+      onChange={() => props.update(option_name)}
     >
-      {data}
+      {option_name}
     </ToggleButton>
   );
 }

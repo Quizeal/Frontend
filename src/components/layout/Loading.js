@@ -11,15 +11,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BackdropSpinner() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <div>
-      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
-        <CircularProgress color='primary' />
+      <Backdrop className={classes.backdrop} open={true}>
+        <CircularProgress color='default' />
       </Backdrop>
     </div>
   );

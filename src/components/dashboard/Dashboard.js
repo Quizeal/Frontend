@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Profile from './Profile';
 import SendIcon from '@material-ui/icons/Send';
@@ -72,9 +72,9 @@ const Dashboard = ({ isAuthenticated }) => {
     document.title = 'Quizeal | Dashboard';
   }, []);
 
-  if (!isAuthenticated) {
-    return <Redirect to='/' />;
-  }
+  // if (!isAuthenticated) {
+  //   return <Redirect to='/' />;
+  // }
 
   return (
     <Fragment>

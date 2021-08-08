@@ -2,20 +2,22 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, ButtonGroup, Typography, Grid } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import { dummyUserJSON } from '../../data';
+// import { dummyUserJSON } from '../../data';
 import LinkIcon from '@material-ui/icons/Link';
 import DescriptionIcon from '@material-ui/icons/Description';
+import { myQuizzes } from '../../apiHandlers.js/quiz';
+import Loading from '../layout/Loading';
 
 // Columns of Table
 const columnsP = [
-  {
-    field: 'id',
-    headerName: 'ID',
-    flex: 1,
+  // {
+  //   field: "id",
+  //   headerName: "ID",
+  //   flex: 1,
 
-    headerAlign: 'center',
-    align: 'center',
-  },
+  //   headerAlign: "center",
+  //   align: "center",
+  // },
 
   {
     field: 'date',
@@ -26,14 +28,14 @@ const columnsP = [
     align: 'center',
   },
   {
-    field: 'quizName',
+    field: 'quiz_name',
     headerName: 'Quiz Name',
     flex: 1,
     headerAlign: 'center',
     align: 'center',
   },
   {
-    field: 'teacherName',
+    field: 'username',
     headerName: 'Quiz taken by',
     flex: 1,
     headerAlign: 'center',
@@ -46,8 +48,7 @@ const columnsP = [
     flex: 0.75,
     headerAlign: 'center',
     align: 'center',
-    valueGetter: (params) =>
-      `${params.row.marksObtained}/${params.row.quizMarks} `,
+    valueGetter: (params) => `${params.row.marks}/${params.row.total_marks} `,
   },
   {
     field: 'reportId',
@@ -74,14 +75,14 @@ const columnsP = [
   },
 ];
 const columnsC = [
-  {
-    field: 'id',
-    headerName: 'ID',
-    flex: 1,
+  // {
+  //   field: 'id',
+  //   headerName: 'ID',
+  //   flex: 1,
 
-    headerAlign: 'center',
-    align: 'center',
-  },
+  //   headerAlign: 'center',
+  //   align: 'center',
+  // },
 
   {
     field: 'date',
@@ -92,23 +93,31 @@ const columnsC = [
     align: 'center',
   },
   {
-    field: 'quizName',
+    field: 'quiz_name',
     headerName: 'Quiz Name',
     flex: 1,
     headerAlign: 'center',
     align: 'center',
   },
   {
-    field: 'teacherName',
-    headerName: 'Quiz taken by',
+    field: 'start_time',
+    headerName: 'Start Time',
+    type: 'time',
     flex: 1,
     headerAlign: 'center',
     align: 'center',
   },
   {
-    field: 'quizDuration',
+    field: 'duration',
     headerName: 'Quiz Duration',
     type: 'time',
+    flex: 0.75,
+    headerAlign: 'center',
+    align: 'center',
+  },
+  {
+    field: 'quiz_marks',
+    headerName: 'Quiz Marks',
     flex: 0.75,
     headerAlign: 'center',
     align: 'center',
@@ -138,12 +147,6 @@ const columnsC = [
   },
 ];
 
-// Dummy Data for UI
-// This will be handled in more efficient way after api is completed for same
-const rows = dummyUserJSON.quizTaken;
-const rowsP = rows.filter((row) => row.quizGiven);
-const rowsC = rows.filter((row) => !row.quizGiven);
-
 // Model for byDefault Sorting Table
 const sortModel = [
   {
@@ -153,66 +156,90 @@ const sortModel = [
 ];
 
 export default function MyQuizzes(props) {
-  const [quizSelected, updateQuizSelected] = useState('past');
+  const [quizSelected, updateQuizSelected] = useState('attempted');
   const [columnsM, updateColumns] = useState(columnsP);
-  const [rowsM, updateRows] = useState(rowsP);
+  const [server, setServer] = useState({ data: '', loading: true });
+  const [rowsM, updateRows] = useState([]);
 
   const onChange = (e) => {
-    if (e === 'past') {
+    if (e === 'attempted') {
       updateColumns(columnsP);
-      updateRows(rowsP);
-      updateQuizSelected('past');
+      updateRows(server.data.attempted);
+      updateQuizSelected('attempted');
     } else {
       updateColumns(columnsC);
-      updateRows(rowsC);
+      updateRows(server.data.created);
       updateQuizSelected('created');
     }
   };
 
+  const getQuizzes = async () => {
+    const res = await myQuizzes();
+    setServer({ ...server, data: res, loading: false });
+    updateRows(res.attempted);
+  };
+
   useEffect(() => {
     document.title = 'Quizeal | Home';
+    getQuizzes();
   }, []);
+
+  const { loading } = server;
 
   return (
     <Fragment>
-      <Grid container justifyContent='center'>
-        <Grid item xs={12}>
-          <Typography variant='h4' align='center' style={{ padding: '20px' }}>
-            My Quizzes
-          </Typography>
-        </Grid>
-        <Grid item xs={11}>
-          <ButtonGroup
-            color='primary'
-            aria-label='outlined primary button group'
-            style={{ paddingBottom: '10px' }}
-          >
-            <Button
-              variant={quizSelected === 'past' ? 'contained' : ''}
-              onClick={() => onChange('past')}
-            >
-              Past
-            </Button>
-            <Button
-              variant={quizSelected === 'created' ? 'contained' : ''}
-              onClick={() => onChange('created')}
-            >
-              Created
-            </Button>
-          </ButtonGroup>
-          <DataGrid
-            rows={rowsM}
-            columns={columnsM}
-            pageSize={5}
-            autoHeight
-            pagination
-            autoPageSize
-            checkboxSelection
-            disableSelectionOnClick
-            sortModel={sortModel}
-          />
-        </Grid>
-      </Grid>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Fragment>
+          {rowsM ? (
+            <Grid container justifyContent='center'>
+              <Grid item xs={12}>
+                <Typography
+                  variant='h4'
+                  align='center'
+                  style={{ padding: '20px' }}
+                >
+                  My Quizzes
+                </Typography>
+              </Grid>
+              <Grid item xs={11}>
+                <ButtonGroup
+                  color='primary'
+                  aria-label='outlined primary button group'
+                  style={{ paddingBottom: '10px' }}
+                >
+                  <Button
+                    variant={quizSelected === 'attempted' ? 'contained' : ''}
+                    onClick={() => onChange('attempted')}
+                  >
+                    Attempted
+                  </Button>
+                  <Button
+                    variant={quizSelected === 'created' ? 'contained' : ''}
+                    onClick={() => onChange('created')}
+                  >
+                    Created
+                  </Button>
+                </ButtonGroup>
+                <DataGrid
+                  rows={rowsM}
+                  columns={columnsM}
+                  pageSize={5}
+                  autoHeight
+                  pagination
+                  autoPageSize
+                  checkboxSelection
+                  disableSelectionOnClick
+                  sortModel={sortModel}
+                />
+              </Grid>
+            </Grid>
+          ) : (
+            'DATA NOT FOUND'
+          )}
+        </Fragment>
+      )}
     </Fragment>
   );
 }

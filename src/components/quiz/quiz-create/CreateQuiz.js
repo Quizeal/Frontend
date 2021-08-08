@@ -16,11 +16,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import QAList from '../QAList';
 import AddQuestion from './AddQuestion';
 import MySnackbar from '../../layout/MySnackbar';
-
-// REDUX
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { setMyAlert } from '../../../actions/myAlert';
+import { createQuiz } from '../../../apiHandlers.js/quiz';
 
 const useStyles = makeStyles((theme) => ({
   sectionDetail: {
@@ -41,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreateQuiz = ({ setMyAlert, ...props }) => {
+const CreateQuiz = () => {
   const classes = useStyles();
   const [selectedDateTime, handleDateTimeChange] = useState(new Date());
   const [selectedDuration, handleDurationChange] = useState(new Date());
@@ -49,10 +45,11 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
   const [alert, setAlert] = useState({ status: false, msg: '' });
 
   const [newQuiz, updateQuiz] = useState({
-    quizName: undefined,
-    teacherName: undefined,
-    quizDuration: new Date().getTime(),
-    quizDateTime: new Date(),
+    quiz_name: undefined,
+    username: undefined,
+    duration: '10:00', // Fix this to proper format dynamically
+    start_time: '19:38', // Fix this to proper format dynamically
+    date: '2021-08-7', // Fix this to proper format dynamically
     questions: [],
   });
 
@@ -97,9 +94,9 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
     });
   };
 
-  const onSubmit = () => {
-    const { quizName, teacherName, questions } = newQuiz;
-    if (!(quizName && teacherName)) {
+  const onSubmit = async () => {
+    const { quiz_name, username, questions } = newQuiz;
+    if (!(quiz_name && username)) {
       setAlert({
         ...alert,
         status: true,
@@ -116,9 +113,10 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
     });
 
     // history.push('/');
-    console.log('Successfully Created Quiz', newQuiz);
+    const res = await createQuiz(newQuiz);
+    console.log(res);
   };
-  const { questions, quizName, teacherName } = newQuiz;
+  const { questions, quiz_name, username } = newQuiz;
 
   useEffect(() => {
     document.title = 'Quizeal | Create Quiz';
@@ -138,11 +136,11 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
             margin='normal'
             required
             fullWidth
-            id='quizName'
+            id='quiz_name'
             label='Quiz Name'
-            name='quizName'
+            name='quiz_name'
             autoFocus
-            value={quizName}
+            value={quiz_name}
             onChange={(e) => onChange(e)}
           />
         </Grid>
@@ -152,11 +150,11 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
             margin='normal'
             required
             fullWidth
-            id='teacherName'
+            id='username'
             label='Teacher Name'
-            name='teacherName'
-            autoComplete='teacherName'
-            value={teacherName}
+            name='username'
+            autoComplete='username'
+            value={username}
             onChange={(e) => onChange(e)}
           />
         </Grid>
@@ -221,7 +219,7 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
                   deleteQuestion={deleteQuestion}
                   edit={true}
                   qaSet={qa}
-                  type='list'
+                  view={true}
                 />
               );
             })}
@@ -242,8 +240,4 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
   );
 };
 
-CreateQuiz.propTypes = {
-  setMyAlert: PropTypes.func.isRequired,
-};
-
-export default connect(null, { setMyAlert })(CreateQuiz);
+export default CreateQuiz;
