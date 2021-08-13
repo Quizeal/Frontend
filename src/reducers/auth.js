@@ -10,7 +10,7 @@ import {
 
 const initial_state = {
   isAuthenticated: false,
-  token: localStorage.getItem('token'),
+  // token: localStorage.getItem('token'),
   loading: true,
   user: null,
 };
@@ -23,14 +23,18 @@ export default function auth(state = initial_state, action) {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload,
+        user: payload.user,
       };
     case SIGNUP_SUCCESS:
-    case LOGIN_SUCCESS:
-      localStorage.setItem('token', payload.token);
       return {
         ...state,
-        ...payload,
+        loading: false,
+      };
+    case LOGIN_SUCCESS:
+      localStorage.setItem('token-refresh', payload.refresh);
+      localStorage.setItem('token-access', payload.access);
+      return {
+        ...state,
         isAuthenticated: true,
         loading: false,
       };
@@ -38,12 +42,13 @@ export default function auth(state = initial_state, action) {
     case SIGNUP_FAILURE:
     case AUTH_FAILURE:
     case LOGOUT:
-      localStorage.removeItem('token');
+      localStorage.removeItem('token-refresh');
+      localStorage.removeItem('token-access');
       return {
         ...state,
         isAuthenticated: false,
-        token: null,
         loading: false,
+        user: null,
       };
     default:
       return state;

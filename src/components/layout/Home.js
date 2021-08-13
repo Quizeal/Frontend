@@ -14,6 +14,11 @@ import logo from '../../resources/logo.png';
 import home from '../../resources/home.gif';
 import MySnackbar from './MySnackbar';
 
+// REDUC
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
+
 const useStyles = makeStyles((theme) => ({
   section: {
     padding: theme.spacing(10),
@@ -24,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+const Home = ({ isAuthenticated }) => {
   const classes = useStyles();
   const history = useHistory();
   const [quizCode, setQuizCode] = useState('');
@@ -50,6 +55,11 @@ export default function Home() {
     // fETCH DATA FROM QUIZ api
     history.push(`/quiz/${quizCode}`);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
+
   return (
     <Fragment>
       <Grid
@@ -125,4 +135,14 @@ export default function Home() {
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );
-}
+};
+
+Home.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Home);

@@ -9,18 +9,59 @@ import {
 } from '../actions/type';
 import setAuthToken from '../utils/setAuthToken';
 import axios from 'axios';
+import { setMyAlert } from './myAlert';
 
-export const loadUser = () => async (dispatch) => {
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
+let AccessTimer = null;
+
+// Refresh and access token both are updated.
+// Pls fix at backend to update and blacklist only access-token
+export const accessToken = () => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const tokenRefresh = localStorage['token-refresh'];
+  if (!tokenRefresh) {
+    return console.log('ACCESS TOKEN FAILED', tokenRefresh);
   }
+  const body = JSON.stringify({ refresh: tokenRefresh });
   try {
-    const res = await axios.get('https://reqres.in/api/users/2');
+    const res = await axios.post('/token-refresh/', body, config);
+    console.log('ACCESS TOKEN SUCCESS');
+
+    const { access, refresh } = res.data;
+    localStorage['token-access'] = access;
+    localStorage['token-refresh'] = refresh;
+
+    setAuthToken(access);
+  } catch (error) {
+    console.log('ACCESS TOKEN FAILED');
+  }
+};
+
+// Add Error Handling
+export const loadUser = () => async (dispatch) => {
+  const tokenAccess = localStorage['token-access'];
+
+  if (tokenAccess) {
+    setAuthToken(tokenAccess);
+  } else return;
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ token: tokenAccess });
+  try {
+    const res = await axios.post('/load-user/', body, config);
     console.log('USER LOADED SUCCESSFULLY');
     dispatch({
       type: USER_LOADED,
       payload: res.data.data,
     });
+    AccessTimer = setInterval(accessToken(), 1000 * 60 * 60);
   } catch (error) {
     console.log('USER LOADED FAILED');
     dispatch({
@@ -29,29 +70,32 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const login = (email, password) => async (dispatch) => {
+// Done
+export const login = (username, password) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-  const body = JSON.stringify({ email, password });
+  const body = JSON.stringify({ username, password });
   try {
-    // Dummy API
-    const res = await axios.post('https://reqres.in/api/login', body, config);
-    console.log('LOGIN SUCCESSFULLY');
+    const res = await axios.post('/login/', body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-  } catch (error) {
-    console.log('LOGIN FAILED');
+    dispatch(loadUser());
+    dispatch(setMyAlert('Login Successfully'));
+  } catch (err) {
+    const error = err.response.data;
     dispatch({
       type: LOGIN_FAILURE,
     });
+    dispatch(setMyAlert(error.detail));
   }
 };
 
+// Done
 export const signup = (formData) => async (dispatch) => {
   const config = {
     headers: {
@@ -59,29 +103,29 @@ export const signup = (formData) => async (dispatch) => {
     },
   };
   const body = JSON.stringify(formData);
+  console.log(body);
   try {
-    // Dummy API
-    const res = await axios.post(
-      'https://reqres.in/api/register',
-      body,
-      config
-    );
-    console.log('SIGNUP SUCCESSFULLY');
+    const res = await axios.post('/register/', body, config);
     dispatch({
       type: SIGNUP_SUCCESS,
       payload: res.data,
     });
-  } catch (error) {
-    console.log('SIGNUP FAILED');
+    dispatch(setMyAlert('Signup Successfully, Please login to continue.'));
+  } catch (err) {
+    const error = err.response.data;
     dispatch({
       type: SIGNUP_FAILURE,
     });
+    dispatch(setMyAlert(error.username));
   }
 };
 
+// Add Logout API at backend and update this function
 export const logout = () => (dispatch) => {
   console.log('LOGOUT SUCCESSFULLY');
   dispatch({
     type: LOGOUT,
   });
+  clearInterval(AccessTimer);
+  dispatch(setMyAlert('Logout Successfully'));
 };

@@ -22,6 +22,7 @@ import MySnackbar from '../layout/MySnackbar';
 // REDUX
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles({
   root: {
@@ -72,9 +73,9 @@ const Dashboard = ({ isAuthenticated }) => {
     document.title = 'Quizeal | Dashboard';
   }, []);
 
-  // if (!isAuthenticated) {
-  //   return <Redirect to='/' />;
-  // }
+  if (!isAuthenticated) {
+    return <Redirect to='/' />;
+  }
 
   return (
     <Fragment>

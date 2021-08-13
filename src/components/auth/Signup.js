@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -47,14 +48,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Signup = ({ signup, auth }) => {
+const Signup = ({ signup, auth, props }) => {
+  const history = useHistory();
   const classes = useStyles();
   const [form, setForm] = useState({
-    firstName: null,
-    lastName: null,
+    first_name: null,
+    last_name: null,
     email: null,
     password: null,
     confirmPassword: null,
+    username: null,
   });
 
   const [alert, setAlert] = useState({ status: false, msg: '' });
@@ -69,13 +72,28 @@ const Signup = ({ signup, auth }) => {
 
   const onSubmit = () => {
     // Validations
-    const { firstName, lastName, email, password, confirmPassword } = form;
+    const {
+      first_name,
+      last_name,
+      email,
+      password,
+      confirmPassword,
+      username,
+    } = form;
     var pattern = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
-    if (!email || !password || !firstName) {
+    if (!username || !email || !password || !first_name) {
       setAlert({
         ...alert,
         status: true,
         msg: 'Please fill the required fields.',
+      });
+      return;
+    }
+    if (username && username.length < 8) {
+      setAlert({
+        ...alert,
+        status: true,
+        msg: 'SID must be 8 characters long',
       });
       return;
     }
@@ -103,7 +121,8 @@ const Signup = ({ signup, auth }) => {
       });
       return;
     }
-    signup({ name: `${firstName} ${lastName}`, email, password });
+    signup({ first_name, last_name, email, password, username });
+    history.push('/');
   };
 
   useEffect(() => {
@@ -126,16 +145,27 @@ const Signup = ({ signup, auth }) => {
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  onChange={onChange}
+                  variant='outlined'
+                  required
+                  fullWidth
+                  id='username'
+                  label='SID'
+                  name='username'
+                  autoFocus
+                />
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   onChange={onChange}
                   autoComplete='fname'
-                  name='firstName'
+                  name='first_name'
                   variant='outlined'
                   required
                   fullWidth
                   label='First Name'
-                  autoFocus
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -143,9 +173,9 @@ const Signup = ({ signup, auth }) => {
                   onChange={onChange}
                   variant='outlined'
                   fullWidth
-                  id='lastName'
+                  id='last_name'
                   label='Last Name'
-                  name='lastName'
+                  name='last_name'
                 />
               </Grid>
               <Grid item xs={12}>
@@ -236,3 +266,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { signup })(Signup);
+
+// TODO
+// -> Add Loading Effect

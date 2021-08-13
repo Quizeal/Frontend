@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MyQuizzes from './components/quiz/MyQuizzes';
 import Navbar from './components/layout/NavBar';
 import './App.css';
 import Error from './components/error/Error';
-// import MyAlert from './components/layout/MyAlert';
+import MyAlert from './components/layout/MyAlert';
 import Home from './components/layout/Home';
 import CreateQuiz from './components/quiz/quiz-create/CreateQuiz';
 import QuizReport from './components/quiz/QuizReport';
@@ -18,18 +18,19 @@ import QuizView from './components/quiz/QuizView';
 // REDUX
 import { Provider } from 'react-redux';
 import store from './store';
-// import { loadUser } from './actions/auth';
+import { loadUser } from './actions/auth';
 
 function App() {
-  // useEffect(() => {
-  //   store.dispatch(loadUser());
-  // }, []);
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>
         <Fragment>
           <Navbar />
-          {/* <MyAlert /> */}
+          <MyAlert />
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />

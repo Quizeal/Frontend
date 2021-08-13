@@ -50,6 +50,7 @@ const Login = ({ login, auth }) => {
   const [form, setForm] = useState({
     email: null,
     password: null,
+    username: null,
   });
   const [alert, setAlert] = useState({ status: false, msg: '' });
 
@@ -65,11 +66,11 @@ const Login = ({ login, auth }) => {
     setAlert({ ...alert, status: false });
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     // Validations
-    const { email, password } = form;
-    var pattern = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
-    if (!email || !password) {
+    const { password, username } = form;
+    // var pattern = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
+    if (!username || !password) {
       setAlert({
         ...alert,
         status: true,
@@ -77,15 +78,18 @@ const Login = ({ login, auth }) => {
       });
       return;
     }
-    if (email && !pattern.test(email)) {
-      setAlert({
-        ...alert,
-        status: true,
-        msg: 'Invalid Email. Please try again!',
-      });
-      return;
-    }
-    if (password && password.length < 8) {
+    // if (email && !pattern.test(email)) {
+    //   setAlert({
+    //     ...alert,
+    //     status: true,
+    //     msg: 'Invalid Email. Please try again!',
+    //   });
+    //   return;
+    // }
+    if (
+      (password && password.length < 8) ||
+      (username && username.length < 8)
+    ) {
       setAlert({
         ...alert,
         status: true,
@@ -93,10 +97,12 @@ const Login = ({ login, auth }) => {
       });
       return;
     }
-    login(email, password);
-  };
 
-  if (auth.isAuthenticated) {
+    login(username, password);
+  };
+  const { isAuthenticated } = auth;
+
+  if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
   }
 
@@ -110,16 +116,27 @@ const Login = ({ login, auth }) => {
             Log in
           </Typography>
           <form className={classes.form} noValidate>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              label='Email Address'
-              name='email'
-              autoFocus
-              onChange={onChange}
-            />
+            <Grid item xs={12}>
+              <TextField
+                onChange={onChange}
+                variant='outlined'
+                required
+                fullWidth
+                id='username'
+                label='SID'
+                autoFocus
+                name='username'
+              />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                label='Email Address'
+                name='email'
+                onChange={onChange}
+              />
+            </Grid>
             <TextField
               variant='outlined'
               margin='normal'
@@ -189,3 +206,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { login })(Login);
+
+// TODO
+// -> Add Loading Effect
