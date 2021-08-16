@@ -2,9 +2,10 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Grid, TextField, Divider, ButtonGroup } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+import { format, isFuture, isValid } from 'date-fns';
 import {
-  TimePicker,
-  DateTimePicker,
+  KeyboardTimePicker,
+  KeyboardDateTimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
@@ -16,7 +17,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import QAList from '../QAList';
 import AddQuestion from './AddQuestion';
 import MySnackbar from '../../layout/MySnackbar';
-import { createQuiz } from '../../../apiHandlers.js/quiz';
+// import { createQuiz } from '../../../apiHandlers.js/quiz';
+
+// REDUX
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { createQuiz } from '../../../actions/quiz';
+import { useHistory } from 'react-router';
+import { UnAuthorized } from '../../../utils/extraFunctions';
 
 const useStyles = makeStyles((theme) => ({
   sectionDetail: {
@@ -37,19 +45,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreateQuiz = () => {
+const CreateQuiz = ({ user, isAuthenticated, createQuiz }) => {
+  const history = useHistory();
   const classes = useStyles();
-  const [selectedDateTime, handleDateTimeChange] = useState(new Date());
-  const [selectedDuration, handleDurationChange] = useState(new Date());
+  const [selectedDateTime, handleDateTimeChange] = useState(null);
+  const [selectedDuration, handleDurationChange] = useState(null);
   const [open, setOpen] = useState(false);
   const [alert, setAlert] = useState({ status: false, msg: '' });
 
   const [newQuiz, updateQuiz] = useState({
-    quiz_name: undefined,
-    username: undefined,
-    duration: '10:00', // Fix this to proper format dynamically
-    start_time: '19:38', // Fix this to proper format dynamically
-    date: '2021-08-7', // Fix this to proper format dynamically
+    quiz_name: '',
     questions: [],
   });
 
@@ -95,13 +100,21 @@ const CreateQuiz = () => {
   };
 
   const onSubmit = async () => {
-    const { quiz_name, username, questions } = newQuiz;
-    if (!(quiz_name && username)) {
+    const { quiz_name, questions } = newQuiz;
+    if (!quiz_name || !selectedDuration || !selectedDateTime) {
       setAlert({
         ...alert,
         status: true,
         msg: 'Please fill the required fields',
       });
+      return;
+    }
+    if (!isValid(selectedDuration)) {
+      setAlert({ ...alert, status: true, msg: 'Invalid Time Format' });
+      return;
+    }
+    if (!isValid(selectedDateTime) || !isFuture(selectedDateTime)) {
+      setAlert({ ...alert, status: true, msg: 'Invalid Date Time Format' });
       return;
     }
     if (!questions.length > 0) {
@@ -112,15 +125,27 @@ const CreateQuiz = () => {
       delete e.id;
     });
 
-    // history.push('/');
-    const res = await createQuiz(newQuiz);
-    console.log(res);
+    const date_time = {
+      date: format(selectedDateTime, 'yyy-MM-dd'),
+      start_time: format(selectedDateTime, 'HH:mm'),
+      duration: format(selectedDuration, 'HH:mm:ss'),
+    };
+    await createQuiz({
+      ...newQuiz,
+      username: user.username,
+      ...date_time,
+    });
+    history.push('/dashboard');
   };
-  const { questions, quiz_name, username } = newQuiz;
+  const { questions, quiz_name } = newQuiz;
 
   useEffect(() => {
     document.title = 'Quizeal | Create Quiz';
   }, []);
+
+  if (!isAuthenticated) {
+    return UnAuthorized('/');
+  }
 
   return (
     <Fragment>
@@ -145,38 +170,33 @@ const CreateQuiz = () => {
           />
         </Grid>
         <Grid item>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            id='username'
-            label='Teacher Name'
-            name='username'
-            autoComplete='username'
-            value={username}
-            onChange={(e) => onChange(e)}
-          />
-        </Grid>
-        <Grid item>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <TimePicker
-              autoOk
+            <KeyboardTimePicker
               ampm={false}
-              label='Quiz Duration'
+              openTo='hours'
+              views={['hours', 'minutes', 'seconds']}
+              format='HH:mm:ss'
+              required
               inputVariant='outlined'
-              value={selectedDateTime.toString()}
-              onChange={handleDateTimeChange}
+              label='Quiz Duration'
+              value={selectedDuration}
+              onChange={handleDurationChange}
             />
           </MuiPickersUtilsProvider>
         </Grid>
         <Grid item>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DateTimePicker
-              label='Quiz Date and Time'
+            <KeyboardDateTimePicker
               inputVariant='outlined'
-              value={selectedDuration.toString()}
-              onChange={handleDurationChange}
+              ampm={false}
+              label='Quiz Date and Time'
+              value={selectedDateTime}
+              required
+              onChange={handleDateTimeChange}
+              onError={console.log}
+              disablePast
+              format='dd/MM/yyy HH:mm'
+              minDateMessage='Invalid Date Time Format.'
             />
           </MuiPickersUtilsProvider>
         </Grid>
@@ -240,4 +260,18 @@ const CreateQuiz = () => {
   );
 };
 
-export default CreateQuiz;
+CreateQuiz.propTypes = {
+  user: PropTypes.object,
+  isAuthenticated: PropTypes.bool.isRequired,
+  createQuiz: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { createQuiz })(CreateQuiz);
+
+// TODO
+// --> Handle Console errors by ForwardRef

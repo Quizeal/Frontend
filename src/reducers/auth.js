@@ -10,7 +10,7 @@ import {
 
 const initial_state = {
   isAuthenticated: false,
-  // token: localStorage.getItem('token'),
+  // token: localStorage.getItem('token-access'),
   loading: true,
   user: null,
 };

@@ -10,4 +10,9 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const USER_LOADED = 'USER_LOADED';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
 
+export const MY_QUIZZES_SUCCESS = 'MY_QUIZZES_SUCCESS';
+export const MY_QUIZZES_FAILURE = 'MY_QUIZZES_FAILURE';
+
+export const LOADIND_STATUS = 'LOADIND_STATUS';
+
 export const LOGOUT = 'LOGOUT';

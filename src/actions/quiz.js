@@ -1,14 +1,22 @@
 import axios from 'axios';
+import { setLoading } from './loading';
+import { setMyAlert } from './myAlert';
+import { MY_QUIZZES_FAILURE, MY_QUIZZES_SUCCESS } from './type';
 
-export const myQuizzes = () => async (dispatch) => {
-  const user_name = 'divyam';
+export const myQuizzes = (username) => async (dispatch) => {
   try {
-    const res = await axios.get(`/my-quizes/${user_name}`);
-    console.log('QUIZZES FETCHED SUCCESSFULLY');
-    return res.data;
+    const res = await axios.get(`/my-quizes/${username}`);
+    console.log('QUIZZES FETCHED SUCCESSFULLY', res.data.data);
+    dispatch({
+      type: MY_QUIZZES_SUCCESS,
+      payload: res.data.data,
+    });
   } catch (error) {
-    console.log('QUIZZES FETCHED FAILED');
-    return;
+    console.log('QUIZZES FETCHED FAILED', error.response);
+    dispatch({
+      type: MY_QUIZZES_FAILURE,
+    });
+    dispatch(setMyAlert(error.response.statusText));
   }
 };
 
@@ -41,18 +49,25 @@ export const getQuizReport = (id) => async (dispatch) => {
 };
 
 export const createQuiz = (quiz) => async (dispatch) => {
+  dispatch(setLoading(true));
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
+
   const body = JSON.stringify(quiz);
   try {
-    const res = await axios.post(`/create-quiz/`, body, config);
+    await axios.post(`/create-quiz/`, body, config);
     console.log('QUIZ CREATED SUCCESSFULLY');
-    return res.data;
+    dispatch(setLoading(false));
+    dispatch(setMyAlert('Quiz Created Successfully'));
   } catch (error) {
-    console.log('QUIZ CREATED FAILED', error);
+    dispatch(setLoading(false));
+    console.log('QUIZ CREATED FAILED', error.response);
+    dispatch(
+      setMyAlert(error.response.data.detail || error.response.statusText)
+    );
     return;
   }
 };

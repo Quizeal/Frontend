@@ -14,6 +14,7 @@ import Signup from './components/auth/Signup';
 import Dashboard from './components/dashboard/Dashboard';
 import QuizTest from './components/quiz/quiz-test/QuizTest';
 import QuizView from './components/quiz/QuizView';
+import Loading from './components/layout/Loading';
 
 // REDUX
 import { Provider } from 'react-redux';
@@ -29,6 +30,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Fragment>
+          <Loading />
           <Navbar />
           <MyAlert />
           <Switch>

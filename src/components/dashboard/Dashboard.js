@@ -22,7 +22,7 @@ import MySnackbar from '../layout/MySnackbar';
 // REDUX
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
+import { UnAuthorized } from '../../utils/extraFunctions';
 
 const useStyles = makeStyles({
   root: {
@@ -65,7 +65,6 @@ const Dashboard = ({ isAuthenticated }) => {
       });
       return;
     }
-    // fETCH DATA FROM QUIZ api
     history.push(`/quiz/${quizCode}`);
   };
 
@@ -74,7 +73,7 @@ const Dashboard = ({ isAuthenticated }) => {
   }, []);
 
   if (!isAuthenticated) {
-    return <Redirect to='/' />;
+    return UnAuthorized('/');
   }
 
   return (
@@ -104,7 +103,7 @@ const Dashboard = ({ isAuthenticated }) => {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Link to='/my-quizzes'>
+                <Link to='/my-quizzes/19104074'>
                   <Button size='small' color='primary'>
                     See my quizzes
                   </Button>
@@ -200,10 +199,12 @@ const Dashboard = ({ isAuthenticated }) => {
 
 Dashboard.propTypes = {
   isAuthenticated: PropTypes.bool,
+  user: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps)(Dashboard);

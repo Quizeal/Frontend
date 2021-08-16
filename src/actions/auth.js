@@ -10,12 +10,13 @@ import {
 import setAuthToken from '../utils/setAuthToken';
 import axios from 'axios';
 import { setMyAlert } from './myAlert';
+import { setLoading } from './loading';
 
 let AccessTimer = null;
 
 // Refresh and access token both are updated.
 // Pls fix at backend to update and blacklist only access-token
-export const accessToken = () => async (dispatch) => {
+const accessToken = () => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -23,12 +24,12 @@ export const accessToken = () => async (dispatch) => {
   };
   const tokenRefresh = localStorage['token-refresh'];
   if (!tokenRefresh) {
-    return console.log('ACCESS TOKEN FAILED', tokenRefresh);
+    return console.log("ACCESS TOKEN COULDN'T FOUND", tokenRefresh);
   }
   const body = JSON.stringify({ refresh: tokenRefresh });
   try {
     const res = await axios.post('/token-refresh/', body, config);
-    console.log('ACCESS TOKEN SUCCESS');
+    console.log('ACCESS TOKEN REFRESH SUCCESS');
 
     const { access, refresh } = res.data;
     localStorage['token-access'] = access;
@@ -36,7 +37,7 @@ export const accessToken = () => async (dispatch) => {
 
     setAuthToken(access);
   } catch (error) {
-    console.log('ACCESS TOKEN FAILED');
+    console.log('ACCESS TOKEN REFRESH FAILED', error.response);
   }
 };
 
@@ -45,6 +46,7 @@ export const loadUser = () => async (dispatch) => {
   const tokenAccess = localStorage['token-access'];
 
   if (tokenAccess) {
+    dispatch(setLoading(true));
     setAuthToken(tokenAccess);
   } else return;
 
@@ -57,12 +59,14 @@ export const loadUser = () => async (dispatch) => {
   try {
     const res = await axios.post('/load-user/', body, config);
     console.log('USER LOADED SUCCESSFULLY');
+    dispatch(setLoading(false));
     dispatch({
       type: USER_LOADED,
       payload: res.data.data,
     });
     AccessTimer = setInterval(accessToken(), 1000 * 60 * 60);
   } catch (error) {
+    dispatch(setLoading(false));
     console.log('USER LOADED FAILED');
     dispatch({
       type: AUTH_FAILURE,
@@ -72,6 +76,7 @@ export const loadUser = () => async (dispatch) => {
 
 // Done
 export const login = (username, password) => async (dispatch) => {
+  dispatch(setLoading(true));
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -80,6 +85,7 @@ export const login = (username, password) => async (dispatch) => {
   const body = JSON.stringify({ username, password });
   try {
     const res = await axios.post('/login/', body, config);
+    dispatch(setLoading(false));
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
@@ -87,25 +93,27 @@ export const login = (username, password) => async (dispatch) => {
     dispatch(loadUser());
     dispatch(setMyAlert('Login Successfully'));
   } catch (err) {
-    const error = err.response.data;
+    dispatch(setLoading(false));
+    const error = err.response;
     dispatch({
       type: LOGIN_FAILURE,
     });
-    dispatch(setMyAlert(error.detail));
+    dispatch(setMyAlert(error.data.detail || error.statusText));
   }
 };
 
 // Done
 export const signup = (formData) => async (dispatch) => {
+  dispatch(setLoading(true));
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
   const body = JSON.stringify(formData);
-  console.log(body);
   try {
     const res = await axios.post('/register/', body, config);
+    dispatch(setLoading(false));
     dispatch({
       type: SIGNUP_SUCCESS,
       payload: res.data,
@@ -113,6 +121,7 @@ export const signup = (formData) => async (dispatch) => {
     dispatch(setMyAlert('Signup Successfully, Please login to continue.'));
   } catch (err) {
     const error = err.response.data;
+    dispatch(setLoading(false));
     dispatch({
       type: SIGNUP_FAILURE,
     });
@@ -122,7 +131,6 @@ export const signup = (formData) => async (dispatch) => {
 
 // Add Logout API at backend and update this function
 export const logout = () => (dispatch) => {
-  console.log('LOGOUT SUCCESSFULLY');
   dispatch({
     type: LOGOUT,
   });
