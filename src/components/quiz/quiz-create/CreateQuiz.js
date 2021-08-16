@@ -276,3 +276,4 @@ export default connect(mapStateToProps, { createQuiz })(CreateQuiz);
 // TODO
 // --> Handle Console errors by ForwardRef
 // --> Verify usernames authentication
+// --> Add Question Type Option in forms

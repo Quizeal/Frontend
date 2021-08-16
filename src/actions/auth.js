@@ -59,7 +59,6 @@ export const loadUser = () => async (dispatch) => {
   const body = JSON.stringify({ token: tokenAccess });
   try {
     const res = await axios.post('/load-user/', body, config);
-    console.log('USER LOADED SUCCESSFULLY');
     dispatch(setLoading(false));
     dispatch({
       type: USER_LOADED,
@@ -68,11 +67,13 @@ export const loadUser = () => async (dispatch) => {
     AccessTimer = setInterval(accessToken(), 1000 * 60 * 60);
   } catch (error) {
     dispatch(setLoading(false));
-    console.log('USER LOADED FAILED');
     dispatch({
       type: AUTH_FAILURE,
     });
     dispatch(clearQuiz());
+    dispatch(
+      setMyAlert(error.response.data.detail || error.response.statusText)
+    );
   }
 };
 
@@ -143,3 +144,6 @@ export const logout = () => (dispatch) => {
   dispatch(clearQuiz());
   dispatch(setMyAlert('Logout Successfully'));
 };
+
+// TODO
+// --> Handle error handling more efficiently
