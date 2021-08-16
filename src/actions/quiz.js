@@ -1,22 +1,30 @@
 import axios from 'axios';
 import { setLoading } from './loading';
 import { setMyAlert } from './myAlert';
-import { MY_QUIZZES_FAILURE, MY_QUIZZES_SUCCESS } from './type';
+import setAuthToken from '../utils/setAuthToken';
+import { CLEAR_QUIZ, MY_QUIZZES_FAILURE, MY_QUIZZES_SUCCESS } from './type';
 
 export const myQuizzes = (username) => async (dispatch) => {
+  dispatch(setLoading(true));
   try {
+    setAuthToken(localStorage['token-access']);
     const res = await axios.get(`/my-quizes/${username}`);
-    console.log('QUIZZES FETCHED SUCCESSFULLY', res.data.data);
+    // console.log('QUIZZES FETCHED SUCCESSFULLY', res.data.data);
+    dispatch(setLoading(false));
     dispatch({
       type: MY_QUIZZES_SUCCESS,
       payload: res.data.data,
     });
+    // dispatch(setMyAlert('My Quizzes'));
   } catch (error) {
     console.log('QUIZZES FETCHED FAILED', error.response);
+    dispatch(setLoading(false));
     dispatch({
       type: MY_QUIZZES_FAILURE,
     });
-    dispatch(setMyAlert(error.response.statusText));
+    dispatch(
+      setMyAlert(error.response.data.detail || error.response.statusText)
+    );
   }
 };
 
@@ -98,4 +106,10 @@ export const submitQuiz = (responses, id) => async (dispatch) => {
   } catch (error) {
     console.log('QUIZ SUBMITTED FAILED', error);
   }
+};
+
+export const clearQuiz = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_QUIZ,
+  });
 };

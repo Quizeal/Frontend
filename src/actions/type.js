@@ -13,6 +13,8 @@ export const AUTH_FAILURE = 'AUTH_FAILURE';
 export const MY_QUIZZES_SUCCESS = 'MY_QUIZZES_SUCCESS';
 export const MY_QUIZZES_FAILURE = 'MY_QUIZZES_FAILURE';
 
+export const CLEAR_QUIZ = 'CLEAR_QUIZ';
+
 export const LOADIND_STATUS = 'LOADIND_STATUS';
 
 export const LOGOUT = 'LOGOUT';

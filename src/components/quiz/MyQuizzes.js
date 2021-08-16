@@ -1,12 +1,16 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, ButtonGroup, Typography, Grid } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-// import { dummyUserJSON } from '../../data';
 import LinkIcon from '@material-ui/icons/Link';
 import DescriptionIcon from '@material-ui/icons/Description';
-import { myQuizzes } from '../../apiHandlers.js/quiz';
-import Loading from '../layout/Loading';
+
+// REDUX
+import { connect } from 'react-redux';
+import { myQuizzes } from '../../actions/quiz';
+import PropTypes from 'prop-types';
+import { UnAuthorized } from '../../utils/extraFunctions';
+import { useParams } from 'react-router';
 
 // Columns of Table
 const columnsP = [
@@ -48,7 +52,7 @@ const columnsP = [
     flex: 0.75,
     headerAlign: 'center',
     align: 'center',
-    valueGetter: (params) => `${params.row.marks}/${params.row.total_marks} `,
+    valueGetter: (params) => `${params.row.marks}/${params.row.total_marks}`,
   },
   {
     field: 'reportId',
@@ -60,7 +64,7 @@ const columnsP = [
     align: 'center',
     renderCell: (params) => {
       return (
-        <Link to={`/quiz-report/${params.id}`}>
+        <Link to={`/quiz-report/${params.row.quiz_token}`}>
           <Button
             variant='contained'
             color='primary'
@@ -116,7 +120,7 @@ const columnsC = [
     align: 'center',
   },
   {
-    field: 'quiz_marks',
+    field: 'total_marks',
     headerName: 'Quiz Marks',
     flex: 0.75,
     headerAlign: 'center',
@@ -132,7 +136,7 @@ const columnsC = [
     align: 'center',
     renderCell: (params) => {
       return (
-        <Link to={`/quiz-view/${params.id}`}>
+        <Link to={`/quiz-view/${params.row.quiz_token}`}>
           <Button
             variant='contained'
             color='primary'
@@ -155,91 +159,85 @@ const sortModel = [
   },
 ];
 
-export default function MyQuizzes(props) {
+const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes }) => {
+  const params = useParams();
   const [quizSelected, updateQuizSelected] = useState('attempted');
   const [columnsM, updateColumns] = useState(columnsP);
-  const [server, setServer] = useState({ data: '', loading: true });
   const [rowsM, updateRows] = useState([]);
 
   const onChange = (e) => {
     if (e === 'attempted') {
       updateColumns(columnsP);
-      updateRows(server.data.attempted);
       updateQuizSelected('attempted');
+      updateRows(quizzes.attempted);
     } else {
-      updateColumns(columnsC);
-      updateRows(server.data.created);
       updateQuizSelected('created');
+      updateColumns(columnsC);
+      updateRows(quizzes.created);
     }
   };
 
-  const getQuizzes = async () => {
-    const res = await myQuizzes();
-    setServer({ ...server, data: res, loading: false });
-    updateRows(res.attempted);
-  };
-
   useEffect(() => {
-    document.title = 'Quizeal | Home';
-    getQuizzes();
-  }, []);
+    document.title = 'Quizeal | MyQuizzes';
+    myQuizzes(params.username);
+  }, [myQuizzes, params.username]);
 
-  const { loading } = server;
+  if (!isAuthenticated) {
+    return UnAuthorized('/');
+  }
 
   return (
-    <Fragment>
-      {loading ? (
-        <Loading />
-      ) : (
-        <Fragment>
-          {rowsM ? (
-            <Grid container justifyContent='center'>
-              <Grid item xs={12}>
-                <Typography
-                  variant='h4'
-                  align='center'
-                  style={{ padding: '20px' }}
-                >
-                  My Quizzes
-                </Typography>
-              </Grid>
-              <Grid item xs={11}>
-                <ButtonGroup
-                  color='primary'
-                  aria-label='outlined primary button group'
-                  style={{ paddingBottom: '10px' }}
-                >
-                  <Button
-                    variant={quizSelected === 'attempted' ? 'contained' : ''}
-                    onClick={() => onChange('attempted')}
-                  >
-                    Attempted
-                  </Button>
-                  <Button
-                    variant={quizSelected === 'created' ? 'contained' : ''}
-                    onClick={() => onChange('created')}
-                  >
-                    Created
-                  </Button>
-                </ButtonGroup>
-                <DataGrid
-                  rows={rowsM}
-                  columns={columnsM}
-                  pageSize={5}
-                  autoHeight
-                  pagination
-                  autoPageSize
-                  checkboxSelection
-                  disableSelectionOnClick
-                  sortModel={sortModel}
-                />
-              </Grid>
-            </Grid>
-          ) : (
-            'DATA NOT FOUND'
-          )}
-        </Fragment>
-      )}
-    </Fragment>
+    <Grid container justifyContent='center'>
+      <Grid item xs={12}>
+        <Typography variant='h4' align='center' style={{ padding: '20px' }}>
+          My Quizzes
+        </Typography>
+      </Grid>
+      <Grid item xs={11}>
+        <ButtonGroup
+          color='primary'
+          aria-label='outlined primary button group'
+          style={{ paddingBottom: '10px' }}
+        >
+          <Button
+            variant={quizSelected === 'attempted' ? 'contained' : ''}
+            onClick={() => onChange('attempted')}
+          >
+            Attempted
+          </Button>
+          <Button
+            variant={quizSelected === 'created' ? 'contained' : ''}
+            onClick={() => onChange('created')}
+          >
+            Created
+          </Button>
+        </ButtonGroup>
+        <DataGrid
+          rows={rowsM}
+          columns={columnsM}
+          pageSize={5}
+          autoHeight
+          pagination
+          autoPageSize
+          checkboxSelection
+          disableSelectionOnClick
+          sortModel={sortModel}
+        />
+      </Grid>
+    </Grid>
   );
-}
+};
+
+MyQuizzes.propTypes = {
+  myQuizzes: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  quizzes: state.quiz.quizzes,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { myQuizzes })(MyQuizzes);
+
+// TODO
+// --> Verify usernames authentication

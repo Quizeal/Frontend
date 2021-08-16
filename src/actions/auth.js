@@ -11,6 +11,7 @@ import setAuthToken from '../utils/setAuthToken';
 import axios from 'axios';
 import { setMyAlert } from './myAlert';
 import { setLoading } from './loading';
+import { clearQuiz } from './quiz';
 
 let AccessTimer = null;
 
@@ -71,6 +72,7 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: AUTH_FAILURE,
     });
+    dispatch(clearQuiz());
   }
 };
 
@@ -98,6 +100,8 @@ export const login = (username, password) => async (dispatch) => {
     dispatch({
       type: LOGIN_FAILURE,
     });
+    dispatch(clearQuiz());
+
     dispatch(setMyAlert(error.data.detail || error.statusText));
   }
 };
@@ -125,6 +129,7 @@ export const signup = (formData) => async (dispatch) => {
     dispatch({
       type: SIGNUP_FAILURE,
     });
+    dispatch(clearQuiz());
     dispatch(setMyAlert(error.username));
   }
 };
@@ -135,5 +140,6 @@ export const logout = () => (dispatch) => {
     type: LOGOUT,
   });
   clearInterval(AccessTimer);
+  dispatch(clearQuiz());
   dispatch(setMyAlert('Logout Successfully'));
 };

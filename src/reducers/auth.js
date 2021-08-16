@@ -13,6 +13,7 @@ const initial_state = {
   // token: localStorage.getItem('token-access'),
   loading: true,
   user: null,
+  // loadUserSuccess: false,
 };
 
 export default function auth(state = initial_state, action) {
@@ -24,6 +25,7 @@ export default function auth(state = initial_state, action) {
         isAuthenticated: true,
         loading: false,
         user: payload.user,
+        // loadUserSuccess: true,
       };
     case SIGNUP_SUCCESS:
       return {

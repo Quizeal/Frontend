@@ -1,4 +1,8 @@
-import { MY_QUIZZES_SUCCESS, MY_QUIZZES_FAILURE } from '../actions/type';
+import {
+  MY_QUIZZES_SUCCESS,
+  MY_QUIZZES_FAILURE,
+  CLEAR_QUIZ,
+} from '../actions/type';
 
 const initialState = {
   quizzes: {
@@ -17,9 +21,13 @@ export default function myQuizzes(state = initialState, action) {
         quizzes: payload,
       };
     case MY_QUIZZES_FAILURE:
+    case CLEAR_QUIZ:
       return {
         ...state,
-        quizzes: null,
+        quizzes: {
+          attempted: [],
+          created: [],
+        },
       };
     default:
       return state;

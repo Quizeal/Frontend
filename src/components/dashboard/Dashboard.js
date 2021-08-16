@@ -42,7 +42,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard = ({ isAuthenticated }) => {
+const Dashboard = ({ auth: { isAuthenticated, user } }) => {
   const classes = useStyles();
   const history = useHistory();
   const [quizCode, setQuizCode] = useState('');
@@ -67,7 +67,6 @@ const Dashboard = ({ isAuthenticated }) => {
     }
     history.push(`/quiz/${quizCode}`);
   };
-
   useEffect(() => {
     document.title = 'Quizeal | Dashboard';
   }, []);
@@ -75,7 +74,6 @@ const Dashboard = ({ isAuthenticated }) => {
   if (!isAuthenticated) {
     return UnAuthorized('/');
   }
-
   return (
     <Fragment>
       <Grid container justifyContent='center'>
@@ -103,7 +101,7 @@ const Dashboard = ({ isAuthenticated }) => {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Link to='/my-quizzes/19104074'>
+                <Link to={`/my-quizzes/${user && user.username}`}>
                   <Button size='small' color='primary'>
                     See my quizzes
                   </Button>
@@ -198,13 +196,11 @@ const Dashboard = ({ isAuthenticated }) => {
 };
 
 Dashboard.propTypes = {
-  isAuthenticated: PropTypes.bool,
-  user: PropTypes.object,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(Dashboard);

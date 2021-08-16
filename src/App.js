@@ -38,7 +38,7 @@ function App() {
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/dashboard' component={Dashboard} />
-            <Route exact path='/my-quizzes' component={MyQuizzes} />
+            <Route exact path='/my-quizzes/:username' component={MyQuizzes} />
             <Route exact path='/create-quiz' component={CreateQuiz} />
             <Route exact path='/quiz/:quiz_id' component={QuizTest} />
             <Route path='/quiz-view/:quiz_id' component={QuizView} />
@@ -52,3 +52,6 @@ function App() {
 }
 
 export default App;
+
+// TODO
+// -> Title not changing properly
