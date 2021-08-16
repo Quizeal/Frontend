@@ -7,6 +7,8 @@ import {
   MY_QUIZZES_FAILURE,
   MY_QUIZZES_SUCCESS,
   VIEW_QUIZ_FAILURE,
+  VIEW_QUIZ_REPORT_FAILURE,
+  VIEW_QUIZ_REPORT_SUCCESS,
   VIEW_QUIZ_SUCCESS,
 } from './type';
 
@@ -54,20 +56,33 @@ export const viewQuiz = (quizId) => async (dispatch) => {
   }
 };
 
-export const getQuizReport = (id) => async (dispatch) => {
+// DONE
+export const viewQuizReport = (id) => async (dispatch) => {
+  dispatch(setLoading(true));
+  setAuthToken(localStorage['token-access']);
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-  const body = JSON.stringify({ username: 'divyam' });
+  const body = JSON.stringify({ username: '19104074' });
   try {
     const res = await axios.post(`/quiz-report/${id}`, body, config);
+    dispatch(setLoading(false));
     console.log('QUIZ REPORT FETCHED SUCCESSFULLY');
-    return res.data;
+    dispatch({
+      type: VIEW_QUIZ_REPORT_SUCCESS,
+      payload: res.data.data,
+    });
   } catch (error) {
-    console.log('QUIZ REPORT FETCHED FAILED', error);
-    return;
+    console.log(error.response);
+    dispatch(setLoading(false));
+    dispatch({
+      type: VIEW_QUIZ_REPORT_FAILURE,
+    });
+    dispatch(
+      setMyAlert(error.response.data.detail || error.response.statusText)
+    );
   }
 };
 

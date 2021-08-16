@@ -163,7 +163,7 @@ const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes }) => {
   const params = useParams();
   const [quizSelected, updateQuizSelected] = useState('attempted');
   const [columnsM, updateColumns] = useState(columnsP);
-  const [rowsM, updateRows] = useState([]);
+  const [rowsM, updateRows] = useState(quizzes.attempted || []);
 
   const onChange = (e) => {
     if (e === 'attempted') {
@@ -241,3 +241,4 @@ export default connect(mapStateToProps, { myQuizzes })(MyQuizzes);
 
 // TODO
 // --> Verify usernames authentication
+// --> By default attempted quiz are showing no rows but works ok after switching it from created to attempted.

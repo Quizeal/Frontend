@@ -55,3 +55,4 @@ export default App;
 
 // TODO
 // -> Title not changing properly
+// -> Remove Data from state when page is changes (if-possible)
