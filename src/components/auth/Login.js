@@ -13,7 +13,6 @@ import {
 } from '@material-ui/core';
 import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import GoogleAccount from '../layout/GoogleAccount';
 import MySnackbar from '../layout/MySnackbar';
 import logo from '../../resources/logo.png';
 
@@ -21,6 +20,8 @@ import logo from '../../resources/logo.png';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+import GoogleLn from './GoogleLn';
+import GoogleLt from './GoogleLt';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -179,7 +180,8 @@ const Login = ({ login, auth }) => {
           </form>
         </div>
         <Divider variant='middle' className={classes.divider} />
-        <GoogleAccount />
+        <GoogleLn />
+        {/* <GoogleLt /> */}
         <Box mt={8}>
           <Typography variant='body2' color='textSecondary' align='center'>
             {'Copyright © '}

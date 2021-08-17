@@ -14,7 +14,6 @@ import {
   Typography,
   Container,
 } from '@material-ui/core';
-import GoogleAccount from '../layout/GoogleAccount';
 import logo from '../../resources/logo.png';
 import { useState } from 'react';
 import MySnackbar from '../layout/MySnackbar';
@@ -24,6 +23,7 @@ import { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { signup } from '../../actions/auth';
+import GoogleLn from './GoogleLn';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -239,7 +239,7 @@ const Signup = ({ signup, auth, props }) => {
           </form>
         </div>
         <Divider variant='middle' className={classes.divider} />
-        <GoogleAccount />
+        <GoogleLn />
         <Box mt={5}>
           <Typography variant='body2' color='textSecondary' align='center'>
             {'Copyright © '}

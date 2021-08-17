@@ -16,7 +16,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-export default function GoogleAccount() {
+export default function GoogleAccount(props) {
   const classes = useStyle();
   return (
     <Button
@@ -24,6 +24,7 @@ export default function GoogleAccount() {
       fullWidth
       variant='contained'
       color='primary'
+      onClick={props.click}
       className={classes.googleAccount}
       startIcon={
         <img
