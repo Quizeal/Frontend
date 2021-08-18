@@ -101,7 +101,10 @@ const Dashboard = ({ auth: { isAuthenticated, user } }) => {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Link to={`/my-quizzes/${user && user.username}`}>
+                <Link
+                  to={`/my-quizzes/${user && user.username}`}
+                  className={'styleLink'}
+                >
                   <Button size='small' color='primary'>
                     See my quizzes
                   </Button>
@@ -133,7 +136,7 @@ const Dashboard = ({ auth: { isAuthenticated, user } }) => {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Link to='/create-quiz'>
+                <Link to='/create-quiz' className={'styleLink'}>
                   <Button size='small' color='primary'>
                     Create now
                   </Button>

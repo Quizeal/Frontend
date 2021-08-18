@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, ButtonGroup, Typography, Grid } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import LinkIcon from '@material-ui/icons/Link';
-import DescriptionIcon from '@material-ui/icons/Description';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 // REDUX
 import { connect } from 'react-redux';
@@ -56,24 +56,37 @@ const columnsP = [
   },
   {
     field: 'reportId',
-    headerName: 'Report Link',
+    headerName: 'Actions',
     description: 'This column is not sortable.',
     sortable: false,
-    flex: 1.25,
+    flex: 1,
     headerAlign: 'center',
     align: 'center',
     renderCell: (params) => {
       return (
-        <Link to={`/quiz-report/${params.row.quiz_token}`}>
-          <Button
+        <Fragment>
+          <ButtonGroup
             variant='contained'
             color='primary'
-            endIcon={<LinkIcon />}
-            fullWidth
+            aria-label='text primary button group'
           >
-            Open
-          </Button>
-        </Link>
+            <Button endIcon={<LinkIcon />}>
+              <Link
+                className={'styleLink'}
+                to={`/quiz-report/${params.row.quiz_token}`}
+              >
+                Open
+              </Link>
+            </Button>
+
+            <Button
+              endIcon={<DeleteIcon />}
+              onClick={() => console.log('DELETED', params.row.quiz_token)}
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
+        </Fragment>
       );
     },
   },
@@ -128,7 +141,7 @@ const columnsC = [
   },
   {
     field: 'viewId',
-    headerName: 'View Quiz',
+    headerName: 'Actions',
     description: 'This column is not sortable.',
     sortable: false,
     flex: 1.25,
@@ -136,16 +149,29 @@ const columnsC = [
     align: 'center',
     renderCell: (params) => {
       return (
-        <Link to={`/quiz-view/${params.row.quiz_token}`}>
-          <Button
+        <Fragment>
+          <ButtonGroup
             variant='contained'
             color='primary'
-            endIcon={<DescriptionIcon />}
-            fullWidth
+            aria-label='text primary button group'
           >
-            View
-          </Button>
-        </Link>
+            <Button endIcon={<LinkIcon />}>
+              <Link
+                className={'styleLink'}
+                to={`/quiz-view/${params.row.quiz_token}`}
+              >
+                View
+              </Link>
+            </Button>
+
+            <Button
+              endIcon={<DeleteIcon />}
+              onClick={() => console.log('DELETED', params.row.quiz_token)}
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
+        </Fragment>
       );
     },
   },
@@ -159,21 +185,18 @@ const sortModel = [
   },
 ];
 
-const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes }) => {
+const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes, loading }) => {
   const params = useParams();
   const [quizSelected, updateQuizSelected] = useState('attempted');
   const [columnsM, updateColumns] = useState(columnsP);
-  const [rowsM, updateRows] = useState(quizzes.attempted || []);
 
   const onChange = (e) => {
     if (e === 'attempted') {
       updateColumns(columnsP);
       updateQuizSelected('attempted');
-      updateRows(quizzes.attempted);
     } else {
       updateQuizSelected('created');
       updateColumns(columnsC);
-      updateRows(quizzes.created);
     }
   };
 
@@ -187,54 +210,60 @@ const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes }) => {
   }
 
   return (
-    <Grid container justifyContent='center'>
-      <Grid item xs={12}>
-        <Typography variant='h4' align='center' style={{ padding: '20px' }}>
-          My Quizzes
-        </Typography>
-      </Grid>
-      <Grid item xs={11}>
-        <ButtonGroup
-          color='primary'
-          aria-label='outlined primary button group'
-          style={{ paddingBottom: '10px' }}
-        >
-          <Button
-            variant={quizSelected === 'attempted' ? 'contained' : ''}
-            onClick={() => onChange('attempted')}
-          >
-            Attempted
-          </Button>
-          <Button
-            variant={quizSelected === 'created' ? 'contained' : ''}
-            onClick={() => onChange('created')}
-          >
-            Created
-          </Button>
-        </ButtonGroup>
-        <DataGrid
-          rows={rowsM}
-          columns={columnsM}
-          pageSize={5}
-          autoHeight
-          pagination
-          autoPageSize
-          checkboxSelection
-          disableSelectionOnClick
-          sortModel={sortModel}
-        />
-      </Grid>
-    </Grid>
+    <Fragment>
+      {!loading && (
+        <Grid container justifyContent='center'>
+          <Grid item xs={12}>
+            <Typography variant='h4' align='center' style={{ padding: '20px' }}>
+              My Quizzes
+            </Typography>
+          </Grid>
+          <Grid item xs={11}>
+            <ButtonGroup
+              color='primary'
+              aria-label='outlined primary button group'
+              style={{ paddingBottom: '10px' }}
+            >
+              <Button
+                variant={quizSelected === 'attempted' ? 'contained' : ''}
+                onClick={() => onChange('attempted')}
+              >
+                Attempted
+              </Button>
+              <Button
+                variant={quizSelected === 'created' ? 'contained' : ''}
+                onClick={() => onChange('created')}
+              >
+                Created
+              </Button>
+            </ButtonGroup>
+            <DataGrid
+              rows={quizzes && quizzes[quizSelected]}
+              columns={columnsM}
+              pageSize={5}
+              autoHeight
+              pagination
+              autoPageSize
+              checkboxSelection
+              disableSelectionOnClick
+              sortModel={sortModel}
+            />
+          </Grid>
+        </Grid>
+      )}
+    </Fragment>
   );
 };
 
 MyQuizzes.propTypes = {
   myQuizzes: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   quizzes: state.quiz.quizzes,
   isAuthenticated: state.auth.isAuthenticated,
+  loading: state.loading,
 });
 
 export default connect(mapStateToProps, { myQuizzes })(MyQuizzes);

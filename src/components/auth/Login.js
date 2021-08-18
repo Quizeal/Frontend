@@ -20,8 +20,8 @@ import logo from '../../resources/logo.png';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
-import GoogleLn from './GoogleLn';
-import GoogleLt from './GoogleLt';
+// import GoogleLn from './GoogleLn';
+// import GoogleLt from './GoogleLt';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -180,8 +180,8 @@ const Login = ({ login, auth }) => {
           </form>
         </div>
         <Divider variant='middle' className={classes.divider} />
-        <GoogleLn />
-        {/* <GoogleLt /> */}
+        {/* <GoogleLn />
+        <GoogleLt /> */}
         <Box mt={8}>
           <Typography variant='body2' color='textSecondary' align='center'>
             {'Copyright © '}

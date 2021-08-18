@@ -54,13 +54,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const QuizReport = ({ isAuthenticated, view_Quiz_Report, viewQuizReport }) => {
+const QuizReport = ({
+  auth: { isAuthenticated, user },
+  view_Quiz_Report,
+  viewQuizReport,
+  loading,
+}) => {
   const params = useParams();
   const classes = useStyles();
   useEffect(() => {
     document.title = 'Quizeal | Quiz Report';
-    viewQuizReport(params.quiz_id);
-  }, [viewQuizReport, params.quiz_id]);
+    viewQuizReport(params.quiz_id, user.username);
+  }, [viewQuizReport, params.quiz_id, user.username]);
 
   const data = view_Quiz_Report;
 
@@ -76,98 +81,106 @@ const QuizReport = ({ isAuthenticated, view_Quiz_Report, viewQuizReport }) => {
 
   return (
     <Fragment>
-      <Grid
-        container
-        spacing={5}
-        className={classes.section}
-        justifyContent='center'
-      >
-        <Grid item sm={12} md={6}>
-          <Grid container justifyContent='center' spacing={2}>
-            <Grid item>
+      {!loading && (
+        <Grid
+          container
+          spacing={5}
+          className={classes.section}
+          justifyContent='center'
+        >
+          <Grid item sm={12} md={6}>
+            <Grid container justifyContent='center' spacing={2}>
+              <Grid item>
+                <Paper className={classes.paper}>
+                  <Typography variant='subtitle1' align='center'>
+                    Marks
+                  </Typography>
+                  <Typography variant='h4' align='center'>
+                    {data && data.user_marks}/{data && data.total_marks}
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item>
+                <Paper className={classes.paper}>
+                  <Typography variant='subtitle1' align='center'>
+                    Rank
+                  </Typography>
+                  <Typography variant='h4' align='center'>
+                    {data && data.user_rank}/{data && data.total_students}
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item>
+                <Paper className={classes.paper}>
+                  <Typography variant='subtitle1' align='center'>
+                    Average
+                  </Typography>
+                  <Typography variant='h4' align='center'>
+                    {data && data.average}
+                  </Typography>
+                </Paper>
+              </Grid>
+              {/* <Grid item>
               <Paper className={classes.paper}>
-                <Typography variant='subtitle1' align='center'>
-                  Marks
-                </Typography>
-                <Typography variant='h4' align='center'>
-                  {data && data.user_marks}/{data && data.total_marks}
-                </Typography>
-              </Paper>
-            </Grid>
-            <Grid item>
-              <Paper className={classes.paper}>
-                <Typography variant='subtitle1' align='center'>
-                  Rank
-                </Typography>
-                <Typography variant='h4' align='center'>
-                  {data && data.user_rank}/{data && data.total_students}
-                </Typography>
-              </Paper>
-            </Grid>
-            <Grid item>
-              <Paper className={classes.paper}>
-                <Typography variant='subtitle1' align='center'>
-                  Average
-                </Typography>
-                <Typography variant='h4' align='center'>
-                  {data && data.average}
-                </Typography>
-              </Paper>
-            </Grid>
-            {/* <Grid item>
-              <Paper className={classes.paper}>
-                <Typography variant='subtitle1' align='center'>
-                  Percentile
-                </Typography>
-                <Typography variant='h4' align='center'>
-                  {'NOT FOUND'}
-                </Typography>
+              <Typography variant='subtitle1' align='center'>
+              Percentile
+              </Typography>
+              <Typography variant='h4' align='center'>
+              {'NOT FOUND'}
+              </Typography>
               </Paper>
             </Grid> */}
-          </Grid>
-          <Divider className={classes.divider} />
-          <Grid item>
-            <Paper>
-              <Chart data={dataG}>
-                <ArgumentAxis />
-                <ValueAxis max={7} />
+            </Grid>
+            <Divider className={classes.divider} />
+            <Grid item>
+              <Paper>
+                <Chart data={dataG}>
+                  <ArgumentAxis />
+                  <ValueAxis max={7} />
 
-                <BarSeries valueField='marks' argumentField='category' />
-                <Title text='Overall Quiz Analysis' />
-                <Animation />
-                <EventTracker />
-                <Tooltip />
-              </Chart>
-            </Paper>
+                  <BarSeries valueField='marks' argumentField='category' />
+                  <Title text='Overall Quiz Analysis' />
+                  <Animation />
+                  <EventTracker />
+                  <Tooltip />
+                </Chart>
+              </Paper>
+            </Grid>
+          </Grid>
+          <Divider
+            orientation='vertical'
+            flexItem
+            className={classes.divider}
+          />
+          <Grid item sm={12} md={6} className={classes.sectionRight}>
+            <Typography
+              variant='h4'
+              align='center'
+              style={{ paddingBottom: '10px' }}
+            >
+              Question and Answers
+            </Typography>
+            {data &&
+              data.questions.map((qa, index) => {
+                return <QAList report={true} key={index} qaSet={qa} />;
+              })}
           </Grid>
         </Grid>
-        <Divider orientation='vertical' flexItem className={classes.divider} />
-        <Grid item sm={12} md={6} className={classes.sectionRight}>
-          <Typography
-            variant='h4'
-            align='center'
-            style={{ paddingBottom: '10px' }}
-          >
-            Question and Answers
-          </Typography>
-          {data &&
-            data.questions.map((qa, index) => {
-              return <QAList report={true} key={index} qaSet={qa} />;
-            })}
-        </Grid>
-      </Grid>
+      )}
     </Fragment>
   );
 };
 
 QuizReport.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
+  auth: PropTypes.object.isRequired,
   view_Quiz_Report: PropTypes.object.isRequired,
   viewQuizReport: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
   view_Quiz_Report: state.quiz.view_Quiz_Report,
+  loading: state.loading,
 });
 
 export default connect(mapStateToProps, { viewQuizReport })(QuizReport);
@@ -175,3 +188,4 @@ export default connect(mapStateToProps, { viewQuizReport })(QuizReport);
 // TODO
 // --> Verify usernames authentication
 // --> Add Username to dynamically url only instead of sending it as a body amd make it a get request
+// --> On Reload Username is null

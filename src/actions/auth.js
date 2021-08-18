@@ -131,7 +131,7 @@ export const signup = (formData) => async (dispatch) => {
       type: SIGNUP_FAILURE,
     });
     dispatch(clearQuiz());
-    dispatch(setMyAlert(error.username));
+    dispatch(setMyAlert(error.username || error.email));
   }
 };
 

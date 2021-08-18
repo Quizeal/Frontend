@@ -174,8 +174,8 @@ const CreateQuiz = ({ user, isAuthenticated, createQuiz }) => {
             <KeyboardTimePicker
               ampm={false}
               openTo='hours'
-              views={['hours', 'minutes', 'seconds']}
-              format='HH:mm:ss'
+              views={['minutes', 'seconds']}
+              format='mm:ss'
               required
               inputVariant='outlined'
               label='Quiz Duration'

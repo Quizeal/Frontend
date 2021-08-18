@@ -8,13 +8,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { viewQuiz } from '../../actions/quiz';
 import { useParams } from 'react-router';
+import { UnAuthorized } from '../../utils/extraFunctions';
 
-const QuizView = ({ viewQuiz, view_Quiz }) => {
+const QuizView = ({ viewQuiz, view_Quiz, isAuthenticated }) => {
   const params = useParams();
 
   useEffect(() => {
     viewQuiz(params.quiz_id);
   }, [params.quiz_id, viewQuiz]);
+
+  if (!isAuthenticated) {
+    return UnAuthorized('/');
+  }
+
   return (
     <Container style={{ marginTop: '20px' }}>
       <Fragment>
