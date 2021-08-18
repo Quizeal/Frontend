@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = ({ logout, isAuthenticated }) => {
+const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
   const classes = useStyles();
 
   const [navbarState, updateNavbarState] = useState(false);
@@ -123,49 +123,61 @@ const NavBar = ({ logout, isAuthenticated }) => {
           </Typography>
 
           {isAuthenticated ? (
-            <Button
-              color='inherit'
-              style={{ marginRight: '10px' }}
-              onClick={logout}
-            >
-              Logout
-            </Button>
+            <Fragment>
+              <Button
+                color='inherit'
+                style={{ marginRight: '10px' }}
+                onClick={logout}
+              >
+                Logout
+              </Button>
+              <IconButton
+                edge='start'
+                color='inherit'
+                aria-label='menu'
+                onClick={() => toggleNavbarState()}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Fragment>
           ) : (
-            <Hidden smDown>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <Button color='inherit'>
-                  <Link className={'styleLink'} to='/feedback'>
-                    FeedBack
-                  </Link>
-                </Button>
-                <Button color='inherit'>
-                  <Link className={'styleLink'} to='/about'>
-                    About
-                  </Link>
-                </Button>
-                <Button color='inherit'>
-                  <Link className={'styleLink'} to='/login'>
-                    Log In
-                  </Link>
-                </Button>
-                <Button color='inherit' variant='outlined'>
-                  <Link className={'styleLink'} to='/signup'>
-                    Sign Up
-                  </Link>
-                </Button>
-              </div>
-            </Hidden>
+            <Fragment>
+              <Hidden smDown>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <Button color='inherit'>
+                    <Link className={'styleLink'} to='/feedback'>
+                      FeedBack
+                    </Link>
+                  </Button>
+                  <Button color='inherit'>
+                    <Link className={'styleLink'} to='/about'>
+                      About
+                    </Link>
+                  </Button>
+                  <Button color='inherit'>
+                    <Link className={'styleLink'} to='/login'>
+                      Log In
+                    </Link>
+                  </Button>
+                  <Button color='inherit' variant='outlined'>
+                    <Link className={'styleLink'} to='/signup'>
+                      Sign Up
+                    </Link>
+                  </Button>
+                </div>
+              </Hidden>
+              <Hidden mdUp>
+                <IconButton
+                  edge='start'
+                  color='inherit'
+                  aria-label='menu'
+                  onClick={() => toggleNavbarState()}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Hidden>
+            </Fragment>
           )}
-          <Hidden mdUp>
-            <IconButton
-              edge='start'
-              color='inherit'
-              aria-label='menu'
-              onClick={() => toggleNavbarState()}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Hidden>
           <Drawer
             anchor='left'
             open={navbarState}
@@ -182,11 +194,11 @@ const NavBar = ({ logout, isAuthenticated }) => {
 
 NavBar.propTypes = {
   logout: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { logout })(NavBar);

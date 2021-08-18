@@ -142,7 +142,7 @@ export const logout = () => (dispatch) => {
   });
   clearInterval(AccessTimer);
   dispatch(clearQuiz());
-  dispatch(setMyAlert('Logout Successfully'));
+  // dispatch(setMyAlert('Logout Successfully'));
 };
 
 // Done
@@ -158,10 +158,10 @@ export const changePassword = (formData) => async (dispatch) => {
     token: localStorage['token-access'],
   });
   try {
-    const res = await axios.post('/change-password/', body, config);
+    await axios.post('/change-password/', body, config);
     dispatch(setLoading(false));
-    console.log(res.data);
-    dispatch(setMyAlert('Password Successfully Updated'));
+    dispatch(logout());
+    dispatch(setMyAlert('Password Successfully Updated, Please Login again.'));
   } catch (err) {
     const error = err.response.data;
     dispatch(setLoading(false));
