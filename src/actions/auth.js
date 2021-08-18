@@ -145,5 +145,16 @@ export const logout = () => (dispatch) => {
   dispatch(setMyAlert('Logout Successfully'));
 };
 
+// DO AFTER FIXED AT BACKEND
+// CAN BE CHANGED WITHOUT OLD PASSWORD VERIFICATION
+export const changePassword = (formData) => (dispatch) => {
+  console.log('PASSWORD CHANGED SUCCESSFULLY');
+};
+
+// DO AFTER DONE AT BACKEND
+export const deleteAccount = (formData) => (dispatch) => {
+  console.log('ACCOUNT DELETED SUCCESSFULLY');
+};
+
 // TODO
 // --> Handle error handling more efficiently

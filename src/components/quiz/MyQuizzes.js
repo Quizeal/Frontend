@@ -270,4 +270,7 @@ export default connect(mapStateToProps, { myQuizzes })(MyQuizzes);
 
 // TODO
 // --> Verify usernames authentication
-// --> By default attempted quiz are showing no rows but works ok after switching it from created to attempted.
+// --> By default attempted quiz are showing no rows but works ok after switching it from created to attempted. ✔️
+// --> Duration format (incorrect)
+// --> On Reload go to home page and does come back to last page in this case (My Quizzes Page)
+// --> Only Show data with is_active = true

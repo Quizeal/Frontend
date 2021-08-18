@@ -15,7 +15,12 @@ import {
 } from '@material-ui/core';
 import MySnackbar from '../layout/MySnackbar';
 
-const Setting = (props) => {
+// REDUX
+import { connect } from 'react-redux';
+import { changePassword, deleteAccount } from '../../actions/auth';
+import PropTypes from 'prop-types';
+
+const Setting = ({ changePassword, deleteAccount, ...props }) => {
   const classes = props.classes;
   const [open, setOpen] = React.useState(false);
   const [alert, setAlert] = useState({ status: false, msg: '' });
@@ -39,10 +44,6 @@ const Setting = (props) => {
 
   const handleClose = () => {
     setAlert({ ...alert, status: false });
-  };
-
-  const deleteAccount = () => {
-    console.log('ACCOUNT DELETED');
   };
 
   const update = () => {
@@ -71,7 +72,7 @@ const Setting = (props) => {
       });
       return;
     }
-    console.log('PASSWORD UPDATED');
+    changePassword();
   };
 
   return (
@@ -185,4 +186,13 @@ const Setting = (props) => {
   );
 };
 
-export default Setting;
+Setting.propTypes = {
+  changePassword: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
+};
+
+// const mapStateToProps = (state) => ({
+//   auth: state.auth,
+// });
+
+export default connect(null, { changePassword, deleteAccount })(Setting);

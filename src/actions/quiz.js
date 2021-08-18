@@ -112,6 +112,7 @@ export const createQuiz = (quiz) => async (dispatch) => {
   }
 };
 
+// DONE
 export const getQuizTest = (id) => async (dispatch) => {
   dispatch(setLoading(true));
   setAuthToken(localStorage['token-access']);
@@ -136,6 +137,7 @@ export const getQuizTest = (id) => async (dispatch) => {
   }
 };
 
+// DONE
 export const submitQuiz = (responses, id) => async (dispatch) => {
   setAuthToken(localStorage['token-access']);
   dispatch(setLoading(true));
@@ -155,6 +157,12 @@ export const submitQuiz = (responses, id) => async (dispatch) => {
       setMyAlert(error.response.data.detail || error.response.statusText)
     );
   }
+};
+
+// DO AFTER FIXED IN BACKEND
+// CAN BE DELETED BY ANYONE
+export const deleteQuiz = (id, type) => async (dispatch) => {
+  console.log('DELETED', id, type);
 };
 
 // DONE
