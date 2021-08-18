@@ -145,10 +145,30 @@ export const logout = () => (dispatch) => {
   dispatch(setMyAlert('Logout Successfully'));
 };
 
-// DO AFTER FIXED AT BACKEND
-// CAN BE CHANGED WITHOUT OLD PASSWORD VERIFICATION
-export const changePassword = (formData) => (dispatch) => {
-  console.log('PASSWORD CHANGED SUCCESSFULLY');
+// Done
+export const changePassword = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  dispatch(setLoading(true));
+  const body = JSON.stringify({
+    ...formData,
+    token: localStorage['token-access'],
+  });
+  try {
+    const res = await axios.post('/change-password/', body, config);
+    dispatch(setLoading(false));
+    console.log(res.data);
+    dispatch(setMyAlert('Password Successfully Updated'));
+  } catch (err) {
+    const error = err.response.data;
+    dispatch(setLoading(false));
+    console.log(error);
+    dispatch(clearQuiz());
+    dispatch(setMyAlert(error.detail || error.statusText));
+  }
 };
 
 // DO AFTER DONE AT BACKEND

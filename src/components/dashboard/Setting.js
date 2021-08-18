@@ -20,14 +20,19 @@ import { connect } from 'react-redux';
 import { changePassword, deleteAccount } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Setting = ({ changePassword, deleteAccount, ...props }) => {
+const Setting = ({
+  changePassword,
+  deleteAccount,
+  auth: { user },
+  ...props
+}) => {
   const classes = props.classes;
   const [open, setOpen] = React.useState(false);
   const [alert, setAlert] = useState({ status: false, msg: '' });
   const [form, setForm] = useState({
-    oldPassword: null,
-    newPassword: null,
-    confirmNewPassword: null,
+    old_password: null,
+    new_password: null,
+    confirm_new_password: null,
   });
 
   const handleClickOpenDialog = () => {
@@ -47,8 +52,8 @@ const Setting = ({ changePassword, deleteAccount, ...props }) => {
   };
 
   const update = () => {
-    const { oldPassword, newPassword, confirmNewPassword } = form;
-    if (!oldPassword || !newPassword || !confirmNewPassword) {
+    const { old_password, new_password, confirm_new_password } = form;
+    if (!old_password || !new_password || !confirm_new_password) {
       setAlert({
         ...alert,
         status: true,
@@ -56,7 +61,7 @@ const Setting = ({ changePassword, deleteAccount, ...props }) => {
       });
       return;
     }
-    if (newPassword && newPassword.length < 8) {
+    if (new_password && new_password.length < 8) {
       setAlert({
         ...alert,
         status: true,
@@ -64,7 +69,7 @@ const Setting = ({ changePassword, deleteAccount, ...props }) => {
       });
       return;
     }
-    if (newPassword !== confirmNewPassword) {
+    if (new_password !== confirm_new_password) {
       setAlert({
         ...alert,
         status: true,
@@ -72,7 +77,12 @@ const Setting = ({ changePassword, deleteAccount, ...props }) => {
       });
       return;
     }
-    changePassword();
+    handleCloseDialog();
+    changePassword({
+      old_password,
+      new_password,
+      username: user && user.username,
+    });
   };
 
   return (
@@ -122,7 +132,7 @@ const Setting = ({ changePassword, deleteAccount, ...props }) => {
                 fullWidth
                 required
                 type='password'
-                name='oldPassword'
+                name='old_password'
                 style={{ marginBottom: '10px' }}
               />
               <TextField
@@ -133,7 +143,7 @@ const Setting = ({ changePassword, deleteAccount, ...props }) => {
                 fullWidth
                 required
                 type='password'
-                name='newPassword'
+                name='new_password'
                 style={{ marginBottom: '10px' }}
               />
               <TextField
@@ -143,7 +153,7 @@ const Setting = ({ changePassword, deleteAccount, ...props }) => {
                 variant='outlined'
                 type='password'
                 required
-                name='confirmNewPassword'
+                name='confirm_new_password'
                 fullWidth
               />
             </CardContent>
@@ -191,8 +201,10 @@ Setting.propTypes = {
   deleteAccount: PropTypes.func.isRequired,
 };
 
-// const mapStateToProps = (state) => ({
-//   auth: state.auth,
-// });
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default connect(null, { changePassword, deleteAccount })(Setting);
+export default connect(mapStateToProps, { changePassword, deleteAccount })(
+  Setting
+);
