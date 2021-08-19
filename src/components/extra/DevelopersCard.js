@@ -1,13 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Avatar, IconButton } from '@material-ui/core';
+import { Grid, Avatar, Chip } from '@material-ui/core';
 import React from 'react';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
+// import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
+// import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import TwitterIcon from '@material-ui/icons/Twitter';
+// import TwitterIcon from '@material-ui/icons/Twitter';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -34,7 +34,7 @@ const DevelopersCard = (props) => {
     <div className={classes.content}>
       <Grid item>
         <Avatar
-          src='/static/images/avatar.jpg'
+          src={props.avatar}
           style={{ height: '200px', width: '200px' }}
         />
       </Grid>
@@ -45,9 +45,9 @@ const DevelopersCard = (props) => {
         <div className={classes.detail}>
           <PersonOutlineIcon /> <div>{props.name}</div>
         </div>
-        <div className={classes.detail}>
+        {/* <div className={classes.detail}>
           <MailOutlineIcon /> <div>{props.email}</div>
-        </div>
+        </div> */}
         <div className={classes.detail}>
           <LocationOnOutlinedIcon /> <div>{props.location}</div>
         </div>
@@ -55,16 +55,15 @@ const DevelopersCard = (props) => {
           <SchoolOutlinedIcon /> <div>{props.college}</div>
         </div>
         <div>
-          <a
+          <Chip
+            icon={<GitHubIcon />}
+            label={props.github}
+            component='a'
+            variant='outlined'
             href={`https://github.com/${props.github}`}
-            target='_blank'
-            rel='noreferrer'
-          >
-            <IconButton>
-              <GitHubIcon />
-            </IconButton>
-          </a>
-          <a
+            clickable
+          ></Chip>
+          {/* <a
             target='_blank'
             rel='noreferrer'
             href={`https://linkedin.com/in/${props.linkedin}`}
@@ -72,8 +71,8 @@ const DevelopersCard = (props) => {
             <IconButton>
               <LinkedInIcon style={{ color: '#0077b5' }} />
             </IconButton>
-          </a>
-          <a
+          </a> */}
+          {/* <a
             rel='noreferrer'
             target='_blank'
             href={`https://twitter.com/${props.twitter}`}
@@ -81,7 +80,7 @@ const DevelopersCard = (props) => {
             <IconButton>
               <TwitterIcon style={{ color: '#1DA1F2' }} />
             </IconButton>
-          </a>
+          </a> */}
         </div>
       </Grid>
     </div>
