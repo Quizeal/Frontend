@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { Grow, makeStyles } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { Divider } from '@material-ui/core';
 import QAList from '../quiz/QAList';
@@ -88,83 +88,79 @@ const QuizReport = ({
           className={classes.section}
           justifyContent='center'
         >
-          <Grid item sm={12} md={6}>
-            <Grid container justifyContent='center' spacing={2}>
-              <Grid item>
-                <Paper className={classes.paper}>
-                  <Typography variant='subtitle1' align='center'>
-                    Marks
-                  </Typography>
-                  <Typography variant='h4' align='center'>
-                    {data && data.user_marks}/{data && data.total_marks}
-                  </Typography>
-                </Paper>
+          <Grow in={true} direction='up' timeout={0}>
+            <Grid item sm={12} md={6}>
+              <Grid container justifyContent='center' spacing={2}>
+                <Grid item>
+                  <Paper className={classes.paper}>
+                    <Typography variant='subtitle1' align='center'>
+                      Marks
+                    </Typography>
+                    <Typography variant='h4' align='center'>
+                      {data && data.user_marks}/{data && data.total_marks}
+                    </Typography>
+                  </Paper>
+                </Grid>
+                <Grid item>
+                  <Paper className={classes.paper}>
+                    <Typography variant='subtitle1' align='center'>
+                      Rank
+                    </Typography>
+                    <Typography variant='h4' align='center'>
+                      {data && data.user_rank}/{data && data.total_students}
+                    </Typography>
+                  </Paper>
+                </Grid>
+                <Grid item>
+                  <Paper className={classes.paper}>
+                    <Typography variant='subtitle1' align='center'>
+                      Average
+                    </Typography>
+                    <Typography variant='h4' align='center'>
+                      {data && data.average}
+                    </Typography>
+                  </Paper>
+                </Grid>
               </Grid>
+              <Divider className={classes.divider} />
               <Grid item>
-                <Paper className={classes.paper}>
-                  <Typography variant='subtitle1' align='center'>
-                    Rank
-                  </Typography>
-                  <Typography variant='h4' align='center'>
-                    {data && data.user_rank}/{data && data.total_students}
-                  </Typography>
-                </Paper>
-              </Grid>
-              <Grid item>
-                <Paper className={classes.paper}>
-                  <Typography variant='subtitle1' align='center'>
-                    Average
-                  </Typography>
-                  <Typography variant='h4' align='center'>
-                    {data && data.average}
-                  </Typography>
-                </Paper>
-              </Grid>
-              {/* <Grid item>
-              <Paper className={classes.paper}>
-              <Typography variant='subtitle1' align='center'>
-              Percentile
-              </Typography>
-              <Typography variant='h4' align='center'>
-              {'NOT FOUND'}
-              </Typography>
-              </Paper>
-            </Grid> */}
-            </Grid>
-            <Divider className={classes.divider} />
-            <Grid item>
-              <Paper>
-                <Chart data={dataG}>
-                  <ArgumentAxis />
-                  <ValueAxis max={7} />
+                <Paper>
+                  <Chart data={dataG}>
+                    <ArgumentAxis />
+                    <ValueAxis max={7} />
 
-                  <BarSeries valueField='marks' argumentField='category' />
-                  <Title text='Overall Quiz Analysis' />
-                  <Animation />
-                  <EventTracker />
-                  <Tooltip />
-                </Chart>
-              </Paper>
+                    <BarSeries valueField='marks' argumentField='category' />
+                    <Title text='Overall Quiz Analysis' />
+                    <Animation />
+                    <EventTracker />
+                    <Tooltip />
+                  </Chart>
+                </Paper>
+              </Grid>
             </Grid>
-          </Grid>
+          </Grow>
           <Divider
             orientation='vertical'
             flexItem
             className={classes.divider}
           />
-          <Grid item sm={12} md={6} className={classes.sectionRight}>
-            <Typography
-              variant='h4'
-              align='center'
-              style={{ paddingBottom: '10px' }}
-            >
-              Question and Answers
-            </Typography>
-            {data &&
-              data.questions.map((qa, index) => {
-                return <QAList report={true} key={index} qaSet={qa} />;
-              })}
-          </Grid>
+          <Grow in={true} direction='up' timeout={1500}>
+            <Grid item sm={12} md={6} className={classes.sectionRight}>
+              <Typography
+                variant='h4'
+                align='center'
+                style={{ paddingBottom: '10px' }}
+              >
+                Question and Answers
+              </Typography>
+              {data &&
+                data.questions.map((qa, index) => {
+                  return (
+                    <QAList report={true} key={index} i={index} qaSet={qa} />
+                  );
+                })}
+            </Grid>
+          </Grow>
         </Grid>
       )}
     </Fragment>

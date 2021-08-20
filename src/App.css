@@ -4,6 +4,19 @@
   color: inherit;
 }
 
+.gradientText {
+  /* font-size: 72px; */
+  font-weight: bolder !important;
+  background: -webkit-linear-gradient(
+    right,
+    #ffd53d 10%,
+    #fe6b8b 30%,
+    #42206d 90%
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .danger {
   background-color: #e57373 !important;
 }

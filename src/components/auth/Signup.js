@@ -13,6 +13,7 @@ import {
   Box,
   Typography,
   Container,
+  Grow,
 } from '@material-ui/core';
 import logo from '../../resources/logo.png';
 import { useState } from 'react';
@@ -23,7 +24,7 @@ import { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { signup } from '../../actions/auth';
-import GoogleLn from './GoogleLn';
+// import GoogleLn from './GoogleLn';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -135,122 +136,124 @@ const Signup = ({ signup, auth, props }) => {
 
   return (
     <Fragment>
-      <Container component='main' maxWidth='xs'>
-        <CssBaseline />
-        <div className={classes.paper}>
-          <img src={logo} alt='logo' height='40' width='40' />
+      <Grow in={true} timeout={500}>
+        <Container component='main' maxWidth='xs'>
+          <CssBaseline />
+          <div className={classes.paper}>
+            <img src={logo} alt='logo' height='40' width='40' />
 
-          <Typography component='h1' variant='h5'>
-            Sign up
-          </Typography>
-          <form className={classes.form} noValidate>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={onChange}
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='username'
-                  label='SID'
-                  name='username'
-                  autoFocus
-                />
+            <Typography component='h1' variant='h5'>
+              Sign up
+            </Typography>
+            <form className={classes.form} noValidate>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={onChange}
+                    variant='outlined'
+                    required
+                    fullWidth
+                    id='username'
+                    label='SID'
+                    name='username'
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    onChange={onChange}
+                    autoComplete='fname'
+                    name='first_name'
+                    variant='outlined'
+                    required
+                    fullWidth
+                    label='First Name'
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    onChange={onChange}
+                    variant='outlined'
+                    fullWidth
+                    id='last_name'
+                    label='Last Name'
+                    name='last_name'
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={onChange}
+                    variant='outlined'
+                    required
+                    fullWidth
+                    id='email'
+                    label='Email Address'
+                    name='email'
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={onChange}
+                    variant='outlined'
+                    required
+                    fullWidth
+                    name='password'
+                    label='Password'
+                    type='password'
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={onChange}
+                    variant='outlined'
+                    required
+                    fullWidth
+                    name='confirmPassword'
+                    label='Confirm Password'
+                    type='password'
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox value='allowExtraEmails' color='primary' />
+                    }
+                    label='I want to receive inspiration, marketing promotions and updates via email.'
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  onChange={onChange}
-                  autoComplete='fname'
-                  name='first_name'
-                  variant='outlined'
-                  required
-                  fullWidth
-                  label='First Name'
-                />
+              <Button
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={onSubmit}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent='flex-end'>
+                <Grid item>
+                  <Link to='/login' className={'styleLink'}>
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  onChange={onChange}
-                  variant='outlined'
-                  fullWidth
-                  id='last_name'
-                  label='Last Name'
-                  name='last_name'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={onChange}
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='email'
-                  label='Email Address'
-                  name='email'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={onChange}
-                  variant='outlined'
-                  required
-                  fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={onChange}
-                  variant='outlined'
-                  required
-                  fullWidth
-                  name='confirmPassword'
-                  label='Confirm Password'
-                  type='password'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value='allowExtraEmails' color='primary' />
-                  }
-                  label='I want to receive inspiration, marketing promotions and updates via email.'
-                />
-              </Grid>
-            </Grid>
-            <Button
-              fullWidth
-              variant='contained'
-              color='primary'
-              className={classes.submit}
-              onClick={onSubmit}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent='flex-end'>
-              <Grid item>
-                <Link to='/login' className={'styleLink'}>
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Divider variant='middle' className={classes.divider} />
-        <GoogleLn />
-        <Box mt={5}>
-          <Typography variant='body2' color='textSecondary' align='center'>
-            {'Copyright © '}
-            <Link to='/' className={'styleLink'}>
-              Quizeal
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-          </Typography>
-        </Box>
-      </Container>
+            </form>
+          </div>
+          <Divider variant='middle' className={classes.divider} />
+          {/* <GoogleLn /> */}
+          <Box mt={5}>
+            <Typography variant='body2' color='textSecondary' align='center'>
+              {'Copyright © '}
+              <Link to='/' className={'styleLink'} style={{ fontWeight: 700 }}>
+                Quizeal
+              </Link>{' '}
+              {new Date().getFullYear()}
+              {'.'}
+            </Typography>
+          </Box>
+        </Container>
+      </Grow>
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );

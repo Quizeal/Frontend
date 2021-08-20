@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+// import { Fragment } from 'react';
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MyQuizzes from './components/quiz/MyQuizzes';
@@ -15,12 +15,25 @@ import Dashboard from './components/dashboard/Dashboard';
 import QuizTest from './components/quiz/quiz-test/QuizTest';
 import QuizView from './components/quiz/QuizView';
 import Loading from './components/layout/Loading';
-
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@material-ui/core';
 // REDUX
 import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
 
+let theme = createTheme({
+  palette: {
+    primary: {
+      main: '#24313f',
+    },
+  },
+  overrides: {},
+});
+theme = responsiveFontSizes(theme);
 function App() {
   useEffect(() => {
     store.dispatch(loadUser());
@@ -29,7 +42,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Fragment>
+        <ThemeProvider theme={theme}>
           <Loading />
           <Navbar />
           <MyAlert />
@@ -45,7 +58,7 @@ function App() {
             <Route path='/quiz-report/:quiz_id' component={QuizReport} />
             <Route path='*' component={Error} />
           </Switch>
-        </Fragment>
+        </ThemeProvider>
       </Router>
     </Provider>
   );

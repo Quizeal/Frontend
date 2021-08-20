@@ -1,4 +1,4 @@
-import { Container, Typography, Divider } from '@material-ui/core';
+import { Container, Typography, Divider, Grow } from '@material-ui/core';
 import QAList from './QAList';
 import { Fragment } from 'react';
 import { useEffect } from 'react';
@@ -22,8 +22,8 @@ const QuizView = ({ viewQuiz, view_Quiz, isAuthenticated }) => {
   }
 
   return (
-    <Container style={{ marginTop: '20px' }}>
-      <Fragment>
+    <Grow in={true} timeout={1000}>
+      <Container style={{ marginTop: '20px' }}>
         <Fragment>
           <Typography
             variant='h6'
@@ -64,11 +64,11 @@ const QuizView = ({ viewQuiz, view_Quiz, isAuthenticated }) => {
           </Typography>
           {view_Quiz &&
             view_Quiz.questions.map((qa, index) => {
-              return <QAList view={true} key={index} qaSet={qa} />;
+              return <QAList view={true} key={index} i={index} qaSet={qa} />;
             })}
         </Fragment>
-      </Fragment>
-    </Container>
+      </Container>
+    </Grow>
   );
 };
 
