@@ -1,21 +1,27 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, ButtonGroup, Typography, Grid } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import { dummyUserJSON } from '../../data';
 import LinkIcon from '@material-ui/icons/Link';
-import DescriptionIcon from '@material-ui/icons/Description';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+// REDUX
+import { connect } from 'react-redux';
+import { myQuizzes } from '../../actions/quiz';
+import PropTypes from 'prop-types';
+import { UnAuthorized } from '../../utils/extraFunctions';
+import { useParams } from 'react-router';
 
 // Columns of Table
 const columnsP = [
-  {
-    field: 'id',
-    headerName: 'ID',
-    flex: 1,
+  // {
+  //   field: "id",
+  //   headerName: "ID",
+  //   flex: 1,
 
-    headerAlign: 'center',
-    align: 'center',
-  },
+  //   headerAlign: "center",
+  //   align: "center",
+  // },
 
   {
     field: 'date',
@@ -26,14 +32,14 @@ const columnsP = [
     align: 'center',
   },
   {
-    field: 'quizName',
+    field: 'quiz_name',
     headerName: 'Quiz Name',
     flex: 1,
     headerAlign: 'center',
     align: 'center',
   },
   {
-    field: 'teacherName',
+    field: 'username',
     headerName: 'Quiz taken by',
     flex: 1,
     headerAlign: 'center',
@@ -46,42 +52,54 @@ const columnsP = [
     flex: 0.75,
     headerAlign: 'center',
     align: 'center',
-    valueGetter: (params) =>
-      `${params.row.marksObtained}/${params.row.quizMarks} `,
+    valueGetter: (params) => `${params.row.marks}/${params.row.total_marks}`,
   },
   {
     field: 'reportId',
-    headerName: 'Report Link',
+    headerName: 'Actions',
     description: 'This column is not sortable.',
     sortable: false,
-    flex: 1.25,
+    flex: 1,
     headerAlign: 'center',
     align: 'center',
     renderCell: (params) => {
       return (
-        <Link to={`/quiz-report/${params.id}`}>
-          <Button
+        <Fragment>
+          <ButtonGroup
             variant='contained'
             color='primary'
-            endIcon={<LinkIcon />}
-            fullWidth
+            aria-label='text primary button group'
           >
-            Open
-          </Button>
-        </Link>
+            <Button endIcon={<LinkIcon />}>
+              <Link
+                className={'styleLink'}
+                to={`/quiz-report/${params.row.quiz_token}`}
+              >
+                Open
+              </Link>
+            </Button>
+
+            <Button
+              endIcon={<DeleteIcon />}
+              onClick={() => console.log('DELETED', params.row.quiz_token)}
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
+        </Fragment>
       );
     },
   },
 ];
 const columnsC = [
-  {
-    field: 'id',
-    headerName: 'ID',
-    flex: 1,
+  // {
+  //   field: 'id',
+  //   headerName: 'ID',
+  //   flex: 1,
 
-    headerAlign: 'center',
-    align: 'center',
-  },
+  //   headerAlign: 'center',
+  //   align: 'center',
+  // },
 
   {
     field: 'date',
@@ -92,21 +110,22 @@ const columnsC = [
     align: 'center',
   },
   {
-    field: 'quizName',
+    field: 'quiz_name',
     headerName: 'Quiz Name',
     flex: 1,
     headerAlign: 'center',
     align: 'center',
   },
   {
-    field: 'teacherName',
-    headerName: 'Quiz taken by',
+    field: 'start_time',
+    headerName: 'Start Time',
+    type: 'time',
     flex: 1,
     headerAlign: 'center',
     align: 'center',
   },
   {
-    field: 'quizDuration',
+    field: 'duration',
     headerName: 'Quiz Duration',
     type: 'time',
     flex: 0.75,
@@ -114,8 +133,15 @@ const columnsC = [
     align: 'center',
   },
   {
+    field: 'total_marks',
+    headerName: 'Quiz Marks',
+    flex: 0.75,
+    headerAlign: 'center',
+    align: 'center',
+  },
+  {
     field: 'viewId',
-    headerName: 'View Quiz',
+    headerName: 'Actions',
     description: 'This column is not sortable.',
     sortable: false,
     flex: 1.25,
@@ -123,26 +149,33 @@ const columnsC = [
     align: 'center',
     renderCell: (params) => {
       return (
-        <Link to={`/quiz-view/${params.id}`}>
-          <Button
+        <Fragment>
+          <ButtonGroup
             variant='contained'
             color='primary'
-            endIcon={<DescriptionIcon />}
-            fullWidth
+            aria-label='text primary button group'
           >
-            View
-          </Button>
-        </Link>
+            <Button endIcon={<LinkIcon />}>
+              <Link
+                className={'styleLink'}
+                to={`/quiz-view/${params.row.quiz_token}`}
+              >
+                View
+              </Link>
+            </Button>
+
+            <Button
+              endIcon={<DeleteIcon />}
+              onClick={() => console.log('DELETED', params.row.quiz_token)}
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
+        </Fragment>
       );
     },
   },
 ];
-
-// Dummy Data for UI
-// This will be handled in more efficient way after api is completed for same
-const rows = dummyUserJSON.quizTaken;
-const rowsP = rows.filter((row) => row.quizGiven);
-const rowsC = rows.filter((row) => !row.quizGiven);
 
 // Model for byDefault Sorting Table
 const sortModel = [
@@ -152,67 +185,92 @@ const sortModel = [
   },
 ];
 
-export default function MyQuizzes(props) {
-  const [quizSelected, updateQuizSelected] = useState('past');
+const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes, loading }) => {
+  const params = useParams();
+  const [quizSelected, updateQuizSelected] = useState('attempted');
   const [columnsM, updateColumns] = useState(columnsP);
-  const [rowsM, updateRows] = useState(rowsP);
 
   const onChange = (e) => {
-    if (e === 'past') {
+    if (e === 'attempted') {
       updateColumns(columnsP);
-      updateRows(rowsP);
-      updateQuizSelected('past');
+      updateQuizSelected('attempted');
     } else {
-      updateColumns(columnsC);
-      updateRows(rowsC);
       updateQuizSelected('created');
+      updateColumns(columnsC);
     }
   };
 
   useEffect(() => {
-    document.title = 'Quizeal | Home';
-  }, []);
+    document.title = 'Quizeal | MyQuizzes';
+    myQuizzes(params.username);
+  }, [myQuizzes, params.username]);
+
+  if (!isAuthenticated) {
+    return UnAuthorized('/');
+  }
 
   return (
     <Fragment>
-      <Grid container justifyContent='center'>
-        <Grid item xs={12}>
-          <Typography variant='h4' align='center' style={{ padding: '20px' }}>
-            My Quizzes
-          </Typography>
-        </Grid>
-        <Grid item xs={11}>
-          <ButtonGroup
-            color='primary'
-            aria-label='outlined primary button group'
-            style={{ paddingBottom: '10px' }}
-          >
-            <Button
-              variant={quizSelected === 'past' ? 'contained' : ''}
-              onClick={() => onChange('past')}
+      {!loading && (
+        <Grid container justifyContent='center'>
+          <Grid item xs={12}>
+            <Typography variant='h4' align='center' style={{ padding: '20px' }}>
+              My Quizzes
+            </Typography>
+          </Grid>
+          <Grid item xs={11}>
+            <ButtonGroup
+              color='primary'
+              aria-label='outlined primary button group'
+              style={{ paddingBottom: '10px' }}
             >
-              Past
-            </Button>
-            <Button
-              variant={quizSelected === 'created' ? 'contained' : ''}
-              onClick={() => onChange('created')}
-            >
-              Created
-            </Button>
-          </ButtonGroup>
-          <DataGrid
-            rows={rowsM}
-            columns={columnsM}
-            pageSize={5}
-            autoHeight
-            pagination
-            autoPageSize
-            checkboxSelection
-            disableSelectionOnClick
-            sortModel={sortModel}
-          />
+              <Button
+                variant={quizSelected === 'attempted' ? 'contained' : ''}
+                onClick={() => onChange('attempted')}
+              >
+                Attempted
+              </Button>
+              <Button
+                variant={quizSelected === 'created' ? 'contained' : ''}
+                onClick={() => onChange('created')}
+              >
+                Created
+              </Button>
+            </ButtonGroup>
+            <DataGrid
+              rows={quizzes && quizzes[quizSelected]}
+              columns={columnsM}
+              pageSize={5}
+              autoHeight
+              pagination
+              autoPageSize
+              checkboxSelection
+              disableSelectionOnClick
+              sortModel={sortModel}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </Fragment>
   );
-}
+};
+
+MyQuizzes.propTypes = {
+  myQuizzes: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  quizzes: state.quiz.quizzes,
+  isAuthenticated: state.auth.isAuthenticated,
+  loading: state.loading,
+});
+
+export default connect(mapStateToProps, { myQuizzes })(MyQuizzes);
+
+// TODO
+// --> Verify usernames authentication
+// --> By default attempted quiz are showing no rows but works ok after switching it from created to attempted. ✔️
+// --> Duration format (incorrect)
+// --> On Reload go to home page and does come back to last page in this case (My Quizzes Page)
+// --> Only Show data with is_active = true

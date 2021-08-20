@@ -1,10 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Grid, TextField, Divider, ButtonGroup } from '@material-ui/core';
+import { Grid, TextField, Divider, ButtonGroup, Grow } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+import { format, isFuture, isValid } from 'date-fns';
 import {
-  TimePicker,
-  DateTimePicker,
+  KeyboardTimePicker,
+  KeyboardDateTimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
@@ -16,11 +17,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import QAList from '../QAList';
 import AddQuestion from './AddQuestion';
 import MySnackbar from '../../layout/MySnackbar';
+// import { createQuiz } from '../../../apiHandlers.js/quiz';
 
 // REDUX
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setMyAlert } from '../../../actions/myAlert';
+import { createQuiz } from '../../../actions/quiz';
+import { useHistory } from 'react-router';
+import { UnAuthorized } from '../../../utils/extraFunctions';
 
 const useStyles = makeStyles((theme) => ({
   sectionDetail: {
@@ -41,18 +45,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreateQuiz = ({ setMyAlert, ...props }) => {
+const CreateQuiz = ({ user, isAuthenticated, createQuiz }) => {
+  const history = useHistory();
   const classes = useStyles();
-  const [selectedDateTime, handleDateTimeChange] = useState(new Date());
-  const [selectedDuration, handleDurationChange] = useState(new Date());
+  const [selectedDateTime, handleDateTimeChange] = useState(null);
+  const [selectedDuration, handleDurationChange] = useState(null);
   const [open, setOpen] = useState(false);
   const [alert, setAlert] = useState({ status: false, msg: '' });
 
   const [newQuiz, updateQuiz] = useState({
-    quizName: undefined,
-    teacherName: undefined,
-    quizDuration: new Date().getTime(),
-    quizDateTime: new Date(),
+    quiz_name: '',
     questions: [],
   });
 
@@ -97,14 +99,22 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
     });
   };
 
-  const onSubmit = () => {
-    const { quizName, teacherName, questions } = newQuiz;
-    if (!(quizName && teacherName)) {
+  const onSubmit = async () => {
+    const { quiz_name, questions } = newQuiz;
+    if (!quiz_name || !selectedDuration || !selectedDateTime) {
       setAlert({
         ...alert,
         status: true,
         msg: 'Please fill the required fields',
       });
+      return;
+    }
+    if (!isValid(selectedDuration)) {
+      setAlert({ ...alert, status: true, msg: 'Invalid Time Format' });
+      return;
+    }
+    if (!isValid(selectedDateTime) || !isFuture(selectedDateTime)) {
+      setAlert({ ...alert, status: true, msg: 'Invalid Date Time Format' });
       return;
     }
     if (!questions.length > 0) {
@@ -115,93 +125,107 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
       delete e.id;
     });
 
-    // history.push('/');
-    console.log('Successfully Created Quiz', newQuiz);
+    const date_time = {
+      date: format(selectedDateTime, 'yyy-MM-dd'),
+      start_time: format(selectedDateTime, 'HH:mm'),
+      duration: format(selectedDuration, 'HH:mm:ss'),
+    };
+    await createQuiz({
+      ...newQuiz,
+      username: user.username,
+      ...date_time,
+    });
+    history.push('/dashboard');
   };
-  const { questions, quizName, teacherName } = newQuiz;
+  const { questions, quiz_name } = newQuiz;
 
   useEffect(() => {
     document.title = 'Quizeal | Create Quiz';
   }, []);
 
+  if (!isAuthenticated) {
+    return UnAuthorized('/');
+  }
+
   return (
     <Fragment>
-      <Grid
-        container
-        spacing={5}
-        className={classes.sectionDetail}
-        justifyContent='center'
-      >
-        <Grid item>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            id='quizName'
-            label='Quiz Name'
-            name='quizName'
-            autoFocus
-            value={quizName}
-            onChange={(e) => onChange(e)}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            id='teacherName'
-            label='Teacher Name'
-            name='teacherName'
-            autoComplete='teacherName'
-            value={teacherName}
-            onChange={(e) => onChange(e)}
-          />
-        </Grid>
-        <Grid item>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <TimePicker
-              autoOk
-              ampm={false}
-              label='Quiz Duration'
-              inputVariant='outlined'
-              value={selectedDateTime.toString()}
-              onChange={handleDateTimeChange}
+      <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1000}>
+        <Grid
+          container
+          spacing={5}
+          className={classes.sectionDetail}
+          justifyContent='center'
+        >
+          <Grid item>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              id='quiz_name'
+              label='Quiz Name'
+              name='quiz_name'
+              autoFocus
+              value={quiz_name}
+              onChange={(e) => onChange(e)}
             />
-          </MuiPickersUtilsProvider>
+          </Grid>
+          <Grid item>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardTimePicker
+                ampm={false}
+                openTo='hours'
+                views={['minutes', 'seconds']}
+                format='mm:ss'
+                required
+                inputVariant='outlined'
+                label='Quiz Duration'
+                value={selectedDuration}
+                onChange={handleDurationChange}
+              />
+            </MuiPickersUtilsProvider>
+          </Grid>
+          <Grid item>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDateTimePicker
+                inputVariant='outlined'
+                ampm={false}
+                label='Quiz Date and Time'
+                value={selectedDateTime}
+                required
+                onChange={handleDateTimeChange}
+                onError={console.log}
+                disablePast
+                format='dd/MM/yyy HH:mm'
+                minDateMessage='Invalid Date Time Format.'
+              />
+            </MuiPickersUtilsProvider>
+          </Grid>
         </Grid>
-        <Grid item>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DateTimePicker
-              label='Quiz Date and Time'
-              inputVariant='outlined'
-              value={selectedDuration.toString()}
-              onChange={handleDurationChange}
-            />
-          </MuiPickersUtilsProvider>
-        </Grid>
-      </Grid>
+      </Grow>
       <Divider variant='middle' className={classes.divider} />
-      <Grid container justifyContent='space-around' style={{ gap: '10px' }}>
-        <ButtonGroup
-          color='primary'
-          variant='contained'
-          aria-label='outlined secondary button group'
-        >
-          <Button onClick={handleClickOpenDialog}>Show Questions Added</Button>
-          <Button>Questions Added - {questions.length}</Button>
-        </ButtonGroup>
-        <Button
-          variant='contained'
-          color='primary'
-          size='large'
-          onClick={onSubmit}
-        >
-          Create Quiz
-        </Button>
-      </Grid>
+      <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1500}>
+        <Grid container justifyContent='space-around' style={{ gap: '10px' }}>
+          <ButtonGroup
+            color='primary'
+            variant='contained'
+            aria-label='outlined secondary button group'
+          >
+            <Button onClick={handleClickOpenDialog}>
+              Show Questions Added
+            </Button>
+            <Button>Questions Added - {questions.length}</Button>
+          </ButtonGroup>
+          <Button
+            variant='contained'
+            color='primary'
+            size='large'
+            onClick={onSubmit}
+          >
+            Create Quiz
+          </Button>
+        </Grid>
+      </Grow>
       <Dialog
         open={open}
         onClose={handleCloseDialog}
@@ -221,7 +245,7 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
                   deleteQuestion={deleteQuestion}
                   edit={true}
                   qaSet={qa}
-                  type='list'
+                  view={true}
                 />
               );
             })}
@@ -234,16 +258,30 @@ const CreateQuiz = ({ setMyAlert, ...props }) => {
         </DialogActions>
       </Dialog>
       <Divider variant='middle' className={classes.divider} />
-      <Grid container justifyContent='center'>
-        <AddQuestion addQuestion={addQuestion} />
-      </Grid>
+      <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2000}>
+        <Grid container justifyContent='center'>
+          <AddQuestion addQuestion={addQuestion} />
+        </Grid>
+      </Grow>
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );
 };
 
 CreateQuiz.propTypes = {
-  setMyAlert: PropTypes.func.isRequired,
+  user: PropTypes.object,
+  isAuthenticated: PropTypes.bool.isRequired,
+  createQuiz: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setMyAlert })(CreateQuiz);
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { createQuiz })(CreateQuiz);
+
+// TODO
+// --> Handle Console errors by ForwardRef
+// --> Verify usernames authentication
+// --> Add Question Type Option in forms

@@ -10,10 +10,10 @@ import {
   Typography,
   Container,
   Divider,
+  Grow,
 } from '@material-ui/core';
 import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import GoogleAccount from '../layout/GoogleAccount';
 import MySnackbar from '../layout/MySnackbar';
 import logo from '../../resources/logo.png';
 
@@ -21,6 +21,8 @@ import logo from '../../resources/logo.png';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+// import GoogleLn from './GoogleLn';
+// import GoogleLt from './GoogleLt';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -50,6 +52,7 @@ const Login = ({ login, auth }) => {
   const [form, setForm] = useState({
     email: null,
     password: null,
+    username: null,
   });
   const [alert, setAlert] = useState({ status: false, msg: '' });
 
@@ -65,11 +68,12 @@ const Login = ({ login, auth }) => {
     setAlert({ ...alert, status: false });
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     // Validations
-    const { email, password } = form;
-    var pattern = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
-    if (!email || !password) {
+    const { password, username } = form;
+    var patternEmail = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
+    var patternCheckEmail = new RegExp(/@/);
+    if (!username || !password) {
       setAlert({
         ...alert,
         status: true,
@@ -77,7 +81,11 @@ const Login = ({ login, auth }) => {
       });
       return;
     }
-    if (email && !pattern.test(email)) {
+    if (
+      username &&
+      patternCheckEmail.test(username) &&
+      !patternEmail.test(username)
+    ) {
       setAlert({
         ...alert,
         status: true,
@@ -85,7 +93,10 @@ const Login = ({ login, auth }) => {
       });
       return;
     }
-    if (password && password.length < 8) {
+    if (
+      (password && password.length < 8) ||
+      (username && username.length < 8)
+    ) {
       setAlert({
         ...alert,
         status: true,
@@ -93,87 +104,94 @@ const Login = ({ login, auth }) => {
       });
       return;
     }
-    login(email, password);
-  };
 
-  if (auth.isAuthenticated) {
+    login(username, password);
+  };
+  const { isAuthenticated } = auth;
+
+  if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
   }
 
   return (
     <Fragment>
-      <Container component='main' maxWidth='xs'>
-        <CssBaseline />
-        <div className={`${classes.paper} ${classes.section1}`}>
-          <img src={logo} alt='logo' height='40' width='40' />
-          <Typography component='h1' variant='h5'>
-            Log in
-          </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              label='Email Address'
-              name='email'
-              autoFocus
-              onChange={onChange}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Password'
-              type='password'
-              onChange={onChange}
-            />
-            {/* This will be implemented later {Remember me} */}
-            <FormControlLabel
-              control={<Checkbox value='remember' color='primary' />}
-              label='Remember me'
-            />
-            <Button
-              // type='submit'
-              fullWidth
-              variant='contained'
-              color='primary'
-              className={classes.submit}
-              onClick={onSubmit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link to='#' className={'styleLink'}>
-                  Forgot password?
-                </Link>
+      <Grow in={true} timeout={500}>
+        <Container component='main' maxWidth='xs'>
+          <CssBaseline />
+          <div className={`${classes.paper} ${classes.section1}`}>
+            <img src={logo} alt='logo' height='40' width='40' />
+            <Typography component='h1' variant='h5'>
+              Log in
+            </Typography>
+            <form className={classes.form} noValidate>
+              <Grid item xs={12}>
+                <TextField
+                  onChange={onChange}
+                  variant='outlined'
+                  required
+                  fullWidth
+                  id='username'
+                  label='SID or Email'
+                  autoFocus
+                  name='username'
+                />
               </Grid>
-              <Grid item>
-                Don't have an account?
-                <Link to='/signup' className={'styleLink'}>
-                  {' '}
-                  Sign Up
-                </Link>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+                onChange={onChange}
+              />
+              {/* This will be implemented later {Remember me} */}
+              <FormControlLabel
+                control={<Checkbox value='remember' color='primary' />}
+                label='Remember me'
+              />
+              <Button
+                // type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                onClick={onSubmit}
+              >
+                LogIn
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link to='#' className={'styleLink'}>
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  Don't have an account?
+                  <Link to='/signup' className={'styleLink'}>
+                    {' '}
+                    LogIn
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Divider variant='middle' className={classes.divider} />
-        <GoogleAccount />
-        <Box mt={8}>
-          <Typography variant='body2' color='textSecondary' align='center'>
-            {'Copyright © '}
-            <Link to='/' className={'styleLink'}>
-              Quizeal
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-          </Typography>
-        </Box>
-      </Container>
+            </form>
+          </div>
+          <Divider variant='middle' className={classes.divider} />
+          {/* <GoogleLn />
+        <GoogleLt /> */}
+          <Box mt={8}>
+            <Typography variant='body2' color='textSecondary' align='center'>
+              {'Copyright © '}
+              <Link to='/' className={'styleLink'} style={{ fontWeight: 700 }}>
+                Quizeal
+              </Link>{' '}
+              {new Date().getFullYear()}
+              {'.'}
+            </Typography>
+          </Box>
+        </Container>
+      </Grow>
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );
@@ -189,3 +207,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { login })(Login);
+
+// TODO
+// -> Add Loading Effect

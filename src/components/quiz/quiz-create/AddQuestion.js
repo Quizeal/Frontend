@@ -51,16 +51,16 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
   const [alert, setAlert] = useState({ status: false, msg: '' });
   const [questionDetails, updateQuestionDetails] = useState({
     id: uuidv4(),
-    question: '',
+    question_name: '',
     options: [
       {
         id: uuidv4(),
-        data: '',
-        ans: false,
+        option_name: '',
+        is_correct: false,
       },
     ],
     optionsCount: 1,
-    questionMarks: 1,
+    question_marks: 1,
   });
 
   const handleClose = () => {
@@ -76,8 +76,8 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
   const updateOption = (e, detail) => {
     const newOptionsArray = [...questionDetails.options];
     if (detail === 'toggleAnswer')
-      newOptionsArray[e.target.name].ans = e.target.checked;
-    else newOptionsArray[e.target.name].data = e.target.value;
+      newOptionsArray[e.target.name].is_correct = e.target.checked;
+    else newOptionsArray[e.target.name].option_name = e.target.value;
     updateQuestionDetails({ ...questionDetails, options: newOptionsArray });
   };
 
@@ -85,10 +85,10 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
     updateQuestionDetails({
       ...questionDetails,
       id: uuidv4(),
-      question: '',
-      options: [{ data: '', ans: false }],
+      question_name: '',
+      options: [{ option_name: '', is_correct: false }],
       optionsCount: 1,
-      questionMarks: 1,
+      question_marks: 1,
     });
   };
 
@@ -113,7 +113,7 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
     if (questionDetails.optionsCount < 5) {
       const newOptionsArray = [...questionDetails.options];
       const presentOptionCount = questionDetails.optionsCount;
-      const newOption = { id: uuidv4(), data: '', ans: false };
+      const newOption = { id: uuidv4(), option_name: '', is_correct: false };
       newOptionsArray.push(newOption);
 
       updateQuestionDetails({
@@ -124,16 +124,16 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
     }
   };
   const onSubmit = () => {
-    const { question, options } = questionDetails;
-    if (!question) {
+    const { question_name, options } = questionDetails;
+    if (!question_name) {
       setAlert({ ...alert, status: true, msg: 'Please fill question Details' });
       return;
     }
-    if (!options.every((o) => o.data !== '')) {
+    if (!options.every((o) => o.option_name !== '')) {
       setAlert({ ...alert, status: true, msg: 'Please fill all options' });
       return;
     }
-    if (!options.some((o) => o.ans === true)) {
+    if (!options.some((o) => o.is_correct === true)) {
       setAlert({
         ...alert,
         status: true,
@@ -151,7 +151,8 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
     });
   };
 
-  const { question, options, optionsCount, questionMarks } = questionDetails;
+  const { question_name, options, optionsCount, question_marks } =
+    questionDetails;
   return (
     <Fragment>
       <Card>
@@ -161,8 +162,8 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
             label='Question'
             variant='outlined'
             multiline
-            name='question'
-            value={question}
+            name='question_name'
+            value={question_name}
             fullWidth={true}
             onChange={(e) => onChange(e)}
           />
@@ -184,9 +185,9 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
             size='small'
             label='Question Marks'
             variant='outlined'
-            name='questionMarks'
+            name='question_marks'
             type='number'
-            value={questionMarks}
+            value={question_marks}
             onChange={(e) => onChange(e)}
           />
         </CardActions>

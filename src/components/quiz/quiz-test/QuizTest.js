@@ -7,122 +7,149 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import CircularTimer from './CircularTimer';
+// import CircularTimer from './CircularTimer';
 import SelectOption from './SelectOption';
 import StepperProgress from './StepperProgress';
-import { qaList } from '../../../data';
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from 'react';
+import { Fragment } from 'react';
 
-// Shuffling the questions randomly
-function shuffle(array) {
-  var currentIndex = array.length,
-    randomIndex;
+// REDUX
+import { connect } from 'react-redux';
+import { getQuizTest, submitQuiz } from '../../../actions/quiz';
+import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
+import { UnAuthorized } from '../../../utils/extraFunctions';
 
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
-  }
-
-  return array;
-}
-
-const questions = shuffle(qaList);
-questions.forEach((list) =>
-  list.options.forEach((o) => {
-    o.marked = false;
-    delete o.ans; // if not handled in backend
-  })
-);
-
-const QuizTest = () => {
+const QuizTest = ({
+  auth: { isAuthenticated, user },
+  getQuizTest,
+  submitQuiz,
+  get_Quiz_Test,
+  loading,
+}) => {
+  const params = useParams();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [responses, setResponses] = useState(questions);
+  const [responses, setResponses] = useState([]);
+
+  useEffect(() => {
+    document.title = 'Quizeal | Quiz Test';
+    getQuizTest(params.quiz_id);
+  }, [getQuizTest, params.quiz_id]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  const updateOption = (o) => {
-    const presentQuestion = responses[activeStep];
-    const presentOptions = presentQuestion.options;
-    const oIndex = presentOptions.findIndex((a) => a.data === o);
-    const res = presentOptions[oIndex].marked;
-    presentOptions[oIndex].marked = !res;
-    presentQuestion.options = presentOptions;
-    setResponses({
-      ...responses,
-      [responses[activeStep]]: presentQuestion,
-    });
+  const updateOption = (o, id, type) => {
+    let newA = responses;
+    if (type === 1) {
+      const oIndex = newA.findIndex((a) => a.question_id === id);
+      if (oIndex !== -1) {
+        if (newA[oIndex].option_name === o) newA.splice(oIndex, 1);
+        else newA[oIndex].option_name = o;
+      } else newA.unshift({ question_id: id, option_name: o });
+    } else {
+      const oIndex = newA.findIndex(
+        (a) => a.option_name === o && a.question_id === id
+      );
+      if (oIndex !== -1) newA.splice(oIndex, 1);
+      else newA.unshift({ question_id: id, option_name: o });
+      setResponses(newA);
+    }
   };
 
+  const data = get_Quiz_Test;
+
   const onSubmit = () => {
-    console.log(responses);
+    const res = {
+      username: user && user.username,
+      answers: responses,
+    };
+    submitQuiz(res, params.quiz_id);
   };
+
+  if (!isAuthenticated) {
+    return UnAuthorized('/');
+  }
 
   return (
     <Container>
-      <Grid
-        container
-        style={{
-          gap: '40px',
-          margin: '10px 0',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Grid item>
-          <Typography variant='h6'>Quiz Name - {'Maths Olympiad'}</Typography>
-          <Typography variant='h6'>Organizer Name - {'CBSE'}</Typography>
-          <Typography variant='h6'>Quiz Duration - {'5 min'}</Typography>
-        </Grid>
-        <Grid item>
-          <CircularTimer />
-        </Grid>
-      </Grid>
-      <Card>
-        <CardContent>{questions[activeStep].question}</CardContent>
-        <Divider />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '20px',
-            gap: '10px',
-          }}
-        >
-          {questions[activeStep].options.map((o, index) => {
-            return (
+      {!loading && data && (
+        <Fragment>
+          <Grid
+            container
+            style={{
+              gap: '40px',
+              margin: '10px 0',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Grid item>
+              <Typography variant='h6'>
+                Quiz Name - {'Maths Olympiad'}
+              </Typography>
+              <Typography variant='h6'>Organizer Name - {'CBSE'}</Typography>
+              <Typography variant='h6'>Quiz Duration - {'5 min'}</Typography>
+            </Grid>
+            {/* <Grid item>
+              <CircularTimer />
+            </Grid> */}
+          </Grid>
+          <Card>
+            <CardContent>
+              {data && data.questions[activeStep].question_name}
+            </CardContent>
+            <Divider />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '20px',
+                gap: '10px',
+              }}
+            >
               <SelectOption
-                key={uuidv4()} // id if not coming from backend
-                option={o}
+                options={data && data.questions[activeStep].options}
+                type={data && data.questions[activeStep].question_type}
                 update={updateOption}
+                qId={data.questions[activeStep].id}
               />
-            );
-          })}
-        </div>
-      </Card>
-      <Divider />
-      <div style={{ margin: '10px' }}>
-        <StepperProgress
-          length={questions.length}
-          next={handleNext}
-          activeStep={activeStep}
-        />
-      </div>
-      <Button variant='contained' color='primary' onClick={onSubmit}>
-        Submit Quiz
-      </Button>
+            </div>
+          </Card>
+          <Divider />
+          <div style={{ margin: '10px' }}>
+            <StepperProgress
+              length={data && data.questions.length}
+              next={handleNext}
+              activeStep={activeStep}
+            />
+          </div>
+          <Button variant='contained' color='primary' onClick={onSubmit}>
+            Submit Quiz
+          </Button>
+        </Fragment>
+      )}
     </Container>
   );
 };
 
-export default QuizTest;
+const mapStateToProps = (state) => ({
+  get_Quiz_Test: state.quiz.get_Quiz_Test,
+  loading: state.loading,
+  auth: state.auth,
+});
+
+QuizTest.propTypes = {
+  getQuizTest: PropTypes.func.isRequired,
+  submitQuiz: PropTypes.func.isRequired,
+  get_Quiz_Test: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+export default connect(mapStateToProps, { getQuizTest, submitQuiz })(QuizTest);
+
+// TODO
+// --> Verify usernames authentication

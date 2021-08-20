@@ -7,9 +7,9 @@ export default function myAlertReducer(state = initialState, action) {
 
   switch (type) {
     case SET_MYALERT:
-      // if (state.length > 0) {
-      //   return state;
-      // }
+      if (state.length > 0) {
+        return state;
+      }
       return [payload];
     case REMOVE_MYALERT:
       return state.filter((alert) => alert.id !== payload);

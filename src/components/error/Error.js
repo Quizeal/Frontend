@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Grow, Typography } from '@material-ui/core';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import errorGif from '../../resources/error.gif';
@@ -30,43 +30,47 @@ const Error = () => {
       justifyContent='center'
       className={classes.section}
     >
-      <Grid item xs={12} md={6}>
-        <Grid
-          container
-          justifyContent='flex-start'
-          spacing={2}
-          style={{ gridGap: '10px', flexDirection: 'column' }}
-        >
-          <Typography variant='h1'>Oops!</Typography>
-          <Typography variant='h4'>
-            We can't seem to find the page "{location.pathname}" you're looking
-            for.
-          </Typography>
-          <Typography variant='h6' style={{ fontWeight: 'bold' }}>
-            Error Code: 404
-          </Typography>
-          <Typography
-            variant='subtitle2'
-            style={{ fontWeight: 'lighter', fontStyle: 'italic' }}
+      <Grow in={true} timeout={500}>
+        <Grid item xs={12} md={6}>
+          <Grid
+            container
+            justifyContent='flex-start'
+            spacing={2}
+            style={{ gridGap: '10px', flexDirection: 'column' }}
           >
-            (This site is under construction)
-          </Typography>
-          <Link to='/'>
-            <Button color='primary' variant='contained'>
-              Home
-            </Button>
-          </Link>
+            <Typography variant='h1'>Oops!</Typography>
+            <Typography variant='h4'>
+              We can't seem to find the page "{location.pathname}" you're
+              looking for.
+            </Typography>
+            <Typography variant='h6' style={{ fontWeight: 'bold' }}>
+              Error Code: 404
+            </Typography>
+            <Typography
+              variant='subtitle2'
+              style={{ fontWeight: 'lighter', fontStyle: 'italic' }}
+            >
+              (This site is under construction)
+            </Typography>
+            <Link to='/'>
+              <Button color='primary' variant='contained'>
+                Home
+              </Button>
+            </Link>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid item xs={12} md={6} className={classes.sectionRight}>
-        <Typography
-          variant='h4'
-          align='center'
-          style={{ paddingBottom: '10px' }}
-        >
-          <img src={errorGif} alt='error' width='95%'></img>
-        </Typography>
-      </Grid>
+      </Grow>
+      <Grow in={true} timeout={1000}>
+        <Grid item xs={12} md={6} className={classes.sectionRight}>
+          <Typography
+            variant='h4'
+            align='center'
+            style={{ paddingBottom: '10px' }}
+          >
+            <img src={errorGif} alt='error' width='95%'></img>
+          </Typography>
+        </Grid>
+      </Grow>
     </Grid>
   );
 };
