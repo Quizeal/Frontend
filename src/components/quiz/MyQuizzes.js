@@ -1,6 +1,13 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, ButtonGroup, Typography, Grid } from '@material-ui/core';
+import {
+  Button,
+  ButtonGroup,
+  Typography,
+  Grid,
+  Slide,
+  Grow,
+} from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import LinkIcon from '@material-ui/icons/Link';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -213,42 +220,52 @@ const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes, loading }) => {
     <Fragment>
       {!loading && (
         <Grid container justifyContent='center'>
-          <Grid item xs={12}>
-            <Typography variant='h4' align='center' style={{ padding: '20px' }}>
-              My Quizzes
-            </Typography>
-          </Grid>
-          <Grid item xs={11}>
-            <ButtonGroup
-              color='primary'
-              aria-label='outlined primary button group'
-              style={{ paddingBottom: '10px' }}
-            >
-              <Button
-                variant={quizSelected === 'attempted' ? 'contained' : ''}
-                onClick={() => onChange('attempted')}
+          <Grow in={true} timeout={2000}>
+            <Grid item xs={12}>
+              <Typography
+                variant='h4'
+                align='center'
+                style={{ padding: '20px' }}
               >
-                Attempted
-              </Button>
-              <Button
-                variant={quizSelected === 'created' ? 'contained' : ''}
-                onClick={() => onChange('created')}
+                My Quizzes
+              </Typography>
+            </Grid>
+          </Grow>
+          <Slide in={true} timeout={1000} direction='up'>
+            <Grid item xs={11}>
+              <ButtonGroup
+                color='primary'
+                aria-label='outlined primary button group'
+                style={{ paddingBottom: '10px' }}
               >
-                Created
-              </Button>
-            </ButtonGroup>
-            <DataGrid
-              rows={quizzes && quizzes[quizSelected]}
-              columns={columnsM}
-              pageSize={5}
-              autoHeight
-              pagination
-              autoPageSize
-              checkboxSelection
-              disableSelectionOnClick
-              sortModel={sortModel}
-            />
-          </Grid>
+                <Button
+                  variant={quizSelected === 'attempted' ? 'contained' : ''}
+                  onClick={() => onChange('attempted')}
+                >
+                  Attempted
+                </Button>
+                <Button
+                  variant={quizSelected === 'created' ? 'contained' : ''}
+                  onClick={() => onChange('created')}
+                >
+                  Created
+                </Button>
+              </ButtonGroup>
+              {/* </Slide>
+            <Slide in={true} timeout={1000} direction='up'> */}
+              <DataGrid
+                rows={quizzes && quizzes[quizSelected]}
+                columns={columnsM}
+                pageSize={5}
+                autoHeight
+                pagination
+                autoPageSize
+                checkboxSelection
+                disableSelectionOnClick
+                sortModel={sortModel}
+              />
+            </Grid>
+          </Slide>
         </Grid>
       )}
     </Fragment>

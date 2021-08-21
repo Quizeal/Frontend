@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import {
   Grid,
   Button,
@@ -56,6 +56,10 @@ const Home = ({ isAuthenticated }) => {
     }
     history.push(`/quiz/${quizCode}`);
   };
+
+  useEffect(() => {
+    document.title = 'Quizeal | Home';
+  }, []);
 
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;

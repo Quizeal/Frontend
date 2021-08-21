@@ -18,6 +18,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import LockIcon from '@material-ui/icons/Lock';
 import FeedbackIcon from '@material-ui/icons/Feedback';
+import CodeIcon from '@material-ui/icons/Code';
 
 // REDUX
 import { connect } from 'react-redux';
@@ -94,6 +95,14 @@ const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
               <ListItemText primary='Feedback' />
             </ListItem>
           </Link>
+          <Link className={'styleLink'} to='/developers'>
+            <ListItem button>
+              <ListItemIcon>
+                <CodeIcon />
+              </ListItemIcon>
+              <ListItemText primary='Developers' />
+            </ListItem>
+          </Link>
         </List>
       )}
     </Fragment>
@@ -121,16 +130,59 @@ const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
               uizeaL
             </Link>
           </Typography>
-
-          {isAuthenticated ? (
-            <Fragment>
-              <Button
-                color='inherit'
-                style={{ marginRight: '10px' }}
-                onClick={logout}
-              >
-                Logout
-              </Button>
+          <Fragment>
+            <Hidden smDown>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <Button color='inherit'>
+                  <Link className={'styleLink'} to='/developers'>
+                    Developers
+                  </Link>
+                </Button>
+                <Button color='inherit'>
+                  <Link className={'styleLink'} to='/feedback'>
+                    FeedBack
+                  </Link>
+                </Button>
+                <Button color='inherit'>
+                  <Link className={'styleLink'} to='/about'>
+                    About
+                  </Link>
+                </Button>
+                {!isAuthenticated ? (
+                  <Fragment>
+                    <Button color='inherit'>
+                      <Link className={'styleLink'} to='/login'>
+                        Log In
+                      </Link>
+                    </Button>
+                    <Button color='inherit' variant='outlined'>
+                      <Link className={'styleLink'} to='/signup'>
+                        Sign Up
+                      </Link>
+                    </Button>
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <Button
+                      color='inherit'
+                      style={{ marginRight: '10px' }}
+                      onClick={logout}
+                    >
+                      Logout
+                    </Button>
+                    <IconButton
+                      edge='start'
+                      color='inherit'
+                      aria-label='menu'
+                      onClick={() => toggleNavbarState()}
+                    >
+                      <MenuIcon />
+                    </IconButton>
+                  </Fragment>
+                )}
+              </div>
+            </Hidden>
+            <Hidden mdUp>
               <IconButton
                 edge='start'
                 color='inherit'
@@ -139,45 +191,9 @@ const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
               >
                 <MenuIcon />
               </IconButton>
-            </Fragment>
-          ) : (
-            <Fragment>
-              <Hidden smDown>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <Button color='inherit'>
-                    <Link className={'styleLink'} to='/feedback'>
-                      FeedBack
-                    </Link>
-                  </Button>
-                  <Button color='inherit'>
-                    <Link className={'styleLink'} to='/about'>
-                      About
-                    </Link>
-                  </Button>
-                  <Button color='inherit'>
-                    <Link className={'styleLink'} to='/login'>
-                      Log In
-                    </Link>
-                  </Button>
-                  <Button color='inherit' variant='outlined'>
-                    <Link className={'styleLink'} to='/signup'>
-                      Sign Up
-                    </Link>
-                  </Button>
-                </div>
-              </Hidden>
-              <Hidden mdUp>
-                <IconButton
-                  edge='start'
-                  color='inherit'
-                  aria-label='menu'
-                  onClick={() => toggleNavbarState()}
-                >
-                  <MenuIcon />
-                </IconButton>
-              </Hidden>
-            </Fragment>
-          )}
+            </Hidden>
+          </Fragment>
+          {/* )} */}
           <Drawer
             anchor='left'
             open={navbarState}

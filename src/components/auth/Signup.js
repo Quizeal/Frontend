@@ -233,8 +233,13 @@ const Signup = ({ signup, auth, props }) => {
               </Button>
               <Grid container justifyContent='flex-end'>
                 <Grid item>
-                  <Link to='/login' className={'styleLink'}>
-                    Already have an account? Sign in
+                  Already have an account?{' '}
+                  <Link
+                    to='/login'
+                    className={'styleLink'}
+                    style={{ fontWeight: 700 }}
+                  >
+                    Login
                   </Link>
                 </Grid>
               </Grid>
