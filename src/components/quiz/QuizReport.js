@@ -65,7 +65,7 @@ const QuizReport = ({
   useEffect(() => {
     document.title = 'Quizeal | Quiz Report';
     viewQuizReport(params.quiz_id, user.username);
-  }, [viewQuizReport, params.quiz_id, user.username]);
+  }, [viewQuizReport, params.quiz_id, user]);
 
   const data = view_Quiz_Report;
 
@@ -88,38 +88,56 @@ const QuizReport = ({
           className={classes.section}
           justifyContent='center'
         >
-          <Grow in={true} direction='up' timeout={0}>
+          <Grow in={true} direction='up'>
             <Grid item sm={12} md={6}>
               <Grid container justifyContent='center' spacing={2}>
                 <Grid item>
-                  <Paper className={classes.paper}>
-                    <Typography variant='subtitle1' align='center'>
-                      Marks
-                    </Typography>
-                    <Typography variant='h4' align='center'>
-                      {data && data.user_marks}/{data && data.total_marks}
-                    </Typography>
-                  </Paper>
+                  <Grow
+                    in={true}
+                    style={{ transformOrigin: '0 0 0' }}
+                    timeout={1000}
+                  >
+                    <Paper className={classes.paper}>
+                      <Typography variant='subtitle1' align='center'>
+                        Marks
+                      </Typography>
+                      <Typography variant='h4' align='center'>
+                        {data && data.user_marks}/{data && data.total_marks}
+                      </Typography>
+                    </Paper>
+                  </Grow>
                 </Grid>
                 <Grid item>
-                  <Paper className={classes.paper}>
-                    <Typography variant='subtitle1' align='center'>
-                      Rank
-                    </Typography>
-                    <Typography variant='h4' align='center'>
-                      {data && data.user_rank}/{data && data.total_students}
-                    </Typography>
-                  </Paper>
+                  <Grow
+                    in={true}
+                    style={{ transformOrigin: '0 0 0' }}
+                    timeout={2000}
+                  >
+                    <Paper className={classes.paper}>
+                      <Typography variant='subtitle1' align='center'>
+                        Rank
+                      </Typography>
+                      <Typography variant='h4' align='center'>
+                        {data && data.user_rank}/{data && data.total_students}
+                      </Typography>
+                    </Paper>
+                  </Grow>
                 </Grid>
                 <Grid item>
-                  <Paper className={classes.paper}>
-                    <Typography variant='subtitle1' align='center'>
-                      Average
-                    </Typography>
-                    <Typography variant='h4' align='center'>
-                      {data && data.average}
-                    </Typography>
-                  </Paper>
+                  <Grow
+                    in={true}
+                    style={{ transformOrigin: '0 0 0' }}
+                    timeout={3000}
+                  >
+                    <Paper className={classes.paper}>
+                      <Typography variant='subtitle1' align='center'>
+                        Average
+                      </Typography>
+                      <Typography variant='h4' align='center'>
+                        {data && data.average}
+                      </Typography>
+                    </Paper>
+                  </Grow>
                 </Grid>
               </Grid>
               <Divider className={classes.divider} />

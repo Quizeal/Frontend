@@ -24,6 +24,7 @@ import {
 import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
+import Feedback from './components/extra/Feedback';
 
 let theme = createTheme({
   palette: {
@@ -50,6 +51,7 @@ function App() {
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
+            <Route exact path='/feedback' component={Feedback} />
             <Route exact path='/dashboard' component={Dashboard} />
             <Route exact path='/my-quizzes/:username' component={MyQuizzes} />
             <Route exact path='/create-quiz' component={CreateQuiz} />
