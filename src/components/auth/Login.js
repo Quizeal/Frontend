@@ -61,7 +61,7 @@ const Login = ({ login, auth }) => {
   };
 
   useEffect(() => {
-    document.title = 'Quizeal | Sign In';
+    document.title = 'Quizeal | Login';
   }, []);
 
   const handleClose = () => {
@@ -163,15 +163,23 @@ const Login = ({ login, auth }) => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link to='#' className={'styleLink'}>
+                  <Link
+                    to='#'
+                    className={'styleLink'}
+                    style={{ fontWeight: 700 }}
+                  >
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
                   Don't have an account?
-                  <Link to='/signup' className={'styleLink'}>
+                  <Link
+                    to='/signup'
+                    className={'styleLink'}
+                    style={{ fontWeight: 700 }}
+                  >
                     {' '}
-                    LogIn
+                    Sign up
                   </Link>
                 </Grid>
               </Grid>

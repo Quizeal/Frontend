@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import {
   Button,
   CssBaseline,
@@ -6,6 +6,8 @@ import {
   Typography,
   Container,
   Grow,
+  Divider,
+  Slide,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MySnackbar from '../layout/MySnackbar';
@@ -55,12 +57,15 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  divider: {
+    margin: theme.spacing(3),
+  },
 }));
 
 const Feedback = () => {
   const [form, setForm] = React.useState({
     answer: '',
-    rating: '2',
+    rating: 2,
     likeness: '2',
   });
   const classes = useStyles();
@@ -72,51 +77,62 @@ const Feedback = () => {
   const submit = () => {
     console.log(form);
   };
+
+  useEffect(() => {
+    document.title = 'Quizeal | Feedback';
+  }, []);
   return (
     <div>
       <Fragment>
-        <Grow in={true} timeout={500}>
-          <Container component='main' maxWidth='xs'>
+        <Grow in={true} timeout={1000}>
+          <Container component='main' maxWidth='sm'>
+            <Typography variant='h4' align='center'>
+              We would like your feedback to improve our website.
+            </Typography>
+            <Divider className={classes.divider} />
             <CssBaseline />
-            <div className={classes.paper}>
-              <Typography variant='h4'>Will you Come back?</Typography>
-              <Rating
-                name='likeness'
-                defaultValue={form.likeness}
-                size='large'
-                onChange={(e) => onChange(e)}
-                getLabelText={(value) => customIcons[value].label}
-                IconContainerComponent={IconContainer}
-              />
-              <Typography variant='h4'>
-                How will you rate our website?
-              </Typography>
-              <Rating
-                value={form.rating}
-                name='rating'
-                style={{ fontSize: '5.5vw' }}
-                onChange={(e) => onChange(e)}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                fullWidth
-                minRows={3}
-                multiline
-                name='answer'
-                onChange={(e) => onChange(e)}
-                label='Explain your Answer'
-              />
-              <Button
-                fullWidth
-                variant='contained'
-                color='primary'
-                className={classes.submit}
-                onClick={submit}
-              >
-                Submit
-              </Button>
-            </div>
+            <Grow in={true} timeout={2000}>
+              <div className={classes.paper}>
+                <Typography variant='h5' align='center'>
+                  Will you Come back?
+                </Typography>
+                <Rating
+                  name='likeness'
+                  defaultValue={form.likeness}
+                  size='large'
+                  onChange={(e) => onChange(e)}
+                  getLabelText={(value) => customIcons[value].label}
+                  IconContainerComponent={IconContainer}
+                />
+                <Typography variant='h5' align='center'>
+                  How will you rate our website?
+                </Typography>
+                <Rating
+                  value={form.rating}
+                  name='rating'
+                  style={{ fontSize: '5.5vw' }}
+                  onChange={(e) => onChange(e)}
+                />
+                <TextField
+                  variant='outlined'
+                  margin='normal'
+                  fullWidth
+                  minRows={3}
+                  multiline
+                  name='answer'
+                  onChange={(e) => onChange(e)}
+                  label='Explain your Answer'
+                />
+                <Button
+                  variant='contained'
+                  color='primary'
+                  className={classes.submit}
+                  onClick={submit}
+                >
+                  Submit
+                </Button>
+              </div>
+            </Grow>
           </Container>
         </Grow>
         <MySnackbar alert={alert} />
