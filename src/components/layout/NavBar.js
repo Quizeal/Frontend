@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     width: 250,
+    backgroundColor: '#24313f',
+    height: '100%',
+    color: 'white',
   },
 }));
 
@@ -52,7 +55,7 @@ const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
 
   const list = () => (
     <Fragment>
-      {isAuthenticated ? (
+      {!isAuthenticated ? (
         <div className={classes.list}>
           <DashboardNavbar hideDrawer={toggleNavbarState} />
         </div>
@@ -65,7 +68,7 @@ const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
         >
           <Link className={'styleLink'} to='/signup'>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon style={{ color: 'white' }}>
                 <AccountBoxIcon />
               </ListItemIcon>
               <ListItemText primary='Sign Up' />
@@ -73,7 +76,7 @@ const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
           </Link>
           <Link className={'styleLink'} to='/login'>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon style={{ color: 'white' }}>
                 <LockIcon />
               </ListItemIcon>
               <ListItemText primary='Log In' />
@@ -81,7 +84,7 @@ const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
           </Link>
           <Link className={'styleLink'} to='/about'>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon style={{ color: 'white' }}>
                 <InfoIcon />
               </ListItemIcon>
               <ListItemText primary='About' />
@@ -89,7 +92,7 @@ const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
           </Link>
           <Link className={'styleLink'} to='/feedback'>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon style={{ color: 'white' }}>
                 <FeedbackIcon />
               </ListItemIcon>
               <ListItemText primary='Feedback' />
@@ -97,7 +100,7 @@ const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
           </Link>
           <Link className={'styleLink'} to='/developers'>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon style={{ color: 'white' }}>
                 <CodeIcon />
               </ListItemIcon>
               <ListItemText primary='Developers' />

@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100vh',
     maxHeight: '88vh',
-    backgroundColor: '#f3f8ff',
+    backgroundColor: '#24313f',
   },
 }));
 
@@ -47,15 +47,15 @@ const DashboardNavbar = ({ user, ...props }) => {
       >
         <Avatar alt='Remy Sharp' src='/static/images/avatar.jpg' />
         <Typography style={{ fontWeight: 'bold' }}>
-          {user.first_name + ' ' + user.last_name}
+          {/* {user.first_name + ' ' + user.last_name} */}Divyam Tayal
         </Typography>
         <Typography style={{ fontWeight: 'lighter' }}>Student</Typography>
       </div>
-      <Divider />
+      <Divider style={{ backgroundColor: '#ffffff5c' }} />
       <List component='nav' aria-label='main mailbox folders'>
         <Link to='/dashboard' className={'styleLink'}>
           <ListItem button onClick={closeNav}>
-            <ListItemIcon>
+            <ListItemIcon style={{ color: 'white' }}>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary='Dashboard' />
@@ -66,7 +66,7 @@ const DashboardNavbar = ({ user, ...props }) => {
           className={'styleLink'}
         >
           <ListItem button onClick={closeNav}>
-            <ListItemIcon>
+            <ListItemIcon style={{ color: 'white' }}>
               <FormatListBulletedIcon />
             </ListItemIcon>
             <ListItemText primary='My Quizzes' />
@@ -74,27 +74,31 @@ const DashboardNavbar = ({ user, ...props }) => {
         </Link>
         <Link to='/create-quiz' className={'styleLink'}>
           <ListItem button onClick={closeNav}>
-            <ListItemIcon>
+            <ListItemIcon style={{ color: 'white' }}>
               <CreateIcon />
             </ListItemIcon>
             <ListItemText primary='Create Quiz' />
           </ListItem>
         </Link>
       </List>
-      <Divider />
+      <Divider style={{ backgroundColor: '#ffffff5c' }} />
       <List component='nav' aria-label='secondary mailbox folder'>
-        <ListItem button onClick={closeNav}>
-          <ListItemIcon>
-            <PersonIcon />
-          </ListItemIcon>
-          <ListItemText primary='Profile' />
-        </ListItem>
-        <ListItem button onClick={closeNav}>
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          <ListItemText primary='Setting' />
-        </ListItem>
+        <Link to='/me' className={'styleLink'}>
+          <ListItem button onClick={closeNav}>
+            <ListItemIcon style={{ color: 'white' }}>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary='Profile' />
+          </ListItem>
+        </Link>
+        <Link to='/setting' className={'styleLink'}>
+          <ListItem button onClick={closeNav}>
+            <ListItemIcon style={{ color: 'white' }}>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary='Setting' />
+          </ListItem>
+        </Link>
       </List>
     </div>
   );
