@@ -17,6 +17,11 @@ import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 
+// REDUX
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { feedback } from '../../actions/auth';
+
 const customIcons = {
   1: {
     icon: <SentimentVeryDissatisfiedIcon style={{ fontSize: '5.5vw' }} />,
@@ -61,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Feedback = () => {
+const Feedback = ({ feedback }) => {
   const [form, setForm] = React.useState({
     answer: '',
     rating: 2,
@@ -74,7 +79,7 @@ const Feedback = () => {
   };
 
   const submit = () => {
-    console.log(form);
+    feedback(form);
   };
 
   useEffect(() => {
@@ -140,4 +145,8 @@ const Feedback = () => {
   );
 };
 
-export default Feedback;
+Feedback.propTypes = {
+  feedback: PropTypes.func.isRequired,
+};
+
+export default connect(null, { feedback })(Feedback);

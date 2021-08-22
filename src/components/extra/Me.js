@@ -18,6 +18,7 @@ import { makeStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { UnAuthorized } from '../../utils/extraFunctions';
+import { updateProfile } from '../../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
 }));
-const Me = ({ auth: { user, isAuthenticated } }) => {
+const Me = ({ auth: { user, isAuthenticated }, updateProfile }) => {
   const classes = useStyles();
   const [form, setForm] = useState({
     first_name: user && user.first_name,
@@ -53,7 +54,9 @@ const Me = ({ auth: { user, isAuthenticated } }) => {
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
+  const update = () => {
+    updateProfile(form);
+  };
   if (!isAuthenticated) {
     return UnAuthorized('/');
   }
@@ -198,11 +201,7 @@ const Me = ({ auth: { user, isAuthenticated } }) => {
                 </CardContent>
                 <Divider />
                 <CardActions>
-                  <Button
-                    color='primary'
-                    variant='contained'
-                    onClick={() => console.log(form)}
-                  >
+                  <Button color='primary' variant='contained' onClick={update}>
                     Update
                   </Button>
                 </CardActions>
@@ -217,10 +216,11 @@ const Me = ({ auth: { user, isAuthenticated } }) => {
 
 Me.propTypes = {
   auth: PropTypes.object.isRequired,
+  updateProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, null)(Me);
+export default connect(mapStateToProps, { updateProfile })(Me);
