@@ -209,8 +209,8 @@ const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes, loading }) => {
 
   useEffect(() => {
     document.title = 'Quizeal | MyQuizzes';
-    myQuizzes(params.username);
-  }, [myQuizzes, params.username]);
+    if (isAuthenticated) myQuizzes(params.username);
+  }, [myQuizzes, params.username, isAuthenticated]);
 
   if (!isAuthenticated) {
     return UnAuthorized('/');
