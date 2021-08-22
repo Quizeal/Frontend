@@ -15,9 +15,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import Profile from './Profile';
 import SendIcon from '@material-ui/icons/Send';
-import Setting from './Setting';
 import MySnackbar from '../layout/MySnackbar';
 
 // REDUX
@@ -193,14 +191,65 @@ const Dashboard = ({ auth: { isAuthenticated, user } }) => {
         </Grid>
         <Grid container justifyContent='center' className={classes.root}>
           <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2500}>
-            <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
-              <Profile classes={classes} />
-            </Grid>
+            <Card className={classes.card}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image='/static/images/profile.jpg'
+                  title='Contemplative Reptile'
+                />
+                <CardContent>
+                  <Typography gutterBottom variant='h5' component='h2'>
+                    Profile
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
+                  >
+                    Update and Edit your profile and add avatar to get your
+                    profile more attractive.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Link to='/me' className={'styleLink'}>
+                  <Button size='small' color='primary'>
+                    Go to Profile
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
           </Grow>
           <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={3000}>
-            <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
-              <Setting classes={classes} />
-            </Grid>
+            <Card className={classes.card}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image='/static/images/setting.jpg'
+                  title='Contemplative Reptile'
+                />
+                <CardContent>
+                  <Typography gutterBottom variant='h5' component='h2'>
+                    Settings
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
+                  >
+                    Please change password after every 90 days.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Link to='/setting' className={'styleLink'}>
+                  <Button size='small' color='primary'>
+                    Setting
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
           </Grow>
         </Grid>
       </Grid>

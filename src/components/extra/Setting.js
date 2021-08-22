@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -7,11 +7,8 @@ import {
   TextField,
   Button,
   CardActions,
-  CardActionArea,
-  CardMedia,
-  Dialog,
-  DialogTitle,
-  DialogContent,
+  Container,
+  Grow,
 } from '@material-ui/core';
 import MySnackbar from '../layout/MySnackbar';
 
@@ -19,29 +16,19 @@ import MySnackbar from '../layout/MySnackbar';
 import { connect } from 'react-redux';
 import { changePassword, deleteAccount } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import { UnAuthorized } from '../../utils/extraFunctions';
 
 const Setting = ({
   changePassword,
   deleteAccount,
-  auth: { user },
-  ...props
+  auth: { user, isAuthenticated },
 }) => {
-  const classes = props.classes;
-  const [open, setOpen] = React.useState(false);
   const [alert, setAlert] = useState({ status: false, msg: '' });
   const [form, setForm] = useState({
     old_password: null,
     new_password: null,
     confirm_new_password: null,
   });
-
-  const handleClickOpenDialog = () => {
-    setOpen(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpen(false);
-  };
 
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -50,6 +37,10 @@ const Setting = ({
   const handleClose = () => {
     setAlert({ ...alert, status: false });
   };
+
+  useEffect(() => {
+    document.title = 'Quizeal | Setting';
+  }, []);
 
   const update = () => {
     const { old_password, new_password, confirm_new_password } = form;
@@ -77,7 +68,6 @@ const Setting = ({
       });
       return;
     }
-    handleCloseDialog();
     changePassword({
       old_password,
       new_password,
@@ -85,37 +75,13 @@ const Setting = ({
     });
   };
 
+  if (!isAuthenticated) {
+    return UnAuthorized('/');
+  }
   return (
     <Fragment>
-      <Card className={classes.card}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image='/static/images/setting.jpg'
-            title='Contemplative Reptile'
-          />
-          <CardContent>
-            <Typography gutterBottom variant='h5' component='h2'>
-              Settings
-            </Typography>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              Please change password after every 90 days.
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size='small' color='primary' onClick={handleClickOpenDialog}>
-            Setting
-          </Button>
-        </CardActions>
-      </Card>
-      <Dialog
-        open={open}
-        onClose={handleCloseDialog}
-        aria-labelledby='form-dialog-title'
-      >
-        <DialogTitle id='form-dialog-title'>Account Setting</DialogTitle>
-        <DialogContent>
+      <Grow in={true} timeout={1000}>
+        <Container component='main' maxWidth='sm'>
           <Card style={{ margin: '20px' }}>
             <CardContent>
               <Typography variant='h5' color='error'>
@@ -189,8 +155,8 @@ const Setting = ({
               </Button>
             </CardActions>
           </Card>
-        </DialogContent>
-      </Dialog>
+        </Container>
+      </Grow>
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );

@@ -6,7 +6,7 @@ import Navbar from './components/layout/NavBar';
 import './App.css';
 import Error from './components/error/Error';
 import MyAlert from './components/layout/MyAlert';
-import Home from './components/layout/Home';
+import Home from './components/extra/Home';
 import CreateQuiz from './components/quiz/quiz-create/CreateQuiz';
 import QuizReport from './components/quiz/QuizReport';
 import Login from './components/auth/Login';
@@ -15,16 +15,19 @@ import Dashboard from './components/dashboard/Dashboard';
 import QuizTest from './components/quiz/quiz-test/QuizTest';
 import QuizView from './components/quiz/QuizView';
 import Loading from './components/layout/Loading';
+import Feedback from './components/extra/Feedback';
+import Me from './components/extra/Me';
+import Setting from './components/extra/Setting';
 import {
   createTheme,
   responsiveFontSizes,
   ThemeProvider,
 } from '@material-ui/core';
+
 // REDUX
 import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
-import Feedback from './components/extra/Feedback';
 
 let theme = createTheme({
   palette: {
@@ -39,7 +42,6 @@ function App() {
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
-
   return (
     <Provider store={store}>
       <Router>
@@ -52,6 +54,8 @@ function App() {
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/feedback' component={Feedback} />
+            <Route exact path='/me' component={Me} />
+            <Route exact path='/setting' component={Setting} />
             <Route exact path='/dashboard' component={Dashboard} />
             <Route exact path='/my-quizzes/:username' component={MyQuizzes} />
             <Route exact path='/create-quiz' component={CreateQuiz} />
