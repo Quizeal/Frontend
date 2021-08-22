@@ -11,7 +11,7 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import SendIcon from '@material-ui/icons/Send';
 import home from '../../resources/home.gif';
-import MySnackbar from './MySnackbar';
+import MySnackbar from '../layout/MySnackbar';
 import { Grow } from '@material-ui/core';
 
 // REDUC

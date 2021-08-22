@@ -172,6 +172,16 @@ export const changePassword = (formData) => async (dispatch) => {
 };
 
 // DO AFTER DONE AT BACKEND
+export const updateProfile = (formData) => async (dispatch) => {
+  console.log('PROFILE UPDATED SUCCESSFULLY', formData);
+};
+
+// DO AFTER DONE AT BACKEND
+export const feedback = (formData) => async (dispatch) => {
+  console.log('FEEDBACK SUBMITTED SUCCESSFULLY', formData);
+};
+
+// DO AFTER DONE AT BACKEND
 export const deleteAccount = (formData) => (dispatch) => {
   console.log('ACCOUNT DELETED SUCCESSFULLY');
 };

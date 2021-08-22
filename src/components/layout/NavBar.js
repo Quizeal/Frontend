@@ -55,7 +55,7 @@ const NavBar = ({ logout, auth: { isAuthenticated, user } }) => {
 
   const list = () => (
     <Fragment>
-      {!isAuthenticated ? (
+      {isAuthenticated ? (
         <div className={classes.list}>
           <DashboardNavbar hideDrawer={toggleNavbarState} />
         </div>
