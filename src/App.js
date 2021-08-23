@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MyQuizzes from './components/quiz/MyQuizzes';
-import Navbar from './components/layout/NavBar';
+// import Navbar from './components/layout/NavBar';
 import './App.css';
 import Error from './components/error/Error';
 import MyAlert from './components/layout/MyAlert';
@@ -18,6 +18,7 @@ import Loading from './components/layout/Loading';
 import Feedback from './components/extra/Feedback';
 import Me from './components/extra/Me';
 import Setting from './components/extra/Setting';
+import MiniDrawer from './components/layout/MiniDrawer';
 import {
   createTheme,
   responsiveFontSizes,
@@ -47,23 +48,25 @@ function App() {
       <Router>
         <ThemeProvider theme={theme}>
           <Loading />
-          <Navbar />
-          <MyAlert />
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/signup' component={Signup} />
-            <Route exact path='/feedback' component={Feedback} />
-            <Route exact path='/me' component={Me} />
-            <Route exact path='/setting' component={Setting} />
-            <Route exact path='/dashboard' component={Dashboard} />
-            <Route exact path='/my-quizzes/:username' component={MyQuizzes} />
-            <Route exact path='/create-quiz' component={CreateQuiz} />
-            <Route exact path='/quiz/:quiz_id' component={QuizTest} />
-            <Route path='/quiz-view/:quiz_id' component={QuizView} />
-            <Route path='/quiz-report/:quiz_id' component={QuizReport} />
-            <Route path='*' component={Error} />
-          </Switch>
+          <MiniDrawer>
+            {/* <Navbar /> */}
+            <MyAlert />
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/signup' component={Signup} />
+              <Route exact path='/feedback' component={Feedback} />
+              <Route exact path='/me' component={Me} />
+              <Route exact path='/setting' component={Setting} />
+              <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/my-quizzes/:username' component={MyQuizzes} />
+              <Route exact path='/create-quiz' component={CreateQuiz} />
+              <Route exact path='/quiz/:quiz_id' component={QuizTest} />
+              <Route path='/quiz-view/:quiz_id' component={QuizView} />
+              <Route path='/quiz-report/:quiz_id' component={QuizReport} />
+              <Route path='*' component={Error} />
+            </Switch>
+          </MiniDrawer>
         </ThemeProvider>
       </Router>
     </Provider>
