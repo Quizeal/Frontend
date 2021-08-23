@@ -142,7 +142,7 @@ export const logout = () => (dispatch) => {
   });
   clearInterval(AccessTimer);
   dispatch(clearQuiz());
-  // dispatch(setMyAlert('Logout Successfully'));
+  dispatch(setMyAlert('Logout Successfully'));
 };
 
 // Done

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
     rowGap: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing(6),
+      padding: theme.spacing(4),
       rowGap: theme.spacing(5),
     },
   },
