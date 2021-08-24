@@ -29,11 +29,7 @@ const accessToken = () => async (dispatch) => {
   }
   const body = JSON.stringify({ refresh: tokenRefresh });
   try {
-    const res = await axios.post(
-      'https://quizeal-backend.herokuapp.com/token-refresh/',
-      body,
-      config
-    );
+    const res = await axios.post('/token-refresh/', body, config);
     console.log('ACCESS TOKEN REFRESH SUCCESS');
 
     const { access, refresh } = res.data;
@@ -68,11 +64,7 @@ export const loadUser = () => async (dispatch) => {
   };
   const body = JSON.stringify({ token: tokenAccess });
   try {
-    const res = await axios.post(
-      'https://quizeal-backend.herokuapp.com/load-user/',
-      body,
-      config
-    );
+    const res = await axios.post('/load-user/', body, config);
     dispatch(setLoading(false));
     dispatch({
       type: USER_LOADED,
@@ -101,11 +93,7 @@ export const login = (username, password) => async (dispatch) => {
   };
   const body = JSON.stringify({ username, password });
   try {
-    const res = await axios.post(
-      'https://quizeal-backend.herokuapp.com/login/',
-      body,
-      config
-    );
+    const res = await axios.post('/login/', body, config);
     dispatch(setLoading(false));
     dispatch({
       type: LOGIN_SUCCESS,
@@ -134,11 +122,7 @@ export const signup = (formData) => async (dispatch) => {
   };
   const body = JSON.stringify(formData);
   try {
-    const res = await axios.post(
-      'https://quizeal-backend.herokuapp.com/register/',
-      body,
-      config
-    );
+    const res = await axios.post('/register/', body, config);
     dispatch(setLoading(false));
     dispatch({
       type: SIGNUP_SUCCESS,
@@ -184,11 +168,7 @@ export const changePassword = (formData) => async (dispatch) => {
     token: localStorage['token-access'],
   });
   try {
-    await axios.post(
-      'https://quizeal-backend.herokuapp.com/change-password/',
-      body,
-      config
-    );
+    await axios.post('/change-password/', body, config);
     dispatch(setLoading(false));
     dispatch(logout('Password Changed Successfully'));
     dispatch(setMyAlert('Password Successfully Updated, Please Login again.'));
@@ -198,6 +178,24 @@ export const changePassword = (formData) => async (dispatch) => {
     console.log(error);
     dispatch(clearQuiz());
     dispatch(setMyAlert(error.detail || error.statusText));
+  }
+};
+
+// DONE
+export const githubProfile = () => async (dispatch) => {
+  dispatch(setLoading(true));
+  const team = ['daretobedifferent18', 'daksh001b', 'siegefried2001'];
+  try {
+    const resO = team.map(async (username) => {
+      const res = await axios.get(`https://api.github.com/users/${username}`);
+      dispatch(setLoading(false));
+
+      return res.data;
+    });
+    return await Promise.all(resO);
+  } catch (error) {
+    dispatch(setMyAlert(error.response.data.message));
+    dispatch(setLoading(false));
   }
 };
 
