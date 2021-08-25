@@ -19,10 +19,9 @@ import { connect } from 'react-redux';
 import { getQuizTest, submitQuiz } from '../../../actions/quiz';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import { UnAuthorized } from '../../../utils/extraFunctions';
 
 const QuizTest = ({
-  auth: { isAuthenticated, user },
+  auth: { user },
   getQuizTest,
   submitQuiz,
   get_Quiz_Test,
@@ -68,10 +67,6 @@ const QuizTest = ({
     };
     submitQuiz(res, params.quiz_id);
   };
-
-  if (!isAuthenticated) {
-    return UnAuthorized('/');
-  }
 
   return (
     <Container>

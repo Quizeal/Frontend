@@ -16,13 +16,8 @@ import MySnackbar from '../layout/MySnackbar';
 import { connect } from 'react-redux';
 import { changePassword, deleteAccount } from '../../actions/auth';
 import PropTypes from 'prop-types';
-import { UnAuthorized } from '../../utils/extraFunctions';
 
-const Setting = ({
-  changePassword,
-  deleteAccount,
-  auth: { user, isAuthenticated },
-}) => {
+const Setting = ({ changePassword, deleteAccount, auth: { user } }) => {
   const [alert, setAlert] = useState({ status: false, msg: '' });
   const [form, setForm] = useState({
     old_password: null,
@@ -75,9 +70,6 @@ const Setting = ({
     });
   };
 
-  if (!isAuthenticated) {
-    return UnAuthorized('/');
-  }
   return (
     <Fragment>
       <Grow in={true} timeout={1000}>

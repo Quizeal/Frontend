@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MyQuizzes from './components/quiz/MyQuizzes';
-// import Navbar from './components/layout/NavBar';
 import './App.css';
 import Error from './components/error/Error';
 import MyAlert from './components/layout/MyAlert';
@@ -29,7 +28,7 @@ import {
 import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
-import AuthBox from './components/layout/AuthBox';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 let theme = createTheme({
   palette: {
@@ -50,22 +49,27 @@ function App() {
         <ThemeProvider theme={theme}>
           <Loading />
           <MiniDrawer>
-            {/* <Navbar /> */}
-            <AuthBox />
             <MyAlert />
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/signup' component={Signup} />
               <Route exact path='/feedback' component={Feedback} />
-              <Route exact path='/me' component={Me} />
-              <Route exact path='/setting' component={Setting} />
-              <Route exact path='/dashboard' component={Dashboard} />
-              <Route exact path='/my-quizzes/:username' component={MyQuizzes} />
-              <Route exact path='/create-quiz' component={CreateQuiz} />
-              <Route exact path='/quiz/:quiz_id' component={QuizTest} />
-              <Route path='/quiz-view/:quiz_id' component={QuizView} />
-              <Route path='/quiz-report/:quiz_id' component={QuizReport} />
+              <PrivateRoute exact path='/me' component={Me} />
+              <PrivateRoute exact path='/setting' component={Setting} />
+              <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <PrivateRoute
+                exact
+                path='/my-quizzes/:username'
+                component={MyQuizzes}
+              />
+              <PrivateRoute exact path='/create-quiz' component={CreateQuiz} />
+              <PrivateRoute exact path='/quiz/:quiz_id' component={QuizTest} />
+              <PrivateRoute path='/quiz-view/:quiz_id' component={QuizView} />
+              <PrivateRoute
+                path='/quiz-report/:quiz_id'
+                component={QuizReport}
+              />
               <Route path='*' component={Error} />
             </Switch>
           </MiniDrawer>

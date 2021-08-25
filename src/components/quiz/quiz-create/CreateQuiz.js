@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreateQuiz = ({ user, isAuthenticated, createQuiz }) => {
+const CreateQuiz = ({ user, createQuiz }) => {
   const history = useHistory();
   const classes = useStyles();
   const [selectedDateTime, handleDateTimeChange] = useState(null);
@@ -142,10 +142,6 @@ const CreateQuiz = ({ user, isAuthenticated, createQuiz }) => {
   useEffect(() => {
     document.title = 'Quizeal | Create Quiz';
   }, []);
-
-  if (!isAuthenticated) {
-    return UnAuthorized('/');
-  }
 
   return (
     <Fragment>
@@ -270,13 +266,11 @@ const CreateQuiz = ({ user, isAuthenticated, createQuiz }) => {
 
 CreateQuiz.propTypes = {
   user: PropTypes.object,
-  isAuthenticated: PropTypes.bool.isRequired,
   createQuiz: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { createQuiz })(CreateQuiz);

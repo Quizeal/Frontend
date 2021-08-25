@@ -21,7 +21,6 @@ import MySnackbar from '../layout/MySnackbar';
 // REDUX
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { UnAuthorized } from '../../utils/extraFunctions';
 
 const useStyles = makeStyles({
   root: {
@@ -41,7 +40,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard = ({ auth: { isAuthenticated, user } }) => {
+const Dashboard = ({ auth: { user } }) => {
   const classes = useStyles();
   const history = useHistory();
   const [quizCode, setQuizCode] = useState('');
@@ -70,9 +69,6 @@ const Dashboard = ({ auth: { isAuthenticated, user } }) => {
     document.title = 'Quizeal | Dashboard';
   }, []);
 
-  if (!isAuthenticated) {
-    return UnAuthorized('/');
-  }
   return (
     <Fragment>
       <Grid container justifyContent='center'>

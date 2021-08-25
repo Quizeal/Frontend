@@ -55,46 +55,6 @@ const commontList = [
     path: '/about',
   },
 ];
-const AuthenticatedList = [
-  {
-    component: <DashboardIcon />,
-    label: 'Dashboard',
-    path: '/dashboard',
-  },
-  {
-    component: <FormatListBulletedIcon />,
-    label: 'My Quizzes',
-    path: `/my-quizzes/${'divyam'}`,
-  },
-  {
-    component: <CreateIcon />,
-    label: 'Create Quiz',
-    path: '/create-quiz',
-  },
-  {
-    component: <PersonIcon />,
-    label: 'Profile',
-    path: '/me',
-  },
-  {
-    component: <SettingsIcon />,
-    label: 'Setting',
-    path: '/setting',
-  },
-];
-
-const UnAuthenticatedList = [
-  {
-    component: <AccountBoxIcon />,
-    label: 'Sign Up',
-    path: 'signup',
-  },
-  {
-    component: <LockIcon />,
-    label: 'Login',
-    path: 'login',
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -158,6 +118,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
+  const AuthenticatedList = [
+    {
+      component: <DashboardIcon />,
+      label: 'Dashboard',
+      path: '/dashboard',
+    },
+    {
+      component: <FormatListBulletedIcon />,
+      label: 'My Quizzes',
+      path: `/my-quizzes/${user && user.username}`,
+    },
+    {
+      component: <CreateIcon />,
+      label: 'Create Quiz',
+      path: '/create-quiz',
+    },
+    {
+      component: <PersonIcon />,
+      label: 'Profile',
+      path: '/me',
+    },
+    {
+      component: <SettingsIcon />,
+      label: 'Setting',
+      path: '/setting',
+    },
+  ];
+
+  const UnAuthenticatedList = [
+    {
+      component: <AccountBoxIcon />,
+      label: 'Sign Up',
+      path: 'signup',
+    },
+    {
+      component: <LockIcon />,
+      label: 'Login',
+      path: 'login',
+    },
+  ];
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);

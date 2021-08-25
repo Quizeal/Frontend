@@ -209,12 +209,8 @@ const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes, loading }) => {
 
   useEffect(() => {
     document.title = 'Quizeal | MyQuizzes';
-    if (isAuthenticated) myQuizzes(params.username);
+    myQuizzes(params.username);
   }, [myQuizzes, params.username, isAuthenticated]);
-
-  if (!isAuthenticated) {
-    return UnAuthorized('/');
-  }
 
   return (
     <Fragment>

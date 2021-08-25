@@ -23,7 +23,6 @@ import { connect } from 'react-redux';
 import { viewQuizReport } from '../../actions/quiz';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
-import { UnAuthorized } from '../../utils/extraFunctions';
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -55,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const QuizReport = ({
-  auth: { isAuthenticated, user },
+  auth: { user },
   view_Quiz_Report,
   viewQuizReport,
   loading,
@@ -74,10 +73,6 @@ const QuizReport = ({
     { category: 'Me', marks: data ? data.user_marks : 0 },
     { category: 'Top 10% Average', marks: 3.682 }, // DUMMY (NEED TO BE ADDED AT BACKEND)
   ];
-
-  if (!isAuthenticated) {
-    return UnAuthorized('/');
-  }
 
   return (
     <Fragment>

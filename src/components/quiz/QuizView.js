@@ -8,18 +8,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { viewQuiz } from '../../actions/quiz';
 import { useParams } from 'react-router';
-import { UnAuthorized } from '../../utils/extraFunctions';
 
-const QuizView = ({ viewQuiz, view_Quiz, isAuthenticated }) => {
+const QuizView = ({ viewQuiz, view_Quiz }) => {
   const params = useParams();
 
   useEffect(() => {
     viewQuiz(params.quiz_id);
   }, [params.quiz_id, viewQuiz]);
-
-  if (!isAuthenticated) {
-    return UnAuthorized('/');
-  }
 
   return (
     <Grow in={true} timeout={1000}>
@@ -75,11 +70,9 @@ const QuizView = ({ viewQuiz, view_Quiz, isAuthenticated }) => {
 QuizView.propTypes = {
   viewQuiz: PropTypes.func.isRequired,
   view_Quiz: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
   view_Quiz: state.quiz.view_Quiz,
 });
 

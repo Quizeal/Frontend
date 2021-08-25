@@ -13,7 +13,6 @@ const initial_state = {
   // token: localStorage.getItem('token-access'),
   loading: true,
   user: null,
-  statusCode: null,
   // loadUserSuccess: false,
 };
 

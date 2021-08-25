@@ -17,7 +17,6 @@ import { makeStyles } from '@material-ui/core';
 // REDUX
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { UnAuthorized } from '../../utils/extraFunctions';
 import { updateProfile } from '../../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
 }));
-const Me = ({ auth: { user, isAuthenticated }, updateProfile }) => {
+const Me = ({ auth: { user }, updateProfile }) => {
   const classes = useStyles();
   const [form, setForm] = useState({
     first_name: user && user.first_name,
@@ -57,9 +56,7 @@ const Me = ({ auth: { user, isAuthenticated }, updateProfile }) => {
   const update = () => {
     updateProfile(form);
   };
-  if (!isAuthenticated) {
-    return UnAuthorized('/');
-  }
+
   return (
     <Fragment>
       <Grow in={true} timeout={1000}>
