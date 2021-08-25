@@ -101,7 +101,7 @@ const Dashboard = ({ auth: { user } }) => {
                     to={`/my-quizzes/${user && user.username}`}
                     className={'styleLink'}
                   >
-                    <Button size='small' color='primary'>
+                    <Button size='small' color='primary' variant='contained'>
                       See my quizzes
                     </Button>
                   </Link>
@@ -135,7 +135,7 @@ const Dashboard = ({ auth: { user } }) => {
                 </CardActionArea>
                 <CardActions>
                   <Link to='/create-quiz' className={'styleLink'}>
-                    <Button size='small' color='primary'>
+                    <Button size='small' color='primary' variant='contained'>
                       Create now
                     </Button>
                   </Link>
@@ -187,65 +187,69 @@ const Dashboard = ({ auth: { user } }) => {
         </Grid>
         <Grid container justifyContent='center' className={classes.root}>
           <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2500}>
-            <Card className={classes.card}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image='/static/images/profile.jpg'
-                  title='Contemplative Reptile'
-                />
-                <CardContent>
-                  <Typography gutterBottom variant='h5' component='h2'>
-                    Profile
-                  </Typography>
-                  <Typography
-                    variant='body2'
-                    color='textSecondary'
-                    component='p'
-                  >
-                    Update and Edit your profile and add avatar to get your
-                    profile more attractive.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Link to='/me' className={'styleLink'}>
-                  <Button size='small' color='primary'>
-                    Go to Profile
-                  </Button>
-                </Link>
-              </CardActions>
-            </Card>
+            <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
+              <Card className={classes.card}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image='/static/images/profile.jpg'
+                    title='Contemplative Reptile'
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant='h5' component='h2'>
+                      Profile
+                    </Typography>
+                    <Typography
+                      variant='body2'
+                      color='textSecondary'
+                      component='p'
+                    >
+                      Update and Edit your profile and add avatar to get your
+                      profile more attractive.
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Link to='/me' className={'styleLink'}>
+                    <Button size='small' color='primary' variant='contained'>
+                      Go to Profile
+                    </Button>
+                  </Link>
+                </CardActions>
+              </Card>
+            </Grid>
           </Grow>
           <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={3000}>
-            <Card className={classes.card}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image='/static/images/setting.jpg'
-                  title='Contemplative Reptile'
-                />
-                <CardContent>
-                  <Typography gutterBottom variant='h5' component='h2'>
-                    Settings
-                  </Typography>
-                  <Typography
-                    variant='body2'
-                    color='textSecondary'
-                    component='p'
-                  >
-                    Please change password after every 90 days.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Link to='/setting' className={'styleLink'}>
-                  <Button size='small' color='primary'>
-                    Setting
-                  </Button>
-                </Link>
-              </CardActions>
-            </Card>
+            <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
+              <Card className={classes.card}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image='/static/images/setting.jpg'
+                    title='Contemplative Reptile'
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant='h5' component='h2'>
+                      Settings
+                    </Typography>
+                    <Typography
+                      variant='body2'
+                      color='textSecondary'
+                      component='p'
+                    >
+                      Please change password after every 90 days.
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Link to='/setting' className={'styleLink'}>
+                    <Button size='small' color='primary' variant='contained'>
+                      Setting
+                    </Button>
+                  </Link>
+                </CardActions>
+              </Card>
+            </Grid>
           </Grow>
         </Grid>
       </Grid>

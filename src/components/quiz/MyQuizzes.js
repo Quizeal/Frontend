@@ -209,7 +209,7 @@ const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes, loading }) => {
   useEffect(() => {
     document.title = 'Quizeal | MyQuizzes';
     myQuizzes(params.username);
-  }, [myQuizzes, params.username, isAuthenticated]);
+  }, [myQuizzes, params.username]);
 
   return (
     <Fragment>
@@ -248,17 +248,19 @@ const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes, loading }) => {
               </ButtonGroup>
               {/* </Slide>
             <Slide in={true} timeout={1000} direction='up'> */}
-              <DataGrid
-                rows={quizzes && quizzes[quizSelected]}
-                columns={columnsM}
-                pageSize={5}
-                autoHeight
-                pagination
-                autoPageSize
-                checkboxSelection
-                disableSelectionOnClick
-                sortModel={sortModel}
-              />
+              {quizzes[quizSelected].length && (
+                <DataGrid
+                  rows={quizzes[quizSelected]}
+                  columns={columnsM}
+                  pageSize={5}
+                  autoHeight
+                  pagination
+                  autoPageSize
+                  checkboxSelection
+                  disableSelectionOnClick
+                  sortModel={sortModel}
+                />
+              )}
             </Grid>
           </Slide>
         </Grid>

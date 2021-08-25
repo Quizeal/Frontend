@@ -19,6 +19,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MySnackbar from '../../layout/MySnackbar';
 
+const questionType = [
+  {
+    value: 1,
+    label: 'Single Correct',
+  },
+  {
+    value: 2,
+    label: 'Multi Correct',
+  },
+];
 // Customized Styling of Material UI Components
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,6 +71,7 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
     ],
     optionsCount: 1,
     question_marks: 1,
+    question_type: 1,
   });
 
   const handleClose = () => {
@@ -89,6 +100,7 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
       options: [{ option_name: '', is_correct: false }],
       optionsCount: 1,
       question_marks: 1,
+      question_type: 1,
     });
   };
 
@@ -143,6 +155,7 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
     }
     options.forEach((o) => delete o.id);
     props.addQuestion({ ...questionDetails, options: options });
+    console.log({ ...questionDetails, options: options });
     clearQuestionDetails();
     setAlert({
       ...alert,
@@ -151,8 +164,13 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
     });
   };
 
-  const { question_name, options, optionsCount, question_marks } =
-    questionDetails;
+  const {
+    question_name,
+    options,
+    optionsCount,
+    question_marks,
+    question_type,
+  } = questionDetails;
   return (
     <Fragment>
       <Card>
@@ -169,7 +187,9 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
           />
         </CardContent>
         <Divider variant='middle' />
-        <CardActions style={{ justifyContent: 'space-between' }}>
+        <CardActions
+          style={{ justifyContent: 'space-between', alignItems: 'start' }}
+        >
           <Fab
             size='medium'
             color='primary'
@@ -180,16 +200,39 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
             Add Option
             <AddIcon />
           </Fab>
-          <TextField
-            id='basic'
-            size='small'
-            label='Question Marks'
-            variant='outlined'
-            name='question_marks'
-            type='number'
-            value={question_marks}
-            onChange={(e) => onChange(e)}
-          />
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
+          >
+            <TextField
+              id='basic'
+              size='small'
+              label='Question Marks'
+              variant='outlined'
+              name='question_marks'
+              type='number'
+              value={question_marks}
+              onChange={(e) => onChange(e)}
+            />
+            <TextField
+              id='outlined-select-currency-native'
+              select
+              label='Question Type'
+              name='question_type'
+              value={question_type}
+              size='small'
+              onChange={(e) => onChange(e)}
+              SelectProps={{
+                native: true,
+              }}
+              variant='outlined'
+            >
+              {questionType.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </TextField>
+          </div>
         </CardActions>
         <Grid container className={classes.root} justifyContent='center'>
           {options.map((option, index) => {

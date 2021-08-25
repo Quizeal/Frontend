@@ -17,7 +17,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import QAList from '../QAList';
 import AddQuestion from './AddQuestion';
 import MySnackbar from '../../layout/MySnackbar';
-// import { createQuiz } from '../../../apiHandlers.js/quiz';
 
 // REDUX
 import { connect } from 'react-redux';
