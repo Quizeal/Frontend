@@ -29,6 +29,7 @@ import {
 import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
+import AuthBox from './components/layout/AuthBox';
 
 let theme = createTheme({
   palette: {
@@ -50,6 +51,7 @@ function App() {
           <Loading />
           <MiniDrawer>
             {/* <Navbar /> */}
+            <AuthBox />
             <MyAlert />
             <Switch>
               <Route exact path='/' component={Home} />
