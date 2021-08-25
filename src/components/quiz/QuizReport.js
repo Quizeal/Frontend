@@ -23,6 +23,7 @@ import { connect } from 'react-redux';
 import { viewQuizReport } from '../../actions/quiz';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
+import OptionsStatus from './OptionsStatus';
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -162,10 +163,11 @@ const QuizReport = ({
               <Typography
                 variant='h4'
                 align='center'
-                style={{ paddingBottom: '10px' }}
+                style={{ paddingBottom: '20px' }}
               >
                 Question and Answers
               </Typography>
+              <OptionsStatus report={true} />
               {data &&
                 data.questions.map((qa, index) => {
                   return (
@@ -198,3 +200,4 @@ export default connect(mapStateToProps, { viewQuizReport })(QuizReport);
 // --> Verify usernames authentication
 // --> Add Username to dynamically url only instead of sending it as a body amd make it a get request
 // --> On Reload Username is null
+// --> add top 10% avg

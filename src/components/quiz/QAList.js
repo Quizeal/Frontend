@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     justifyContent: 'center',
+    alignItems: 'center',
   },
   qACard: {
     marginBottom: '30px',
@@ -56,10 +57,9 @@ export default function QAList(props) {
                   disabled
                   size='small'
                   // color='primary'
-                  className={`${classes.optionStyle} ${validateAnswer(
-                    option.is_correct,
-                    option.is_marked
-                  )}`}
+                  className={`${option.is_marked && 'outlined-answer'} ${
+                    classes.optionStyle
+                  } ${validateAnswer(option.is_correct, option.is_marked)} `}
                 >
                   {option.option_name}
                 </Button>

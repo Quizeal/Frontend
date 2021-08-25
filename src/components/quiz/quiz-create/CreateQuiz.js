@@ -1,5 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Grid, TextField, Divider, ButtonGroup, Grow } from '@material-ui/core';
+import {
+  Grid,
+  TextField,
+  Divider,
+  ButtonGroup,
+  Grow,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
 import { format, isFuture, isValid } from 'date-fns';
@@ -23,6 +30,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createQuiz } from '../../../actions/quiz';
 import { useHistory } from 'react-router';
+import OptionsStatus from '../OptionsStatus';
 
 const useStyles = makeStyles((theme) => ({
   sectionDetail: {
@@ -227,7 +235,26 @@ const CreateQuiz = ({ user, createQuiz }) => {
         aria-describedby='alert-dialog-description'
       >
         <DialogTitle id='alert-dialog-title'>
-          {questions.length ? 'Questions Added' : 'No Question Added'}
+          {questions.length ? (
+            <Fragment>
+              <Typography
+                variant='h5'
+                align='center'
+                style={{ paddingBottom: '20px' }}
+              >
+                Questions Added
+              </Typography>
+              <OptionsStatus />
+            </Fragment>
+          ) : (
+            <Typography
+              variant='h5'
+              align='center'
+              style={{ paddingBottom: '20px' }}
+            >
+              No Questions Added
+            </Typography>
+          )}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>

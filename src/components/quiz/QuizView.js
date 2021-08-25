@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { viewQuiz } from '../../actions/quiz';
 import { useParams } from 'react-router';
+import OptionsStatus from './OptionsStatus';
 
 const QuizView = ({ viewQuiz, view_Quiz }) => {
   const params = useParams();
@@ -50,13 +51,10 @@ const QuizView = ({ viewQuiz, view_Quiz }) => {
             Quiz Date - {view_Quiz && view_Quiz.date}
           </Typography>
           <Divider />
-          <Typography
-            variant='h4'
-            align='center'
-            style={{ paddingBottom: '10px' }}
-          >
+          <Typography variant='h4' align='center' style={{ padding: '20px 0' }}>
             Question and Answers
           </Typography>
+          <OptionsStatus />
           {view_Quiz &&
             view_Quiz.questions.map((qa, index) => {
               return <QAList view={true} key={index} i={index} qaSet={qa} />;

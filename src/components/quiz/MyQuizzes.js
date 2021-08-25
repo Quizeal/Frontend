@@ -248,11 +248,11 @@ const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes, loading }) => {
               </ButtonGroup>
               {/* </Slide>
             <Slide in={true} timeout={1000} direction='up'> */}
-              {quizzes[quizSelected].length && (
+              {quizzes[quizSelected].length ? (
                 <DataGrid
                   rows={quizzes[quizSelected]}
                   columns={columnsM}
-                  pageSize={5}
+                  pageSize={10}
                   autoHeight
                   pagination
                   autoPageSize
@@ -260,6 +260,8 @@ const MyQuizzes = ({ myQuizzes, isAuthenticated, quizzes, loading }) => {
                   disableSelectionOnClick
                   sortModel={sortModel}
                 />
+              ) : (
+                ''
               )}
             </Grid>
           </Slide>

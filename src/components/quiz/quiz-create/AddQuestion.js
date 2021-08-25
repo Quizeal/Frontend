@@ -180,6 +180,7 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
             label='Question'
             variant='outlined'
             multiline
+            minRows={2}
             name='question_name'
             value={question_name}
             fullWidth={true}
@@ -210,6 +211,7 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
               variant='outlined'
               name='question_marks'
               type='number'
+              InputProps={{ inputProps: { min: 1, max: 10 } }}
               value={question_marks}
               onChange={(e) => onChange(e)}
             />
