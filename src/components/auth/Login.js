@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ login, auth }) => {
+const Login = ({ login, auth, ...props }) => {
   const classes = useStyles();
   const [form, setForm] = useState({
     email: null,
@@ -109,9 +109,13 @@ const Login = ({ login, auth }) => {
   };
   const { isAuthenticated } = auth;
 
+  const redirectUrl = props.location.state
+    ? props.location.state.from.pathname
+    : '/dashboard';
   if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to={redirectUrl} />;
   }
+  console.log('Login');
 
   return (
     <Fragment>
