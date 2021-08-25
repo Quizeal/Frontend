@@ -16,7 +16,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux';
 import { myQuizzes } from '../../actions/quiz';
 import PropTypes from 'prop-types';
-import { UnAuthorized } from '../../utils/extraFunctions';
 import { useParams } from 'react-router';
 
 // Columns of Table

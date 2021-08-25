@@ -24,7 +24,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createQuiz } from '../../../actions/quiz';
 import { useHistory } from 'react-router';
-import { UnAuthorized } from '../../../utils/extraFunctions';
 
 const useStyles = makeStyles((theme) => ({
   sectionDetail: {
