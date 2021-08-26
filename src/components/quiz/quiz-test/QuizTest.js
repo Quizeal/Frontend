@@ -33,8 +33,8 @@ const QuizTest = ({
 
   useEffect(() => {
     document.title = 'Quizeal | Quiz Test';
-    getQuizTest(params.quiz_id);
-  }, [getQuizTest, params.quiz_id]);
+    getQuizTest(params.username, params.quiz_id);
+  }, [getQuizTest, params.username, params.quiz_id]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -65,7 +65,7 @@ const QuizTest = ({
       username: user && user.username,
       answers: responses,
     };
-    submitQuiz(res, params.quiz_id);
+    submitQuiz(res, params.username, params.quiz_id);
   };
 
   return (

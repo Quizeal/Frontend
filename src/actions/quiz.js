@@ -38,11 +38,11 @@ export const myQuizzes = (username) => async (dispatch) => {
 };
 
 // DONE
-export const viewQuiz = (quizId) => async (dispatch) => {
+export const viewQuiz = (username, quizId) => async (dispatch) => {
   dispatch(setLoading(true));
   setAuthToken(localStorage['token-access']);
   try {
-    const res = await axios.get(`/view-quiz/${quizId}`);
+    const res = await axios.get(`/view-quiz/${username}/${quizId}`);
     dispatch(setLoading(false));
     dispatch({
       type: VIEW_QUIZ_SUCCESS,
@@ -63,14 +63,8 @@ export const viewQuiz = (quizId) => async (dispatch) => {
 export const viewQuizReport = (id, username) => async (dispatch) => {
   dispatch(setLoading(true));
   setAuthToken(localStorage['token-access']);
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({ username });
   try {
-    const res = await axios.post(`/quiz-report/${id}`, body, config);
+    const res = await axios.get(`/quiz-report/${username}/${id}`);
     dispatch(setLoading(false));
     console.log('QUIZ REPORT FETCHED SUCCESSFULLY');
     dispatch({
@@ -113,11 +107,11 @@ export const createQuiz = (quiz) => async (dispatch) => {
 };
 
 // DONE
-export const getQuizTest = (id) => async (dispatch) => {
+export const getQuizTest = (username, id) => async (dispatch) => {
   dispatch(setLoading(true));
   setAuthToken(localStorage['token-access']);
   try {
-    let res = await axios.get(`/get-quiz/${id}`);
+    let res = await axios.get(`/get-quiz/${username}/${id}`);
     console.log('QUIZ LOADED SUCCESSFULLY');
     dispatch(setLoading(false));
     res.data.data.questions = shuffle(res.data.data.questions);
@@ -138,7 +132,7 @@ export const getQuizTest = (id) => async (dispatch) => {
 };
 
 // DONE
-export const submitQuiz = (responses, id) => async (dispatch) => {
+export const submitQuiz = (responses, username, id) => async (dispatch) => {
   setAuthToken(localStorage['token-access']);
   dispatch(setLoading(true));
   const config = {
@@ -148,7 +142,11 @@ export const submitQuiz = (responses, id) => async (dispatch) => {
   };
   const body = JSON.stringify(responses);
   try {
-    const res = await axios.post(`/submit-quiz/${id}`, body, config);
+    const res = await axios.post(
+      `/submit-quiz/${username}/${id}`,
+      body,
+      config
+    );
     dispatch(setLoading(false));
     dispatch(setMyAlert(res.data.detail));
   } catch (error) {

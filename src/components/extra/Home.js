@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = ({ isAuthenticated }) => {
+const Home = ({ auth: { isAuthenticated, user } }) => {
   const classes = useStyles();
   const history = useHistory();
   const [quizCode, setQuizCode] = useState('');
@@ -54,7 +54,7 @@ const Home = ({ isAuthenticated }) => {
       });
       return;
     }
-    history.push(`/quiz/${quizCode}`);
+    history.push(`/quiz/${user && user.username}/${quizCode}`);
   };
 
   useEffect(() => {
@@ -137,11 +137,11 @@ const Home = ({ isAuthenticated }) => {
 };
 
 Home.propTypes = {
-  isAuthenticated: PropTypes.bool,
+  auth: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(Home);

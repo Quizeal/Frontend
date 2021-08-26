@@ -10,12 +10,12 @@ import { viewQuiz } from '../../actions/quiz';
 import { useParams } from 'react-router';
 import OptionsStatus from './OptionsStatus';
 
-const QuizView = ({ viewQuiz, view_Quiz }) => {
+const QuizView = ({ viewQuiz, view_Quiz, user }) => {
   const params = useParams();
 
   useEffect(() => {
-    viewQuiz(params.quiz_id);
-  }, [params.quiz_id, viewQuiz]);
+    viewQuiz(user.username, params.quiz_id);
+  }, [params.quiz_id, user, viewQuiz]);
 
   return (
     <Grow in={true} timeout={1000}>
@@ -72,6 +72,7 @@ QuizView.propTypes = {
 
 const mapStateToProps = (state) => ({
   view_Quiz: state.quiz.view_Quiz,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { viewQuiz })(QuizView);

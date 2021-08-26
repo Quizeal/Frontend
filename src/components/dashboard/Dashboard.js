@@ -63,7 +63,7 @@ const Dashboard = ({ auth: { user } }) => {
       });
       return;
     }
-    history.push(`/quiz/${quizCode}`);
+    history.push(`/quiz/${user && user.username}/${quizCode}`);
   };
   useEffect(() => {
     document.title = 'Quizeal | Dashboard';

@@ -64,7 +64,11 @@ function App() {
                 component={MyQuizzes}
               />
               <PrivateRoute exact path='/create-quiz' component={CreateQuiz} />
-              <PrivateRoute exact path='/quiz/:quiz_id' component={QuizTest} />
+              <PrivateRoute
+                exact
+                path='/quiz/:username/:quiz_id'
+                component={QuizTest}
+              />
               <PrivateRoute path='/quiz-view/:quiz_id' component={QuizView} />
               <PrivateRoute
                 path='/quiz-report/:quiz_id'
