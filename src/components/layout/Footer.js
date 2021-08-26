@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Divider, Grid, Typography, makeStyles, Box } from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import { Link } from 'react-router-dom';
 import logo from '../../resources/logo.png';
 
 const useStyles = makeStyles((theme) => ({

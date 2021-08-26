@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import {
   Button,
   CssBaseline,
@@ -11,9 +12,8 @@ import {
   Container,
   Divider,
   Grow,
+  makeStyles,
 } from '@material-ui/core';
-import { Link, Redirect } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import MySnackbar from '../layout/MySnackbar';
 import logo from '../../resources/logo.png';
 
@@ -21,8 +21,6 @@ import logo from '../../resources/logo.png';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
-// import GoogleLn from './GoogleLn';
-// import GoogleLt from './GoogleLt';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -115,7 +113,6 @@ const Login = ({ login, auth, ...props }) => {
   if (isAuthenticated) {
     return <Redirect to={redirectUrl} />;
   }
-  console.log('Login');
 
   return (
     <Fragment>
@@ -190,8 +187,6 @@ const Login = ({ login, auth, ...props }) => {
             </form>
           </div>
           <Divider variant='middle' className={classes.divider} />
-          {/* <GoogleLn />
-        <GoogleLt /> */}
           <Box mt={8}>
             <Typography variant='body2' color='textSecondary' align='center'>
               {'Copyright © '}
@@ -219,6 +214,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { login })(Login);
-
-// TODO
-// -> Add Loading Effect

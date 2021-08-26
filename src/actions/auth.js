@@ -45,11 +45,11 @@ const accessToken = () => async (dispatch) => {
 // Add Error Handling
 export const loadUser = () => async (dispatch) => {
   const tokenAccess = localStorage['token-access'];
+  dispatch(setLoading(true));
 
   if (tokenAccess) {
-    dispatch(setLoading(true));
     setAuthToken(tokenAccess);
-  } else return;
+  }
 
   const config = {
     headers: {
@@ -64,7 +64,7 @@ export const loadUser = () => async (dispatch) => {
       type: USER_LOADED,
       payload: res.data.data,
     });
-    AccessTimer = setInterval(accessToken(), 1000 * 60 * 60);
+    AccessTimer = setInterval(accessToken(), 1000 * 55 * 60);
   } catch (error) {
     dispatch(setLoading(false));
     dispatch({
@@ -136,13 +136,13 @@ export const signup = (formData) => async (dispatch) => {
 };
 
 // Add Logout API at backend and update this function
-export const logout = () => (dispatch) => {
+export const logout = (msg) => (dispatch) => {
   dispatch({
     type: LOGOUT,
   });
   clearInterval(AccessTimer);
   dispatch(clearQuiz());
-  dispatch(setMyAlert('Logout Successfully'));
+  dispatch(setMyAlert(msg || 'Logout Successfully'));
 };
 
 // Done
@@ -160,7 +160,7 @@ export const changePassword = (formData) => async (dispatch) => {
   try {
     await axios.post('/change-password/', body, config);
     dispatch(setLoading(false));
-    dispatch(logout());
+    dispatch(logout('Password Changed Successfully'));
     dispatch(setMyAlert('Password Successfully Updated, Please Login again.'));
   } catch (err) {
     const error = err.response.data;

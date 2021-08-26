@@ -5,8 +5,8 @@ import {
   Grid,
   Tooltip,
   IconButton,
+  makeStyles,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
 import CancelSharpIcon from '@material-ui/icons/CancelSharp';
 
 // Customized Styling of Material UI Components

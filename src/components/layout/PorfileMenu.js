@@ -1,16 +1,15 @@
 import React, { Fragment } from 'react';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { Avatar } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { Button, Menu, MenuItem, Avatar } from '@material-ui/core';
 
 // REDUX
 import { connect } from 'react-redux';
-import { logout } from '../../actions/auth';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { logout } from '../../actions/auth';
 
 const ProfileMenu = ({ auth: { isAuthenticated, user }, logout }) => {
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -19,6 +18,11 @@ const ProfileMenu = ({ auth: { isAuthenticated, user }, logout }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const onLogout = () => {
+    logout();
+    history.push('/');
   };
 
   return (
@@ -48,7 +52,7 @@ const ProfileMenu = ({ auth: { isAuthenticated, user }, logout }) => {
             <Link to='/setting' className={'styleLink'}>
               <MenuItem onClick={handleClose}>My account</MenuItem>
             </Link>
-            <MenuItem onClick={logout}>Logout</MenuItem>
+            <MenuItem onClick={onLogout}>Logout</MenuItem>
           </Menu>
         </Fragment>
       ) : (

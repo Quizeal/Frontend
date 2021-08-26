@@ -1,4 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import {
   Grid,
   TextField,
@@ -11,10 +13,8 @@ import {
   Button,
   Typography,
   Grow,
+  makeStyles,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
 import SendIcon from '@material-ui/icons/Send';
 import MySnackbar from '../layout/MySnackbar';
 
@@ -68,7 +68,6 @@ const Dashboard = ({ auth: { user } }) => {
   useEffect(() => {
     document.title = 'Quizeal | Dashboard';
   }, []);
-
   return (
     <Fragment>
       <Grid container justifyContent='center'>

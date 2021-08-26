@@ -1,14 +1,13 @@
+import React, { Fragment, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { Container, Typography, Divider, Grow } from '@material-ui/core';
 import QAList from './QAList';
-import { Fragment } from 'react';
-import { useEffect } from 'react';
+import OptionsStatus from './OptionsStatus';
 
 // REDUX
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { viewQuiz } from '../../actions/quiz';
-import { useParams } from 'react-router';
-import OptionsStatus from './OptionsStatus';
 
 const QuizView = ({ viewQuiz, view_Quiz, user }) => {
   const params = useParams();
@@ -78,4 +77,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, { viewQuiz })(QuizView);
 
 // TODO
-// --> Verify usernames authentication
+// --> Time Format

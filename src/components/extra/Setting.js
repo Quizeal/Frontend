@@ -14,8 +14,8 @@ import MySnackbar from '../layout/MySnackbar';
 
 // REDUX
 import { connect } from 'react-redux';
-import { changePassword, deleteAccount } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import { changePassword, deleteAccount } from '../../actions/auth';
 
 const Setting = ({ changePassword, deleteAccount, auth: { user } }) => {
   const [alert, setAlert] = useState({ status: false, msg: '' });

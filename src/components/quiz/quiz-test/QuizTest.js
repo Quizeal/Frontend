@@ -1,3 +1,5 @@
+import React, { Fragment, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   CardContent,
   Container,
@@ -10,15 +12,11 @@ import {
 // import CircularTimer from './CircularTimer';
 import SelectOption from './SelectOption';
 import StepperProgress from './StepperProgress';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { Fragment } from 'react';
 
 // REDUX
 import { connect } from 'react-redux';
-import { getQuizTest, submitQuiz } from '../../../actions/quiz';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { getQuizTest, submitQuiz } from '../../../actions/quiz';
 
 const QuizTest = ({
   auth: { user },
@@ -147,4 +145,5 @@ QuizTest.propTypes = {
 export default connect(mapStateToProps, { getQuizTest, submitQuiz })(QuizTest);
 
 // TODO
-// --> Verify usernames authentication
+// --> Add Proper Msg about quiz start/end
+// --> Add Timer

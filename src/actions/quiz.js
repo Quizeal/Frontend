@@ -84,7 +84,7 @@ export const viewQuizReport = (id, username) => async (dispatch) => {
 };
 
 // DONE
-export const createQuiz = (quiz) => async (dispatch) => {
+export const createQuiz = (username, quiz) => async (dispatch) => {
   dispatch(setLoading(true));
   const config = {
     headers: {
@@ -94,7 +94,7 @@ export const createQuiz = (quiz) => async (dispatch) => {
 
   const body = JSON.stringify(quiz);
   try {
-    await axios.post(`/create-quiz/`, body, config);
+    await axios.post(`/create-quiz/${username}`, body, config);
     dispatch(setLoading(false));
     dispatch(setMyAlert('Quiz Created Successfully'));
   } catch (error) {
@@ -121,7 +121,7 @@ export const getQuizTest = (username, id) => async (dispatch) => {
     });
   } catch (error) {
     dispatch(setLoading(false));
-    console.log('QUIZ LOADED FAILED', error.response);
+    console.log('QUIZ LOADED FAILED');
     dispatch({
       type: GET_QUIZ_TEST_FAILURE,
     });
@@ -157,10 +157,23 @@ export const submitQuiz = (responses, username, id) => async (dispatch) => {
   }
 };
 
-// DO AFTER FIXED IN BACKEND
-// CAN BE DELETED BY ANYONE
-export const deleteQuiz = (id, type) => async (dispatch) => {
-  console.log('DELETED', id, type);
+// DONE
+export const deleteQuiz = (username, id, type) => async (dispatch) => {
+  dispatch(setLoading(true));
+  setAuthToken(localStorage['token-access']);
+  try {
+    let res = await axios.get(`/delete-${type}/${username}/${id}`);
+    console.log('QUIZ DELETED SUCCESSFULLY');
+    dispatch(setLoading(false));
+    dispatch(setMyAlert(res.data.detail));
+    dispatch(myQuizzes(username));
+  } catch (error) {
+    dispatch(setLoading(false));
+    console.log('QUIZ DELETED FAILED', error.response);
+    dispatch(
+      setMyAlert(error.response.data.detail || error.response.statusText)
+    );
+  }
 };
 
 // DONE

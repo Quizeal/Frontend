@@ -9,15 +9,17 @@ import {
   Divider,
   TextField,
   Fab,
+  makeStyles,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
-import AddOption from './AddOption';
-import { v4 as uuidv4 } from 'uuid';
 import AddIcon from '@material-ui/icons/Add';
-import { setMyAlert } from '../../../actions/myAlert';
+import { v4 as uuidv4 } from 'uuid';
+import MySnackbar from '../../layout/MySnackbar';
+import AddOption from './AddOption';
+
+// REDUX
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import MySnackbar from '../../layout/MySnackbar';
+import { setMyAlert } from '../../../actions/myAlert';
 
 const questionType = [
   {
@@ -72,6 +74,7 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
     optionsCount: 1,
     question_marks: 1,
     question_type: 1,
+    answerCount: 0,
   });
 
   const handleClose = () => {
@@ -86,10 +89,16 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
   };
   const updateOption = (e, detail) => {
     const newOptionsArray = [...questionDetails.options];
-    if (detail === 'toggleAnswer')
+    let answerCountM = questionDetails.answerCount;
+    if (detail === 'toggleAnswer') {
       newOptionsArray[e.target.name].is_correct = e.target.checked;
-    else newOptionsArray[e.target.name].option_name = e.target.value;
-    updateQuestionDetails({ ...questionDetails, options: newOptionsArray });
+      e.target.checked ? answerCountM++ : answerCountM--;
+    } else newOptionsArray[e.target.name].option_name = e.target.value;
+    updateQuestionDetails({
+      ...questionDetails,
+      options: newOptionsArray,
+      answerCount: answerCountM,
+    });
   };
 
   const clearQuestionDetails = () => {
@@ -101,22 +110,24 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
       optionsCount: 1,
       question_marks: 1,
       question_type: 1,
+      answerCount: 0,
     });
   };
 
   const deleteOption = (id) => {
     if (questionDetails.optionsCount > 1) {
       const newOptionsArray = [...questionDetails.options];
-      const presentOptionCount = questionDetails.optionsCount;
+      let answerCountM = questionDetails.answerCount;
 
-      newOptionsArray.splice(
-        newOptionsArray.findIndex((a) => a.id === id),
-        1
-      );
+      const presentOptionCount = questionDetails.optionsCount;
+      const iIndex = newOptionsArray.findIndex((a) => a.id === id);
+      if (newOptionsArray[iIndex].is_correct) answerCountM--;
+      newOptionsArray.splice(iIndex, 1);
       updateQuestionDetails({
         ...questionDetails,
         options: newOptionsArray,
         optionsCount: presentOptionCount - 1,
+        answerCount: answerCountM,
       });
     }
   };
@@ -136,7 +147,8 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
     }
   };
   const onSubmit = () => {
-    const { question_name, options } = questionDetails;
+    const { question_name, options, answerCount, question_type } =
+      questionDetails;
     if (!question_name) {
       setAlert({ ...alert, status: true, msg: 'Please fill question Details' });
       return;
@@ -153,9 +165,16 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
       });
       return;
     }
+    if (answerCount > 1 && question_type === 1) {
+      setAlert({
+        ...alert,
+        status: true,
+        msg: 'Please select correct Question Type',
+      });
+      return;
+    }
     options.forEach((o) => delete o.id);
     props.addQuestion({ ...questionDetails, options: options });
-    console.log({ ...questionDetails, options: options });
     clearQuestionDetails();
     setAlert({
       ...alert,

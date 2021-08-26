@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
-import { Grow, makeStyles } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
-import { Divider } from '@material-ui/core';
-import QAList from '../quiz/QAList';
-import { Typography } from '@material-ui/core';
-// React Charts
+import React, { useEffect, Fragment } from 'react';
+import { useParams } from 'react-router';
+import {
+  Grow,
+  makeStyles,
+  Grid,
+  Divider,
+  Typography,
+  Paper,
+} from '@material-ui/core';
 import {
   Chart,
   BarSeries,
@@ -13,17 +16,15 @@ import {
   ValueAxis,
   Tooltip,
 } from '@devexpress/dx-react-chart-material-ui';
-import { Paper } from '@material-ui/core';
 import { Animation } from '@devexpress/dx-react-chart';
 import { EventTracker } from '@devexpress/dx-react-chart';
-import { Fragment } from 'react';
+import QAList from '../quiz/QAList';
+import OptionsStatus from './OptionsStatus';
 
 // REDUX
 import { connect } from 'react-redux';
-import { viewQuizReport } from '../../actions/quiz';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router';
-import OptionsStatus from './OptionsStatus';
+import { viewQuizReport } from '../../actions/quiz';
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -72,7 +73,7 @@ const QuizReport = ({
   const dataG = [
     { category: 'Topper', marks: data ? data.topper_marks : 0 },
     { category: 'Me', marks: data ? data.user_marks : 0 },
-    { category: 'Top 10% Average', marks: 3.682 }, // DUMMY (NEED TO BE ADDED AT BACKEND)
+    { category: 'Top 10% Average', marks: data & data.top_10_percentile }, // DUMMY (NEED TO BE ADDED AT BACKEND)
   ];
 
   return (
@@ -197,7 +198,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, { viewQuizReport })(QuizReport);
 
 // TODO
-// --> Verify usernames authentication
-// --> Add Username to dynamically url only instead of sending it as a body amd make it a get request
-// --> On Reload Username is null
-// --> add top 10% avg
+// --> Time Format

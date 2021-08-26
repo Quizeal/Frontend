@@ -1,6 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Backdrop, CircularProgress } from '@material-ui/core';
+import { Backdrop, CircularProgress, makeStyles } from '@material-ui/core';
 
 // REDUX
 import { connect } from 'react-redux';

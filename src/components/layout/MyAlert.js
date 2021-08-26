@@ -1,6 +1,5 @@
 import React from 'react';
-import { Snackbar, Grid, Slide } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
+import { Snackbar, Grid, Slide, makeStyles } from '@material-ui/core';
 
 // REDUX
 import { connect } from 'react-redux';

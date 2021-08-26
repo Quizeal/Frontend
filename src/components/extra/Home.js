@@ -1,23 +1,22 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { useHistory, Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import {
   Grid,
   Button,
   Typography,
   TextField,
   IconButton,
+  Grow,
+  makeStyles,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 import SendIcon from '@material-ui/icons/Send';
 import home from '../../resources/home.gif';
 import MySnackbar from '../layout/MySnackbar';
-import { Grow } from '@material-ui/core';
 
 // REDUC
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   section: {

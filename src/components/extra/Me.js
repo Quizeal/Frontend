@@ -11,8 +11,8 @@ import {
   Grid,
   CardActionArea,
   CardMedia,
+  makeStyles,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
 
 // REDUX
 import { connect } from 'react-redux';

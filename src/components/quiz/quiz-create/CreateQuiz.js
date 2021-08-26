@@ -6,21 +6,21 @@ import {
   ButtonGroup,
   Grow,
   Typography,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  makeStyles,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
-import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+import DateFnsUtils from '@date-io/date-fns';
 import { format, isFuture, isValid } from 'date-fns';
 import {
   KeyboardTimePicker,
   KeyboardDateTimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import QAList from '../QAList';
 import AddQuestion from './AddQuestion';
 import MySnackbar from '../../layout/MySnackbar';
@@ -136,7 +136,7 @@ const CreateQuiz = ({ user, createQuiz }) => {
       start_time: format(selectedDateTime, 'HH:mm'),
       duration: format(selectedDuration, 'HH:mm:ss'),
     };
-    await createQuiz({
+    await createQuiz(user && user.username, {
       ...newQuiz,
       username: user.username,
       ...date_time,
@@ -302,5 +302,3 @@ export default connect(mapStateToProps, { createQuiz })(CreateQuiz);
 
 // TODO
 // --> Handle Console errors by ForwardRef
-// --> Verify usernames authentication
-// --> Add Question Type Option in forms

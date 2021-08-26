@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { Button, Grid, Grow, Typography } from '@material-ui/core';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
+import { Button, Grid, Grow, Typography, makeStyles } from '@material-ui/core';
 import errorGif from '../../resources/error.gif';
-import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   section: {
