@@ -73,7 +73,7 @@ const QuizReport = ({
   const dataG = [
     { category: 'Topper', marks: data ? data.topper_marks : 0 },
     { category: 'Me', marks: data ? data.user_marks : 0 },
-    { category: 'Top 10% Average', marks: data & data.top_10_percentile }, // DUMMY (NEED TO BE ADDED AT BACKEND)
+    { category: 'Top 10% Average', marks: data ? data.top_10_percentile : 0 },
   ];
 
   return (

@@ -177,9 +177,9 @@ export const deleteQuiz = (username, id, type) => async (dispatch) => {
     let res = await axios.get(
       `https://quizeal-backend.herokuapp.com/delete-${type}/${username}/${id}`
     );
-    console.log('QUIZ DELETED SUCCESSFULLY');
+    console.log(`QUIZ ${type} DELETED SUCCESSFULLY`);
     dispatch(setLoading(false));
-    dispatch(setMyAlert(res.data.detail));
+    dispatch(setMyAlert(res.data.data));
     dispatch(myQuizzes(username));
   } catch (error) {
     dispatch(setLoading(false));

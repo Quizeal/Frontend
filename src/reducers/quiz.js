@@ -10,13 +10,6 @@ import {
   GET_QUIZ_TEST_FAILURE,
 } from '../actions/type';
 
-const filterIsActiveQuizzes = (quizArray) => {
-  let { attempted, created } = quizArray;
-  attempted = attempted.filter((q) => q.is_active);
-  created = created.filter((q) => q.is_active);
-  return { attempted, created };
-};
-
 const initialState = {
   quizzes: {
     attempted: [],
@@ -34,7 +27,7 @@ export default function myQuizzes(state = initialState, action) {
     case MY_QUIZZES_SUCCESS:
       return {
         ...state,
-        quizzes: filterIsActiveQuizzes(payload),
+        quizzes: payload,
       };
     case VIEW_QUIZ_FAILURE:
     case MY_QUIZZES_FAILURE:
