@@ -29,7 +29,11 @@ const accessToken = () => async (dispatch) => {
   }
   const body = JSON.stringify({ refresh: tokenRefresh });
   try {
-    const res = await axios.post('/token-refresh/', body, config);
+    const res = await axios.post(
+      'https://quizeal-backend.herokuapp.com/token-refresh/',
+      body,
+      config
+    );
     console.log('ACCESS TOKEN REFRESH SUCCESS');
 
     const { access, refresh } = res.data;
@@ -125,7 +129,11 @@ export const signup = (formData) => async (dispatch) => {
   };
   const body = JSON.stringify(formData);
   try {
-    const res = await axios.post('/register/', body, config);
+    const res = await axios.post(
+      'https://quizeal-backend.herokuapp.com/register/',
+      body,
+      config
+    );
     dispatch(setLoading(false));
     dispatch({
       type: SIGNUP_SUCCESS,
@@ -166,7 +174,11 @@ export const changePassword = (formData) => async (dispatch) => {
     token: localStorage['token-access'],
   });
   try {
-    await axios.post('/change-password/', body, config);
+    await axios.post(
+      'https://quizeal-backend.herokuapp.com/change-password/',
+      body,
+      config
+    );
     dispatch(setLoading(false));
     dispatch(logout('Password Changed Successfully'));
     dispatch(setMyAlert('Password Successfully Updated, Please Login again.'));
