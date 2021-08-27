@@ -142,12 +142,13 @@ export const signup = (formData) => async (dispatch) => {
     dispatch(setMyAlert('Signup Successfully, Please login to continue.'));
   } catch (err) {
     const error = err.response.data;
+    console.log(error);
     dispatch(setLoading(false));
     dispatch({
       type: SIGNUP_FAILURE,
     });
     dispatch(clearQuiz());
-    dispatch(setMyAlert(error.username || error.email));
+    dispatch(setMyAlert(error.detail.username || error.detail.email));
   }
 };
 
