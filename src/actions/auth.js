@@ -58,7 +58,11 @@ export const loadUser = () => async (dispatch) => {
   };
   const body = JSON.stringify({ token: tokenAccess });
   try {
-    const res = await axios.post('/load-user/', body, config);
+    const res = await axios.post(
+      'https://quizeal-backend.herokuapp.com/load-user/',
+      body,
+      config
+    );
     dispatch(setLoading(false));
     dispatch({
       type: USER_LOADED,
@@ -87,7 +91,11 @@ export const login = (username, password) => async (dispatch) => {
   };
   const body = JSON.stringify({ username, password });
   try {
-    const res = await axios.post('/login/', body, config);
+    const res = await axios.post(
+      'https://quizeal-backend.herokuapp.com/login/',
+      body,
+      config
+    );
     dispatch(setLoading(false));
     dispatch({
       type: LOGIN_SUCCESS,
