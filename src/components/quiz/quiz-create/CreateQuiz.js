@@ -134,7 +134,7 @@ const CreateQuiz = ({ user, createQuiz }) => {
     const date_time = {
       date: format(selectedDateTime, 'yyy-MM-dd'),
       start_time: format(selectedDateTime, 'HH:mm'),
-      duration: format(selectedDuration, 'HH:mm:ss'),
+      duration: format(selectedDuration, 'mm:ss'),
     };
     await createQuiz(user && user.username, {
       ...newQuiz,
