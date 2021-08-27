@@ -87,11 +87,7 @@ export const login = (username, password) => async (dispatch) => {
   };
   const body = JSON.stringify({ username, password });
   try {
-    const res = await axios.post(
-      'https://quizeal-backend.herokuapp.com/login/',
-      body,
-      config
-    );
+    const res = await axios.post('/login/', body, config);
     dispatch(setLoading(false));
     dispatch({
       type: LOGIN_SUCCESS,
