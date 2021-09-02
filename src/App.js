@@ -18,6 +18,7 @@ import Loading from './components/layout/Loading';
 import Feedback from './components/extra/Feedback';
 import Me from './components/extra/Me';
 import Setting from './components/extra/Setting';
+import Developers from './components/extra/Developers';
 import MiniDrawer from './components/layout/MiniDrawer';
 import {
   createTheme,
@@ -56,6 +57,7 @@ function App() {
               <Route exact path='/login' component={Login} />
               <Route exact path='/signup' component={Signup} />
               <Route exact path='/feedback' component={Feedback} />
+              <Route exact path='/developers' component={Developers} />
               <PrivateRoute exact path='/me' component={Me} />
               <PrivateRoute exact path='/settings' component={Setting} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
