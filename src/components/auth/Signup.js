@@ -22,6 +22,7 @@ import MySnackbar from '../layout/MySnackbar';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { signup } from '../../actions/auth';
+import InfoCard from '../layout/InfoCard';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -58,6 +59,7 @@ const Signup = ({ signup, auth, props }) => {
     username: null,
   });
 
+  const [signUp, setSignUp] = useState({ status: false });
   const [alert, setAlert] = useState({ status: false, msg: '' });
 
   const onChange = (e) => {
@@ -68,7 +70,7 @@ const Signup = ({ signup, auth, props }) => {
     setAlert({ ...alert, status: false });
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     // Validations
     const {
       first_name,
@@ -119,8 +121,17 @@ const Signup = ({ signup, auth, props }) => {
       });
       return;
     }
-    signup({ first_name, last_name, email, password, username });
-    history.push('/');
+    const res = await signup({
+      first_name,
+      last_name,
+      email,
+      password,
+      username,
+    });
+    setSignUp({
+      ...signUp,
+      status: res === 200 ? true : false,
+    });
   };
 
   useEffect(() => {
@@ -131,130 +142,155 @@ const Signup = ({ signup, auth, props }) => {
     return <Redirect to='/dashboard' />;
   }
 
+  const buttons = [
+    {
+      name: 'Login',
+      onClick: () => history.push('/login'),
+    },
+  ];
   return (
     <Fragment>
-      <Grow in={true} timeout={500}>
-        <Container component='main' maxWidth='xs'>
-          <CssBaseline />
-          <div className={classes.paper}>
-            <img src={logo} alt='logo' height='40' width='40' />
+      {!signUp.status ? (
+        <Fragment>
+          <Grow in={true} timeout={500}>
+            <Container component='main' maxWidth='xs'>
+              <CssBaseline />
+              <div className={classes.paper}>
+                <img src={logo} alt='logo' height='40' width='40' />
 
-            <Typography component='h1' variant='h5'>
-              Sign up
-            </Typography>
-            <form className={classes.form} noValidate>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={onChange}
-                    variant='outlined'
-                    required
+                <Typography component='h1' variant='h5'>
+                  Sign up
+                </Typography>
+                <form className={classes.form} noValidate>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        onChange={onChange}
+                        variant='outlined'
+                        required
+                        fullWidth
+                        id='username'
+                        label='SID'
+                        name='username'
+                        autoFocus
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        onChange={onChange}
+                        autoComplete='fname'
+                        name='first_name'
+                        variant='outlined'
+                        required
+                        fullWidth
+                        label='First Name'
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        onChange={onChange}
+                        variant='outlined'
+                        fullWidth
+                        id='last_name'
+                        label='Last Name'
+                        name='last_name'
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        onChange={onChange}
+                        variant='outlined'
+                        required
+                        fullWidth
+                        id='email'
+                        label='Email Address'
+                        name='email'
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        onChange={onChange}
+                        variant='outlined'
+                        required
+                        fullWidth
+                        name='password'
+                        label='Password'
+                        type='password'
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        onChange={onChange}
+                        variant='outlined'
+                        required
+                        fullWidth
+                        name='confirmPassword'
+                        label='Confirm Password'
+                        type='password'
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox value='allowExtraEmails' color='primary' />
+                        }
+                        label='I want to receive inspiration, marketing promotions and updates via email.'
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
                     fullWidth
-                    id='username'
-                    label='SID'
-                    name='username'
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    onChange={onChange}
-                    autoComplete='fname'
-                    name='first_name'
-                    variant='outlined'
-                    required
-                    fullWidth
-                    label='First Name'
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    onChange={onChange}
-                    variant='outlined'
-                    fullWidth
-                    id='last_name'
-                    label='Last Name'
-                    name='last_name'
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={onChange}
-                    variant='outlined'
-                    required
-                    fullWidth
-                    id='email'
-                    label='Email Address'
-                    name='email'
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={onChange}
-                    variant='outlined'
-                    required
-                    fullWidth
-                    name='password'
-                    label='Password'
-                    type='password'
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={onChange}
-                    variant='outlined'
-                    required
-                    fullWidth
-                    name='confirmPassword'
-                    label='Confirm Password'
-                    type='password'
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox value='allowExtraEmails' color='primary' />
-                    }
-                    label='I want to receive inspiration, marketing promotions and updates via email.'
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                fullWidth
-                variant='contained'
-                color='primary'
-                className={classes.submit}
-                onClick={onSubmit}
-              >
-                Sign Up
-              </Button>
-              <Grid container justifyContent='flex-end'>
-                <Grid item>
-                  Already have an account?{' '}
+                    variant='contained'
+                    color='primary'
+                    className={classes.submit}
+                    onClick={onSubmit}
+                  >
+                    Sign Up
+                  </Button>
+                  <Grid container justifyContent='flex-end'>
+                    <Grid item>
+                      Already have an account?{' '}
+                      <Link
+                        to='/login'
+                        className={'styleLink'}
+                        style={{ fontWeight: 700 }}
+                      >
+                        Login
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </form>
+              </div>
+              <Divider variant='middle' className={classes.divider} />
+              <Box mt={5}>
+                <Typography
+                  variant='body2'
+                  color='textSecondary'
+                  align='center'
+                >
+                  {'Copyright © '}
                   <Link
-                    to='/login'
+                    to='/'
                     className={'styleLink'}
                     style={{ fontWeight: 700 }}
                   >
-                    Login
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
-          <Divider variant='middle' className={classes.divider} />
-          <Box mt={5}>
-            <Typography variant='body2' color='textSecondary' align='center'>
-              {'Copyright © '}
-              <Link to='/' className={'styleLink'} style={{ fontWeight: 700 }}>
-                Quizeal
-              </Link>{' '}
-              {new Date().getFullYear()}
-              {'.'}
-            </Typography>
-          </Box>
-        </Container>
-      </Grow>
+                    Quizeal
+                  </Link>{' '}
+                  {new Date().getFullYear()}
+                  {'.'}
+                </Typography>
+              </Box>
+            </Container>
+          </Grow>
+        </Fragment>
+      ) : (
+        <InfoCard
+          buttons={buttons}
+          msg='Signup Successfully'
+          detail='Your account is created succesfully, Please Login to Continue.'
+          gif='success.gif'
+        />
+      )}
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );

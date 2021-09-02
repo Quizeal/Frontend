@@ -8,6 +8,8 @@ import {
   VIEW_QUIZ_REPORT_SUCCESS,
   GET_QUIZ_TEST_SUCCESS,
   GET_QUIZ_TEST_FAILURE,
+  QUIZ_RESULT_FAILURE,
+  QUIZ_RESULT_SUCCESS,
 } from '../actions/type';
 
 const initialState = {
@@ -18,6 +20,7 @@ const initialState = {
   view_Quiz: null,
   view_Quiz_Report: null,
   get_Quiz_Test: null,
+  get_quiz_result: null,
 };
 
 export default function myQuizzes(state = initialState, action) {
@@ -33,6 +36,7 @@ export default function myQuizzes(state = initialState, action) {
     case MY_QUIZZES_FAILURE:
     case VIEW_QUIZ_REPORT_FAILURE:
     case GET_QUIZ_TEST_FAILURE:
+    case QUIZ_RESULT_FAILURE:
     case CLEAR_QUIZ:
       return {
         ...state,
@@ -42,6 +46,11 @@ export default function myQuizzes(state = initialState, action) {
         },
         view_Quiz: null,
         view_Quiz_Report: null,
+      };
+    case QUIZ_RESULT_SUCCESS:
+      return {
+        ...state,
+        get_quiz_result: payload,
       };
     case VIEW_QUIZ_SUCCESS:
       return {

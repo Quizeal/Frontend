@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Button,
   ButtonGroup,
@@ -17,6 +17,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { myQuizzes, deleteQuiz } from '../../actions/quiz';
+import InfoCard from '../layout/InfoCard';
 
 // Model for byDefault Sorting Table
 const sortModel = [
@@ -113,14 +114,14 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
     },
   ];
   const columnsC = [
-    // {
-    //   field: 'id',
-    //   headerName: 'ID',
-    //   flex: 1,
+    {
+      field: 'quiz_token',
+      headerName: 'ID',
+      flex: 1,
 
-    //   headerAlign: 'center',
-    //   align: 'center',
-    // },
+      headerAlign: 'center',
+      align: 'center',
+    },
 
     {
       field: 'date',
@@ -152,7 +153,7 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
       flex: 0.75,
       headerAlign: 'center',
       align: 'center',
-      valueGetter: (params) => `${params.row.duration / 100} min`,
+      valueGetter: (params) => `${params.row.duration / 60} min`,
     },
     {
       field: 'total_marks',
@@ -204,6 +205,7 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
       },
     },
   ];
+  const history = useHistory();
   const params = useParams();
   const [quizSelected, updateQuizSelected] = useState('attempted');
   const [columnsM, updateColumns] = useState(columnsP);
@@ -222,7 +224,24 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
     document.title = 'Quizeal | MyQuizzes';
     myQuizzes(params.username);
   }, [myQuizzes, params.username]);
-
+  const buttons = {
+    attempted: [
+      {
+        name: 'Refresh',
+        onClick: () => myQuizzes(params.username),
+      },
+    ],
+    created: [
+      {
+        name: 'Refresh',
+        onClick: () => myQuizzes(params.username),
+      },
+      {
+        name: 'Create Quiz',
+        onClick: () => history.push('/create-quiz'),
+      },
+    ],
+  };
   return (
     <Fragment>
       {!loading && (
@@ -266,12 +285,19 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
                   autoHeight
                   pagination
                   autoPageSize
-                  checkboxSelection
                   disableSelectionOnClick
                   sortModel={sortModel}
                 />
               ) : (
-                ''
+                <InfoCard
+                  msg={`No ${quizSelected} Quizzes found`}
+                  detail={`You have not ${quizSelected} any quiz. Pls ${
+                    quizSelected === 'attempted' ? 'attemp' : 'create'
+                  } any quiz in order to
+                  have record.`}
+                  buttons={buttons[quizSelected]}
+                  gif='noData.gif'
+                />
               )}
             </Grid>
           </Slide>

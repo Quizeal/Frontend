@@ -24,6 +24,7 @@ import {
 import QAList from '../QAList';
 import AddQuestion from './AddQuestion';
 import MySnackbar from '../../layout/MySnackbar';
+import InfoCard from '../../layout/InfoCard';
 
 // REDUX
 import { connect } from 'react-redux';
@@ -54,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const CreateQuiz = ({ user, createQuiz }) => {
   const history = useHistory();
   const classes = useStyles();
+  const [quizCreated, setQuizCreated] = useState({});
   const [selectedDateTime, handleDateTimeChange] = useState(null);
   const [selectedDuration, handleDurationChange] = useState(null);
   const [open, setOpen] = useState(false);
@@ -136,12 +138,16 @@ const CreateQuiz = ({ user, createQuiz }) => {
       start_time: format(selectedDateTime, 'HH:mm'),
       duration: format(selectedDuration, 'mm:ss'),
     };
-    await createQuiz(user && user.username, {
+    const res = await createQuiz(user && user.username, {
       ...newQuiz,
       username: user.username,
       ...date_time,
     });
-    history.push('/dashboard');
+    setQuizCreated({
+      ...quizCreated,
+      status: res.status === 200 ? true : false,
+      ...res,
+    });
   };
   const { questions, quiz_name } = newQuiz;
 
@@ -149,141 +155,164 @@ const CreateQuiz = ({ user, createQuiz }) => {
     document.title = 'Quizeal | Create Quiz';
   }, []);
 
+  const buttons = [
+    {
+      name: 'View Quiz',
+      onClick: () => history.push(`/quiz-view/${quizCreated.data.quiz_token}`),
+    },
+  ];
   return (
     <Fragment>
-      <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1000}>
-        <Grid
-          container
-          spacing={5}
-          className={classes.sectionDetail}
-          justifyContent='center'
-        >
-          <Grid item>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              id='quiz_name'
-              label='Quiz Name'
-              name='quiz_name'
-              autoFocus
-              value={quiz_name}
-              onChange={(e) => onChange(e)}
-            />
-          </Grid>
-          <Grid item>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardTimePicker
-                ampm={false}
-                openTo='hours'
-                views={['minutes', 'seconds']}
-                format='mm:ss'
-                required
-                inputVariant='outlined'
-                label='Quiz Duration'
-                value={selectedDuration}
-                onChange={handleDurationChange}
-              />
-            </MuiPickersUtilsProvider>
-          </Grid>
-          <Grid item>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDateTimePicker
-                inputVariant='outlined'
-                ampm={false}
-                label='Quiz Date and Time'
-                value={selectedDateTime}
-                required
-                onChange={handleDateTimeChange}
-                onError={console.log}
-                disablePast
-                format='dd/MM/yyy HH:mm'
-                minDateMessage='Invalid Date Time Format.'
-              />
-            </MuiPickersUtilsProvider>
-          </Grid>
-        </Grid>
-      </Grow>
-      <Divider variant='middle' className={classes.divider} />
-      <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1500}>
-        <Grid container justifyContent='space-around' style={{ gap: '10px' }}>
-          <ButtonGroup
-            color='primary'
-            variant='contained'
-            aria-label='outlined secondary button group'
-          >
-            <Button onClick={handleClickOpenDialog}>
-              Show Questions Added
-            </Button>
-            <Button>Questions Added - {questions.length}</Button>
-          </ButtonGroup>
-          <Button
-            variant='contained'
-            color='primary'
-            size='large'
-            onClick={onSubmit}
-          >
-            Create Quiz
-          </Button>
-        </Grid>
-      </Grow>
-      <Dialog
-        open={open}
-        onClose={handleCloseDialog}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-      >
-        <DialogTitle id='alert-dialog-title'>
-          {questions.length ? (
-            <Fragment>
-              <Typography
-                variant='h5'
-                align='center'
-                style={{ paddingBottom: '20px' }}
-              >
-                Questions Added
-              </Typography>
-              <OptionsStatus />
-            </Fragment>
-          ) : (
-            <Typography
-              variant='h5'
-              align='center'
-              style={{ paddingBottom: '20px' }}
+      {!quizCreated.status ? (
+        <Fragment>
+          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1000}>
+            <Grid
+              container
+              spacing={5}
+              className={classes.sectionDetail}
+              justifyContent='center'
             >
-              No Questions Added
-            </Typography>
-          )}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id='alert-dialog-description'>
-            {questions.map((qa, index) => {
-              return (
-                <QAList
-                  key={index}
-                  number={index}
-                  deleteQuestion={deleteQuestion}
-                  edit={true}
-                  qaSet={qa}
-                  view={true}
+              <Grid item>
+                <TextField
+                  variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  id='quiz_name'
+                  label='Quiz Name'
+                  name='quiz_name'
+                  autoFocus
+                  value={quiz_name}
+                  onChange={(e) => onChange(e)}
                 />
-              );
-            })}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color='primary'>
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Divider variant='middle' className={classes.divider} />
-      <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2000}>
-        <Grid container justifyContent='center'>
-          <AddQuestion addQuestion={addQuestion} />
-        </Grid>
-      </Grow>
+              </Grid>
+              <Grid item>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardTimePicker
+                    ampm={false}
+                    openTo='hours'
+                    views={['minutes', 'seconds']}
+                    format='mm:ss'
+                    required
+                    inputVariant='outlined'
+                    label='Quiz Duration'
+                    value={selectedDuration}
+                    onChange={handleDurationChange}
+                  />
+                </MuiPickersUtilsProvider>
+              </Grid>
+              <Grid item>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDateTimePicker
+                    inputVariant='outlined'
+                    ampm={false}
+                    label='Quiz Date and Time'
+                    value={selectedDateTime}
+                    required
+                    onChange={handleDateTimeChange}
+                    onError={console.log}
+                    disablePast
+                    format='dd/MM/yyy HH:mm'
+                    minDateMessage='Invalid Date Time Format.'
+                  />
+                </MuiPickersUtilsProvider>
+              </Grid>
+            </Grid>
+          </Grow>
+          <Divider variant='middle' className={classes.divider} />
+          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1500}>
+            <Grid
+              container
+              justifyContent='space-around'
+              style={{ gap: '10px' }}
+            >
+              <ButtonGroup
+                color='primary'
+                variant='contained'
+                aria-label='outlined secondary button group'
+              >
+                <Button onClick={handleClickOpenDialog}>
+                  Show Questions Added
+                </Button>
+                <Button>Questions Added - {questions.length}</Button>
+              </ButtonGroup>
+              <Button
+                variant='contained'
+                color='primary'
+                size='large'
+                onClick={onSubmit}
+              >
+                Create Quiz
+              </Button>
+            </Grid>
+          </Grow>
+          <Dialog
+            open={open}
+            onClose={handleCloseDialog}
+            aria-labelledby='alert-dialog-title'
+            aria-describedby='alert-dialog-description'
+          >
+            <DialogTitle id='alert-dialog-title'>
+              {questions.length ? (
+                <Fragment>
+                  <Typography
+                    variant='h5'
+                    align='center'
+                    style={{ paddingBottom: '20px' }}
+                  >
+                    Questions Added
+                  </Typography>
+                  <OptionsStatus />
+                </Fragment>
+              ) : (
+                <Typography
+                  variant='h5'
+                  align='center'
+                  style={{ paddingBottom: '20px' }}
+                >
+                  No Questions Added
+                </Typography>
+              )}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id='alert-dialog-description'>
+                {questions.map((qa, index) => {
+                  return (
+                    <QAList
+                      key={index}
+                      number={index}
+                      deleteQuestion={deleteQuestion}
+                      edit={true}
+                      qaSet={qa}
+                      view={true}
+                    />
+                  );
+                })}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color='primary'>
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Divider variant='middle' className={classes.divider} />
+          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2000}>
+            <Grid container justifyContent='center'>
+              <AddQuestion addQuestion={addQuestion} />
+            </Grid>
+          </Grow>
+        </Fragment>
+      ) : (
+        <InfoCard
+          msg={quizCreated.status && 'Quiz Created Successfully'}
+          detail='Please copy the Quiz Token given below in order to give the Quiz Test.'
+          gif={'success.gif'}
+          buttons={buttons}
+          copyClipboard={true}
+          copyText={quizCreated.data.quiz_token}
+        />
+      )}
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>
   );

@@ -49,10 +49,16 @@ const accessToken = () => async (dispatch) => {
 // Add Error Handling
 export const loadUser = () => async (dispatch) => {
   const tokenAccess = localStorage['token-access'];
-  dispatch(setLoading(true));
 
   if (tokenAccess) {
+    dispatch(setLoading(true));
     setAuthToken(tokenAccess);
+  } else {
+    dispatch({
+      type: AUTH_FAILURE,
+    });
+    dispatch(clearQuiz());
+    return;
   }
 
   const config = {
@@ -79,9 +85,9 @@ export const loadUser = () => async (dispatch) => {
       type: AUTH_FAILURE,
     });
     dispatch(clearQuiz());
-    dispatch(
-      setMyAlert(error.response.data.detail || error.response.statusText)
-    );
+    // dispatch(
+    //   setMyAlert(error.response.data.detail || error.response.statusText)
+    // );
   }
 };
 
@@ -109,13 +115,12 @@ export const login = (username, password) => async (dispatch) => {
     dispatch(setMyAlert('Login Successfully'));
   } catch (err) {
     dispatch(setLoading(false));
-    const error = err.response;
     dispatch({
       type: LOGIN_FAILURE,
     });
     dispatch(clearQuiz());
 
-    dispatch(setMyAlert(error.data.detail || error.statusText));
+    dispatch(setMyAlert(err.response.statusText));
   }
 };
 
@@ -140,15 +145,19 @@ export const signup = (formData) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(setMyAlert('Signup Successfully, Please login to continue.'));
+    return res.status;
   } catch (err) {
-    const error = err.response.data;
-    console.log(error);
     dispatch(setLoading(false));
     dispatch({
       type: SIGNUP_FAILURE,
     });
     dispatch(clearQuiz());
-    dispatch(setMyAlert(error.detail.username || error.detail.email));
+    dispatch(
+      setMyAlert(
+        err.response.data.detail.username || err.response.data.detail.email
+      )
+    );
+    return err.response.status;
   }
 };
 
