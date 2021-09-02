@@ -78,7 +78,7 @@ const QuizResult = ({ quizResult, loading, user, get_quiz_result }) => {
   const params = useParams();
   const history = useHistory();
   useEffect(() => {
-    document.title = 'Quizeal | MyQuizzes';
+    document.title = 'Quizeal | Quiz Result';
     quizResult(user && user.username, params.quiz_id);
   }, [quizResult, params.quiz_id, user]);
 
