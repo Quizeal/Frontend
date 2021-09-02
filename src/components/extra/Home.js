@@ -53,7 +53,7 @@ const Home = ({ auth: { isAuthenticated, user } }) => {
       });
       return;
     }
-    history.push(`/quiz/${user && user.username}/${quizCode}`);
+    history.push(`/quiz/${quizCode}`);
   };
 
   useEffect(() => {

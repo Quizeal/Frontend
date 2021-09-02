@@ -31,6 +31,7 @@ const questionType = [
     label: 'Multi Correct',
   },
 ];
+
 // Customized Styling of Material UI Components
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,6 +58,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '10px',
   },
 }));
+
+function checkForDuplicates(array) {
+  const newArr = array.map((e) => e.option_name);
+  return new Set(newArr).size !== newArr.length;
+}
 
 const AddQuestion = ({ setMyAlert, ...props }) => {
   const classes = useStyles();
@@ -170,6 +176,14 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
         ...alert,
         status: true,
         msg: 'Please select correct Question Type',
+      });
+      return;
+    }
+    if (checkForDuplicates(options)) {
+      setAlert({
+        ...alert,
+        status: true,
+        msg: 'Options must have unique value.',
       });
       return;
     }

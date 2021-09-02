@@ -6,7 +6,7 @@ import {
   TextField,
   IconButton,
   Card,
-  CardActionArea,
+  // CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
@@ -63,7 +63,7 @@ const Dashboard = ({ auth: { user } }) => {
       });
       return;
     }
-    history.push(`/quiz/${user && user.username}/${quizCode}`);
+    history.push(`/quiz/${quizCode}`);
   };
   useEffect(() => {
     document.title = 'Quizeal | Dashboard';
@@ -75,26 +75,26 @@ const Dashboard = ({ auth: { user } }) => {
           <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1000}>
             <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
               <Card className={classes.card}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image='/static/images/myQuizzes1.jpg'
-                    title='Contemplative Reptile'
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant='h5' component='h2'>
-                      My Quizzes
-                    </Typography>
-                    <Typography
-                      variant='body2'
-                      color='textSecondary'
-                      component='p'
-                    >
-                      Collections of all quizzes taken or created by you till
-                      present date in an organized way.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
+                {/* <CardActionArea> */}
+                <CardMedia
+                  className={classes.media}
+                  image='/static/images/myQuizzes1.jpg'
+                  title='My Quizzes'
+                />
+                <CardContent>
+                  <Typography gutterBottom variant='h5' component='h2'>
+                    My Quizzes
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
+                  >
+                    Collections of all quizzes taken or created by you till
+                    present date in an organized way.
+                  </Typography>
+                </CardContent>
+                {/* </CardActionArea> */}
                 <CardActions>
                   <Link
                     to={`/my-quizzes/${user && user.username}`}
@@ -111,27 +111,27 @@ const Dashboard = ({ auth: { user } }) => {
           <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1500}>
             <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
               <Card className={classes.card}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image='/static/images/createQuiz.jpg'
-                    title='Contemplative Reptile'
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant='h5' component='h2'>
-                      Create Quiz
-                    </Typography>
-                    <Typography
-                      variant='body2'
-                      color='textSecondary'
-                      component='p'
-                    >
-                      Create Quiz with more flexibility with forms which
-                      includes selecting multiple options and answers and
-                      editing of questions.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
+                {/* <CardActionArea> */}
+                <CardMedia
+                  className={classes.media}
+                  image='/static/images/createQuiz.jpg'
+                  title='Create Quiz'
+                />
+                <CardContent>
+                  <Typography gutterBottom variant='h5' component='h2'>
+                    Create Quiz
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
+                  >
+                    Create Quiz with more flexibility with forms which includes
+                    selecting multiple options and answers and editing of
+                    questions.
+                  </Typography>
+                </CardContent>
+                {/* </CardActionArea> */}
                 <CardActions>
                   <Link to='/create-quiz' className={'styleLink'}>
                     <Button size='small' color='primary' variant='contained'>
@@ -145,25 +145,25 @@ const Dashboard = ({ auth: { user } }) => {
           <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2000}>
             <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
               <Card className={classes.card}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image='/static/images/quiz.jpg'
-                    title='Contemplative Reptile'
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant='h5' component='h2'>
-                      Take a Quiz
-                    </Typography>
-                    <Typography
-                      variant='body2'
-                      color='textSecondary'
-                      component='p'
-                    >
-                      Take a quiz with the simple and easily adabtable system.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
+                {/* <CardActionArea> */}
+                <CardMedia
+                  className={classes.media}
+                  image='/static/images/quiz.jpg'
+                  title='Taka a Quiz'
+                />
+                <CardContent>
+                  <Typography gutterBottom variant='h5' component='h2'>
+                    Take a Quiz
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
+                  >
+                    Take a quiz with the simple and easily adabtable system.
+                  </Typography>
+                </CardContent>
+                {/* </CardActionArea> */}
                 <CardActions>
                   <TextField
                     variant='outlined'
@@ -188,26 +188,26 @@ const Dashboard = ({ auth: { user } }) => {
           <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2500}>
             <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
               <Card className={classes.card}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image='/static/images/profile.jpg'
-                    title='Contemplative Reptile'
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant='h5' component='h2'>
-                      Profile
-                    </Typography>
-                    <Typography
-                      variant='body2'
-                      color='textSecondary'
-                      component='p'
-                    >
-                      Update and Edit your profile and add avatar to get your
-                      profile more attractive.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
+                {/* <CardActionArea> */}
+                <CardMedia
+                  className={classes.media}
+                  image='/static/images/profile.jpg'
+                  title='Profile'
+                />
+                <CardContent>
+                  <Typography gutterBottom variant='h5' component='h2'>
+                    Profile
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
+                  >
+                    Update and Edit your profile and add avatar to get your
+                    profile more attractive.
+                  </Typography>
+                </CardContent>
+                {/* </CardActionArea> */}
                 <CardActions>
                   <Link to='/me' className={'styleLink'}>
                     <Button size='small' color='primary' variant='contained'>
@@ -221,29 +221,29 @@ const Dashboard = ({ auth: { user } }) => {
           <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={3000}>
             <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
               <Card className={classes.card}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image='/static/images/setting.jpg'
-                    title='Contemplative Reptile'
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant='h5' component='h2'>
-                      Settings
-                    </Typography>
-                    <Typography
-                      variant='body2'
-                      color='textSecondary'
-                      component='p'
-                    >
-                      Please change password after every 90 days.
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
+                {/* <CardActionArea> */}
+                <CardMedia
+                  className={classes.media}
+                  image='/static/images/setting.jpg'
+                  title='Settings'
+                />
+                <CardContent>
+                  <Typography gutterBottom variant='h5' component='h2'>
+                    Settings
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
+                  >
+                    Please change password after every 90 days.
+                  </Typography>
+                </CardContent>
+                {/* </CardActionArea> */}
                 <CardActions>
                   <Link to='/setting' className={'styleLink'}>
                     <Button size='small' color='primary' variant='contained'>
-                      Setting
+                      Settings
                     </Button>
                   </Link>
                 </CardActions>
