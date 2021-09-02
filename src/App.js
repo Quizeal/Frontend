@@ -29,6 +29,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
 import PrivateRoute from './components/routing/PrivateRoute';
+import QuizResult from './components/quiz/QuizResult';
 
 let theme = createTheme({
   palette: {
@@ -73,6 +74,10 @@ function App() {
               <PrivateRoute
                 path='/quiz-report/:quiz_id'
                 component={QuizReport}
+              />
+              <PrivateRoute
+                path='/quiz-result/:quiz_id'
+                component={QuizResult}
               />
               <Route path='*' component={Error} />
             </Switch>

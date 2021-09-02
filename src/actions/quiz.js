@@ -8,12 +8,37 @@ import {
   GET_QUIZ_TEST_SUCCESS,
   MY_QUIZZES_FAILURE,
   MY_QUIZZES_SUCCESS,
+  QUIZ_RESULT_FAILURE,
+  QUIZ_RESULT_SUCCESS,
   VIEW_QUIZ_FAILURE,
   VIEW_QUIZ_REPORT_FAILURE,
   VIEW_QUIZ_REPORT_SUCCESS,
   VIEW_QUIZ_SUCCESS,
 } from './type';
 import { shuffle } from '../utils/extraFunctions';
+
+export const quizResult = (username, id) => async (dispatch) => {
+  dispatch(setLoading(true));
+  setAuthToken(localStorage['token-access']);
+  try {
+    const res = await axios.get(
+      `https://quizeal-backend.herokuapp.com/quiz-result/${username}/${id}`
+    );
+    dispatch(setLoading(false));
+    dispatch({
+      type: QUIZ_RESULT_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    dispatch(setLoading(false));
+    dispatch({
+      type: QUIZ_RESULT_FAILURE,
+    });
+    dispatch(
+      setMyAlert(error.response.data.detail || error.response.statusText)
+    );
+  }
+};
 
 // DONE
 export const myQuizzes = (username) => async (dispatch) => {
@@ -100,19 +125,21 @@ export const createQuiz = (username, quiz) => async (dispatch) => {
 
   const body = JSON.stringify(quiz);
   try {
-    await axios.post(
+    const res = await axios.post(
       `https://quizeal-backend.herokuapp.com/create-quiz/${username}`,
       body,
       config
     );
     dispatch(setLoading(false));
     dispatch(setMyAlert('Quiz Created Successfully'));
+    return res.data;
   } catch (error) {
+    console.log(error.response);
     dispatch(setLoading(false));
     dispatch(
       setMyAlert(error.response.data.detail || error.response.statusText)
     );
-    return;
+    return error.response.data;
   }
 };
 
