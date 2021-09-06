@@ -11,7 +11,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
-import home from '../../resources/home.gif';
+// import home from '../../resources/home.gif';
 import MySnackbar from '../layout/MySnackbar';
 
 // REDUC
@@ -126,7 +126,11 @@ const Home = ({ auth: { isAuthenticated, user } }) => {
         </Grow>
         <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2000}>
           <Grid item xs={12} md={6} justifyContent='center' container>
-            <img src={home} alt='home' width='85%'></img>
+            <img
+              src='/static/images/illustrations/home.png'
+              alt='home'
+              width='85%'
+            ></img>
           </Grid>
         </Grow>
       </Grid>

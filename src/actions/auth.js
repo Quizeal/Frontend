@@ -108,7 +108,7 @@ export const login = (username, password) => async (dispatch) => {
     });
     dispatch(clearQuiz());
 
-    dispatch(setMyAlert(err.response.statusText));
+    dispatch(setMyAlert(err.response.data.detail));
   }
 };
 

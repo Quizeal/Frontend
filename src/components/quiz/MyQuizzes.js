@@ -1,14 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useParams } from 'react-router';
 import { Link, useHistory } from 'react-router-dom';
-import {
-  Button,
-  ButtonGroup,
-  Typography,
-  Grid,
-  Slide,
-  Grow,
-} from '@material-ui/core';
+import { Button, ButtonGroup, Typography, Grid, Grow } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import LinkIcon from '@material-ui/icons/Link';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -257,7 +250,7 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
               </Typography>
             </Grid>
           </Grow>
-          <Slide in={true} timeout={1000} direction='up'>
+          <Grow in={true} timeout={1000}>
             <Grid item xs={11}>
               <ButtonGroup
                 color='primary'
@@ -300,7 +293,7 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
                 />
               )}
             </Grid>
-          </Slide>
+          </Grow>
         </Grid>
       )}
     </Fragment>

@@ -27,3 +27,24 @@
 .outlined-answer {
   border: 2px solid black !important;
 }
+
+.custom-shape-divider-bottom-footer {
+  /* position: absolute; */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-footer svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 47px;
+}
+
+.custom-shape-divider-bottom-footer .shape-fill {
+  fill: #24313f;
+}
