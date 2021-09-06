@@ -1,7 +1,6 @@
+import React, { Fragment, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Divider, Grid, Grow, Typography } from '@material-ui/core';
-import React from 'react';
-import { Fragment, useState } from 'react';
+import { Container, Divider, Grow, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -11,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
 
 const About = () => {
   const classes = useStyles();
+
+  useEffect(() => {
+    document.title = 'Quizeal | About';
+  }, []);
   return (
     <Fragment>
       <Grow in={true} timeout={1000}>
