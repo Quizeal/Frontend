@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Divider, Grid, Grow, Typography } from '@material-ui/core';
+import { Divider, Grid, Grow, Typography } from '@material-ui/core';
 import DevelopersCard from './DevelopersCard';
 
 // REDUC
@@ -11,6 +11,15 @@ import { githubProfile } from '../../actions/auth';
 const useStyles = makeStyles((theme) => ({
   divider: {
     margin: theme.spacing(3),
+  },
+  section: {
+    padding: theme.spacing(2),
+    maxWidth: '100%',
+    rowGap: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(4),
+      rowGap: theme.spacing(5),
+    },
   },
 }));
 
@@ -30,35 +39,54 @@ const Developers = ({ githubProfile }) => {
   return (
     <Fragment>
       <Grow in={true} timeout={1000}>
-        <Container component='main' maxWidth='md' spacing={5}>
-          <Typography variant='h4' align='center'>
-            Developers
-          </Typography>
-          {dev &&
-            dev.map((d, i) => {
-              return (
-                <Fragment>
-                  <Divider className={classes.divider} />
-                  <Grid
-                    container
-                    style={{ gap: '20px', flexDirection: 'column' }}
-                    justifyContent='center'
-                  >
-                    <DevelopersCard
-                      email={d.email}
-                      name={d.name}
-                      avatar={d.avatar_url}
-                      location='India'
-                      college='Punjab Engineering College, PEC'
-                      github={d.login}
-                      linkedin='daretobedifferent18'
-                      twitter={d.twitter_username}
-                    />
-                  </Grid>
-                </Fragment>
-              );
-            })}
-        </Container>
+        <Grid
+          container
+          component='main'
+          maxWidth='md'
+          className={classes.section}
+          justifyContent='center'
+          alignItems='center'
+        >
+          <Grid item xs={12}>
+            <Typography variant='h4' align='center'>
+              Developers
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={6} justifyContent='center' container>
+            <img
+              src='/static/images/illustrations/developers.png'
+              alt='developers'
+              width='85%'
+            ></img>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            {dev &&
+              dev.map((d, i) => {
+                return (
+                  <Fragment>
+                    <Divider className={classes.divider} />
+                    <Grid
+                      container
+                      style={{ gap: '20px', flexDirection: 'column' }}
+                      justifyContent='center'
+                    >
+                      <DevelopersCard
+                        key={i}
+                        email={d.email}
+                        name={d.name}
+                        avatar={d.avatar_url}
+                        location='India'
+                        college='Punjab Engineering College, PEC'
+                        github={d.login}
+                        linkedin='daretobedifferent18'
+                        twitter={d.twitter_username}
+                      />
+                    </Grid>
+                  </Fragment>
+                );
+              })}
+          </Grid>
+        </Grid>
       </Grow>
     </Fragment>
   );
