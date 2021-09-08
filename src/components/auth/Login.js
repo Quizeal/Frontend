@@ -51,9 +51,6 @@ const useStyles = makeStyles((theme) => ({
       rowGap: theme.spacing(5),
     },
   },
-  illustration: {
-    width: '60%',
-  },
 }));
 
 const Login = ({ login, auth, ...props }) => {

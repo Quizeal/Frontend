@@ -11,7 +11,6 @@ import {
   Grid,
   Box,
   Typography,
-  Container,
   Grow,
   makeStyles,
 } from '@material-ui/core';
@@ -53,9 +52,6 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(4),
       rowGap: theme.spacing(5),
     },
-  },
-  illustration: {
-    width: '60%',
   },
 }));
 
@@ -170,6 +166,8 @@ const Signup = ({ signup, auth, props }) => {
               component='main'
               maxWidth='xs'
               className={classes.section}
+              justifyContent='center'
+              alignItems='center'
             >
               <CssBaseline />
               <Grid item xs={12} md={6} justifyContent='center' container>
