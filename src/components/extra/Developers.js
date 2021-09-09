@@ -38,56 +38,60 @@ const Developers = ({ githubProfile }) => {
 
   return (
     <Fragment>
-      <Grow in={true} timeout={1000}>
-        <Grid
-          container
-          component='main'
-          maxWidth='md'
-          className={classes.section}
-          justifyContent='center'
-          alignItems='center'
-        >
-          <Grid item xs={12}>
-            <Typography variant='h4' align='center'>
-              Developers
-            </Typography>
+      {dev && (
+        <Grow in={true} timeout={1000}>
+          <Grid
+            container
+            component='main'
+            maxWidth='md'
+            className={classes.section}
+            justifyContent='space-around'
+            alignItems='center'
+          >
+            <Grid item xs={12}>
+              <Typography variant='h4' align='center'>
+                Developers
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={6} justifyContent='center' container>
+              <img
+                src='/static/images/illustrations/developers.png'
+                alt='developers'
+                width='85%'
+              ></img>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              {dev &&
+                dev.map((d, i) => {
+                  return (
+                    <Fragment>
+                      <Grid
+                        container
+                        style={{ gap: '20px', flexDirection: 'column' }}
+                        justifyContent='center'
+                      >
+                        <DevelopersCard
+                          key={i}
+                          email={d.email}
+                          name={d.name}
+                          avatar={d.avatar_url}
+                          location='India'
+                          college='Punjab Engineering College, PEC'
+                          github={d.login}
+                          linkedin='daretobedifferent18'
+                          twitter={d.twitter_username}
+                        />
+                      </Grid>
+                      {i !== dev.length - 1 && (
+                        <Divider className={classes.divider} />
+                      )}
+                    </Fragment>
+                  );
+                })}
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={6} justifyContent='center' container>
-            <img
-              src='/static/images/illustrations/developers.png'
-              alt='developers'
-              width='85%'
-            ></img>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            {dev &&
-              dev.map((d, i) => {
-                return (
-                  <Fragment>
-                    <Divider className={classes.divider} />
-                    <Grid
-                      container
-                      style={{ gap: '20px', flexDirection: 'column' }}
-                      justifyContent='center'
-                    >
-                      <DevelopersCard
-                        key={i}
-                        email={d.email}
-                        name={d.name}
-                        avatar={d.avatar_url}
-                        location='India'
-                        college='Punjab Engineering College, PEC'
-                        github={d.login}
-                        linkedin='daretobedifferent18'
-                        twitter={d.twitter_username}
-                      />
-                    </Grid>
-                  </Fragment>
-                );
-              })}
-          </Grid>
-        </Grid>
-      </Grow>
+        </Grow>
+      )}
     </Fragment>
   );
 };

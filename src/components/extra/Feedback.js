@@ -6,7 +6,6 @@ import {
   Typography,
   Grid,
   Grow,
-  Divider,
   makeStyles,
 } from '@material-ui/core';
 import MySnackbar from '../layout/MySnackbar';
@@ -102,7 +101,7 @@ const Feedback = ({ feedback }) => {
             container
             component='main'
             className={classes.section}
-            justifyContent='center'
+            justifyContent='space-around'
             alignItems='center'
           >
             <Grid item xs={12}>
@@ -110,7 +109,7 @@ const Feedback = ({ feedback }) => {
                 We would like your feedback to improve our website.
               </Typography>
             </Grid>
-            <Divider className={classes.divider} />
+            {/* <Divider className={classes.divider} /> */}
             <CssBaseline />
             <Grid sm={8} md={5} item justifyContent='center'>
               <img

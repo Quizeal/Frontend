@@ -130,7 +130,8 @@ const Login = ({ login, auth, ...props }) => {
           component='main'
           maxWidth='xs'
           className={classes.section}
-          justifyContent='center'
+          justifyContent='space-around'
+          alignItems='center'
         >
           <CssBaseline />
           <Grid item xs={12} md={4}>
