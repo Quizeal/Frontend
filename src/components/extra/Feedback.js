@@ -4,7 +4,7 @@ import {
   CssBaseline,
   TextField,
   Typography,
-  Container,
+  Grid,
   Grow,
   Divider,
   makeStyles,
@@ -64,6 +64,15 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     margin: theme.spacing(3),
   },
+  section: {
+    padding: theme.spacing(2),
+    maxWidth: '100%',
+    rowGap: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(4),
+      rowGap: theme.spacing(5),
+    },
+  },
 }));
 
 const Feedback = ({ feedback }) => {
@@ -89,55 +98,72 @@ const Feedback = ({ feedback }) => {
     <div>
       <Fragment>
         <Grow in={true} timeout={1000}>
-          <Container component='main' maxWidth='sm'>
-            <Typography variant='h4' align='center'>
-              We would like your feedback to improve our website.
-            </Typography>
+          <Grid
+            container
+            component='main'
+            className={classes.section}
+            justifyContent='center'
+            alignItems='center'
+          >
+            <Grid item xs={12}>
+              <Typography variant='h4' align='center'>
+                We would like your feedback to improve our website.
+              </Typography>
+            </Grid>
             <Divider className={classes.divider} />
             <CssBaseline />
-            <Grow in={true} timeout={2000}>
-              <div className={classes.paper}>
-                <Typography variant='h5' align='center'>
-                  Will you Come back?
-                </Typography>
-                <Rating
-                  name='likeness'
-                  defaultValue={form.likeness}
-                  size='large'
-                  onChange={(e) => onChange(e)}
-                  getLabelText={(value) => customIcons[value].label}
-                  IconContainerComponent={IconContainer}
-                />
-                <Typography variant='h5' align='center'>
-                  How will you rate our website?
-                </Typography>
-                <Rating
-                  value={form.rating}
-                  name='rating'
-                  style={{ fontSize: '5.5vw' }}
-                  onChange={(e) => onChange(e)}
-                />
-                <TextField
-                  variant='outlined'
-                  margin='normal'
-                  fullWidth
-                  minRows={3}
-                  multiline
-                  name='answer'
-                  onChange={(e) => onChange(e)}
-                  label='Explain your Answer'
-                />
-                <Button
-                  variant='contained'
-                  color='primary'
-                  className={classes.submit}
-                  onClick={submit}
-                >
-                  Submit
-                </Button>
-              </div>
-            </Grow>
-          </Container>
+            <Grid sm={8} md={5} item justifyContent='center'>
+              <img
+                src='/static/images/illustrations/feedback.png'
+                alt='feedback'
+                width='100%'
+              ></img>
+            </Grid>
+            <Grid item>
+              <Grow in={true} timeout={2000}>
+                <div className={classes.paper}>
+                  <Typography variant='h5' align='center'>
+                    Will you Come back?
+                  </Typography>
+                  <Rating
+                    name='likeness'
+                    defaultValue={form.likeness}
+                    size='large'
+                    onChange={(e) => onChange(e)}
+                    getLabelText={(value) => customIcons[value].label}
+                    IconContainerComponent={IconContainer}
+                  />
+                  <Typography variant='h5' align='center'>
+                    How will you rate our website?
+                  </Typography>
+                  <Rating
+                    value={form.rating}
+                    name='rating'
+                    style={{ fontSize: '5.5vw' }}
+                    onChange={(e) => onChange(e)}
+                  />
+                  <TextField
+                    variant='outlined'
+                    margin='normal'
+                    fullWidth
+                    minRows={3}
+                    multiline
+                    name='answer'
+                    onChange={(e) => onChange(e)}
+                    label='Explain your Answer'
+                  />
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    className={classes.submit}
+                    onClick={submit}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </Grow>
+            </Grid>
+          </Grid>
         </Grow>
         <MySnackbar alert={alert} />
       </Fragment>
