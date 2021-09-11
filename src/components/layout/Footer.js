@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { Divider, Grid, Typography, makeStyles, Box } from '@material-ui/core';
+import { Grid, Typography, makeStyles, Box } from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import logo from '../../resources/logo.png';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -16,9 +14,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '-5px',
   },
   position: {
-    // position: 'absolute',
     width: '100%',
-    bottom: 0,
+  },
+  content: {
+    paddingTop: '80px !important',
   },
 }));
 
@@ -51,57 +50,88 @@ const Footer = () => {
           </svg>
         </div>
         <div className={classes.footer}>
-          <Grid container spacing={1} style={{ gap: '30px' }}>
-            <Grid container item xs={12} justifyContent='space-between'>
-              <Grid item xs={4}>
-                <img src={logo} alt='logo' height='50px' />
-                <Typography variant='h4'>Start using Quizeal today.</Typography>
+          <Grid
+            container
+            spacing={1}
+            justifyContent='space-around'
+            alignItems='center'
+          >
+            <Grid item xs={10} md={5}>
+              <img
+                src='/static/images/illustrations/footer.svg'
+                alt='footer'
+                width='100%'
+              />
+            </Grid>
+            <Grid item xs={10} md={4}>
+              <Grid item xs={12}>
+                <Typography variant='h2' style={{ fontWeight: 500 }}>
+                  Start using Quizeal today.
+                </Typography>
                 <Typography variant='h5'>You Know, you Grow</Typography>
               </Grid>
-              <Grid item xs={2}>
-                <div>
-                  <Link to='/about' className='styleLink'>
-                    About
-                  </Link>
-                </div>
-                <div>
-                  <Link to='/team' className='styleLink'>
-                    Team
-                  </Link>
-                </div>
-                <div>
-                  <Link to='/' className='styleLink'>
-                    Home
-                  </Link>
-                </div>
-              </Grid>
-              <Grid item xs={2}>
-                <div>Terms and Conditions</div>
-                <div>Privacy Policy</div>
-                <div></div>
-              </Grid>
-              <Grid item xs={2}>
-                <div>Contact Us</div>
-                <FacebookIcon />
-                <InstagramIcon />
-                <TwitterIcon />
-                <GitHubIcon />
-                <div>info@example.com</div>
-                <div>+91 45781-48781</div>
+              <br />
+              <br />
+              <br />
+              <Grid
+                container
+                justifyContent='start'
+                style={{ gap: '20px' }}
+                alignItems='center'
+              >
+                <Grid item>
+                  <div>
+                    <a href='/' className='styleLink'>
+                      Home
+                    </a>
+                  </div>
+                  <div>
+                    <a href='/about' className='styleLink'>
+                      About
+                    </a>
+                  </div>
+                  <div>
+                    <a href='/developers' className='styleLink'>
+                      Developers
+                    </a>
+                  </div>
+                  <div>
+                    <a href='/feedback' className='styleLink'>
+                      Feedback
+                    </a>
+                  </div>
+                  <div>Terms and Conditions</div>
+                  <div>Privacy Policy</div>
+                  <div></div>
+                </Grid>
+                <br />
+                <br />
+                <Grid item>
+                  <FacebookIcon />
+                  <InstagramIcon />
+                  <TwitterIcon />
+                  <GitHubIcon />
+                  <div>Contact Us</div>
+                  <div>info@example.com</div>
+                  <div>+91 45781-48781</div>
+                </Grid>
+                <Grid item xs={12}>
+                  <Box mt={8}>
+                    <Typography variant='h6' align='center'>
+                      {'Made with'} &#10084;{' '}
+                      <a
+                        href='/'
+                        className={'styleLink'}
+                        style={{ fontWeight: 700 }}
+                      >
+                        Quizeal.
+                      </a>
+                    </Typography>
+                  </Box>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-          <Divider style={{ backgroundColor: 'white', margin: '10px' }} />
-          <Box>
-            <Typography variant='body2' align='center'>
-              {'Copyright © '}
-              <Link to='/' className={'styleLink'}>
-                Quizeal
-              </Link>{' '}
-              {new Date().getFullYear()}
-              {'. All rights reserved.'}
-            </Typography>
-          </Box>
         </div>
       </div>
     </Fragment>

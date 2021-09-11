@@ -38,7 +38,7 @@ const Developers = ({ githubProfile }) => {
 
   return (
     <Fragment>
-      {dev && (
+      {dev.length && (
         <Grow in={true} timeout={1000}>
           <Grid
             container
