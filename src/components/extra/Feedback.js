@@ -176,3 +176,6 @@ Feedback.propTypes = {
 };
 
 export default connect(null, { feedback })(Feedback);
+
+// TODO
+// --> Need to be implemented at backend
