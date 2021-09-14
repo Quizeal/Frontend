@@ -9,7 +9,6 @@ import {
   Grid,
   Box,
   Typography,
-  Container,
   Divider,
   Grow,
   makeStyles,
@@ -42,6 +41,15 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  section: {
+    padding: theme.spacing(6),
+    maxWidth: '100%',
+    rowGap: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(4),
+      rowGap: theme.spacing(5),
+    },
   },
 }));
 
@@ -117,87 +125,106 @@ const Login = ({ login, auth, ...props }) => {
   return (
     <Fragment>
       <Grow in={true} timeout={500}>
-        <Container component='main' maxWidth='xs'>
+        <Grid
+          container
+          component='main'
+          maxWidth='xs'
+          className={classes.section}
+          justifyContent='center'
+        >
           <CssBaseline />
-          <div className={`${classes.paper} ${classes.section1}`}>
-            <img src={logo} alt='logo' height='40' width='40' />
-            <Typography component='h1' variant='h5'>
-              Log in
-            </Typography>
-            <form className={classes.form} noValidate>
-              <Grid item xs={12}>
+          <Grid item xs={12} md={4}>
+            <div className={`${classes.paper} ${classes.section1}`}>
+              <img src={logo} alt='logo' height='40' width='40' />
+              <Typography component='h1' variant='h5'>
+                Log in
+              </Typography>
+              <form className={classes.form} noValidate>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={onChange}
+                    variant='outlined'
+                    required
+                    fullWidth
+                    id='username'
+                    label='SID or Email'
+                    autoFocus
+                    name='username'
+                  />
+                </Grid>
                 <TextField
-                  onChange={onChange}
                   variant='outlined'
+                  margin='normal'
                   required
                   fullWidth
-                  id='username'
-                  label='SID or Email'
-                  autoFocus
-                  name='username'
+                  name='password'
+                  label='Password'
+                  type='password'
+                  onChange={onChange}
                 />
-              </Grid>
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type='password'
-                onChange={onChange}
-              />
-              {/* This will be implemented later {Remember me} */}
-              <FormControlLabel
-                control={<Checkbox value='remember' color='primary' />}
-                label='Remember me'
-              />
-              <Button
-                // type='submit'
-                fullWidth
-                variant='contained'
-                color='primary'
-                className={classes.submit}
-                onClick={onSubmit}
-              >
-                LogIn
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link
-                    to='#'
-                    className={'styleLink'}
-                    style={{ fontWeight: 700 }}
-                  >
-                    Forgot password?
-                  </Link>
+                {/* This will be implemented later {Remember me} */}
+                <FormControlLabel
+                  control={<Checkbox value='remember' color='primary' />}
+                  label='Remember me'
+                />
+                <Button
+                  // type='submit'
+                  fullWidth
+                  variant='contained'
+                  color='primary'
+                  className={classes.submit}
+                  onClick={onSubmit}
+                >
+                  LogIn
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link
+                      to='#'
+                      className={'styleLink'}
+                      style={{ fontWeight: 700 }}
+                    >
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    Don't have an account?
+                    <Link
+                      to='/signup'
+                      className={'styleLink'}
+                      style={{ fontWeight: 700 }}
+                    >
+                      {' '}
+                      Sign up
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  Don't have an account?
-                  <Link
-                    to='/signup'
-                    className={'styleLink'}
-                    style={{ fontWeight: 700 }}
-                  >
-                    {' '}
-                    Sign up
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
-          <Divider variant='middle' className={classes.divider} />
-          <Box mt={8}>
-            <Typography variant='body2' color='textSecondary' align='center'>
-              {'Copyright © '}
-              <Link to='/' className={'styleLink'} style={{ fontWeight: 700 }}>
-                Quizeal
-              </Link>{' '}
-              {new Date().getFullYear()}
-              {'.'}
-            </Typography>
-          </Box>
-        </Container>
+              </form>
+            </div>
+            <Divider variant='middle' className={classes.divider} />
+            <Box mt={8}>
+              <Typography variant='body2' color='textSecondary' align='center'>
+                {'Copyright © '}
+                <Link
+                  to='/'
+                  className={'styleLink'}
+                  style={{ fontWeight: 700 }}
+                >
+                  Quizeal
+                </Link>{' '}
+                {new Date().getFullYear()}
+                {'.'}
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6} justifyContent='center' container>
+            <img
+              src='/static/images/illustrations/login.png'
+              alt='login'
+              width='85%'
+            ></img>
+          </Grid>
+        </Grid>
       </Grow>
       <MySnackbar alert={alert} close={handleClose} />
     </Fragment>

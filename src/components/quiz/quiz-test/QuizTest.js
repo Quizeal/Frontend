@@ -31,8 +31,8 @@ const QuizTest = ({
 
   useEffect(() => {
     document.title = 'Quizeal | Quiz Test';
-    getQuizTest(params.username, params.quiz_id);
-  }, [getQuizTest, params.username, params.quiz_id]);
+    getQuizTest(user && user.username, params.quiz_id);
+  }, [getQuizTest, user, params.quiz_id]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -52,8 +52,8 @@ const QuizTest = ({
       );
       if (oIndex !== -1) newA.splice(oIndex, 1);
       else newA.unshift({ question_id: id, option_name: o });
-      setResponses(newA);
     }
+    setResponses(newA);
   };
 
   const data = get_Quiz_Test;
@@ -65,7 +65,6 @@ const QuizTest = ({
     };
     submitQuiz(res, params.username, params.quiz_id);
   };
-
   return (
     <Container>
       {!loading && data && (
@@ -78,6 +77,7 @@ const QuizTest = ({
               justifyContent: 'center',
               alignItems: 'center',
             }}
+            spacing={10}
           >
             <Grid item>
               <Typography variant='h6'>
@@ -90,6 +90,12 @@ const QuizTest = ({
               <CircularTimer />
             </Grid> */}
           </Grid>
+          <span>
+            <Typography variant='h4' component='span'>
+              {activeStep + 1}
+            </Typography>
+            {`/${data.questions.length}`}
+          </span>
           <Card>
             <CardContent>
               {data && data.questions[activeStep].question_name}

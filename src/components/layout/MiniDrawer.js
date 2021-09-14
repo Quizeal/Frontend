@@ -143,8 +143,8 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
     },
     {
       component: <SettingsIcon />,
-      label: 'Setting',
-      path: '/setting',
+      label: 'Settings',
+      path: '/settings',
     },
   ];
 
