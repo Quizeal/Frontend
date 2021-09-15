@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
-import { Typography, Grid, Slide, Grow } from '@material-ui/core';
+import { Typography, Grid, Grow } from '@material-ui/core';
 import {
   DataGrid,
   GridToolbarContainer,
@@ -104,7 +104,7 @@ const QuizResult = ({ quizResult, loading, user, get_quiz_result }) => {
               </Typography>
             </Grid>
           </Grow>
-          <Slide in={true} timeout={1000} direction='up'>
+          <Grow in={true} timeout={1000}>
             <Grid item xs={11}>
               {get_quiz_result && get_quiz_result.students.length ? (
                 <DataGrid
@@ -138,7 +138,7 @@ const QuizResult = ({ quizResult, loading, user, get_quiz_result }) => {
                 />
               )}
             </Grid>
-          </Slide>
+          </Grow>
         </Grid>
       )}
     </Fragment>

@@ -236,7 +236,11 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
         <List>
           {isAuthenticated
             ? AuthenticatedList.map((list) => (
-                <Link to={list.path} className={'styleLink'}>
+                <Link
+                  to={list.path}
+                  className={'styleLink'}
+                  onClick={handleDrawerClose}
+                >
                   <Tooltip
                     TransitionComponent={Zoom}
                     title={list.label}
@@ -251,7 +255,11 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
                 </Link>
               ))
             : UnAuthenticatedList.map((list) => (
-                <Link to={list.path} className={'styleLink'}>
+                <Link
+                  to={list.path}
+                  className={'styleLink'}
+                  onClick={handleDrawerClose}
+                >
                   <Tooltip
                     TransitionComponent={Zoom}
                     title={list.label}
@@ -269,7 +277,11 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
         <Divider />
         <List>
           {commontList.map((list) => (
-            <Link to={list.path} className={'styleLink'}>
+            <Link
+              to={list.path}
+              className={'styleLink'}
+              onClick={handleDrawerClose}
+            >
               <Tooltip
                 TransitionComponent={Zoom}
                 title={list.label}
