@@ -49,7 +49,7 @@ const ProfileMenu = ({ auth: { isAuthenticated, user }, logout }) => {
             <Link to='/me' className={'styleLink'}>
               <MenuItem onClick={handleClose}>Profile</MenuItem>
             </Link>
-            <Link to='/setting' className={'styleLink'}>
+            <Link to='/settings' className={'styleLink'}>
               <MenuItem onClick={handleClose}>My account</MenuItem>
             </Link>
             <MenuItem onClick={onLogout}>Logout</MenuItem>

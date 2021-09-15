@@ -21,6 +21,8 @@ import Setting from './components/extra/Setting';
 import Developers from './components/extra/Developers';
 import About from './components/extra/About';
 import MiniDrawer from './components/layout/MiniDrawer';
+import Footer from './components/layout/Footer';
+
 import {
   createTheme,
   responsiveFontSizes,
@@ -82,6 +84,7 @@ function App() {
               <Route path='*' component={Error} />
             </Switch>
           </MiniDrawer>
+          <Footer />
         </ThemeProvider>
       </Router>
     </Provider>

@@ -166,7 +166,7 @@ const Signup = ({ signup, auth, props }) => {
               component='main'
               maxWidth='xs'
               className={classes.section}
-              justifyContent='center'
+              justifyContent='space-around'
               alignItems='center'
             >
               <CssBaseline />
