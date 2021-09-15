@@ -84,8 +84,8 @@ function App() {
               <Route path='*' component={Error} />
             </Switch>
           </MiniDrawer>
+          <Footer />
         </ThemeProvider>
-        <Footer />
       </Router>
     </Provider>
   );
