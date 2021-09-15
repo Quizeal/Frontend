@@ -21,7 +21,9 @@ export const quizResult = (username, id) => async (dispatch) => {
   dispatch(setLoading(true));
   setAuthToken(localStorage['token-access']);
   try {
-    const res = await axios.get(`/quiz-result/${username}/${id}`);
+    const res = await axios.get(
+      `https://quizeal-backend.herokuapp.com/quiz-result/${username}/${id}`
+    );
     dispatch(setLoading(false));
     dispatch({
       type: QUIZ_RESULT_SUCCESS,
@@ -43,7 +45,9 @@ export const myQuizzes = (username) => async (dispatch) => {
   dispatch(setLoading(true));
   setAuthToken(localStorage['token-access']);
   try {
-    const res = await axios.get(`/my-quizes/${username}`);
+    const res = await axios.get(
+      `https://quizeal-backend.herokuapp.com/my-quizes/${username}`
+    );
     dispatch(setLoading(false));
     dispatch({
       type: MY_QUIZZES_SUCCESS,
@@ -65,7 +69,9 @@ export const viewQuiz = (username, quizId) => async (dispatch) => {
   dispatch(setLoading(true));
   setAuthToken(localStorage['token-access']);
   try {
-    const res = await axios.get(`/view-quiz/${username}/${quizId}`);
+    const res = await axios.get(
+      `https://quizeal-backend.herokuapp.com/view-quiz/${username}/${quizId}`
+    );
     dispatch(setLoading(false));
     dispatch({
       type: VIEW_QUIZ_SUCCESS,
@@ -87,7 +93,9 @@ export const viewQuizReport = (id, username) => async (dispatch) => {
   dispatch(setLoading(true));
   setAuthToken(localStorage['token-access']);
   try {
-    const res = await axios.get(`/quiz-report/${username}/${id}`);
+    const res = await axios.get(
+      `https://quizeal-backend.herokuapp.com/quiz-report/${username}/${id}`
+    );
     dispatch(setLoading(false));
     console.log('QUIZ REPORT FETCHED SUCCESSFULLY');
     dispatch({
@@ -117,7 +125,11 @@ export const createQuiz = (username, quiz) => async (dispatch) => {
 
   const body = JSON.stringify(quiz);
   try {
-    const res = await axios.post(`/create-quiz/${username}`, body, config);
+    const res = await axios.post(
+      `https://quizeal-backend.herokuapp.com/create-quiz/${username}`,
+      body,
+      config
+    );
     dispatch(setLoading(false));
     dispatch(setMyAlert('Quiz Created Successfully'));
     return res.data;
@@ -136,7 +148,9 @@ export const getQuizTest = (username, id) => async (dispatch) => {
   dispatch(setLoading(true));
   setAuthToken(localStorage['token-access']);
   try {
-    let res = await axios.get(`/get-quiz/${username}/${id}`);
+    let res = await axios.get(
+      `https://quizeal-backend.herokuapp.com/get-quiz/${username}/${id}`
+    );
     console.log('QUIZ LOADED SUCCESSFULLY');
     dispatch(setLoading(false));
     res.data.data.questions = shuffle(res.data.data.questions);
@@ -168,7 +182,8 @@ export const submitQuiz = (responses, username, id) => async (dispatch) => {
   const body = JSON.stringify(responses);
   try {
     const res = await axios.post(
-      `/submit-quiz/${username}/${id}`,
+      `https://quizeal-backend.herokuapp.com(
+      /submit-quiz/${username}/${id}`,
       body,
       config
     );
@@ -187,7 +202,9 @@ export const deleteQuiz = (username, id, type) => async (dispatch) => {
   dispatch(setLoading(true));
   setAuthToken(localStorage['token-access']);
   try {
-    let res = await axios.get(`/delete-${type}/${username}/${id}`);
+    let res = await axios.get(
+      `https://quizeal-backend.herokuapp.com/delete-${type}/${username}/${id}`
+    );
     console.log(`QUIZ ${type} DELETED SUCCESSFULLY`);
     dispatch(setLoading(false));
     dispatch(setMyAlert(res.data.data));

@@ -245,3 +245,5 @@ export default connect(mapStateToProps, { login })(Login);
 
 // TODO
 // --> Remeber Me
+// --> TOTP
+// --> Integrate with Mail
