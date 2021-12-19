@@ -1,4 +1,4 @@
-# QUIZEAL (Frontend)
+# QUIZEAL
 
 ![Screenshot from 2021-09-19 22-59-30](https://user-images.githubusercontent.com/71120226/133937090-d45392e0-04ce-45f0-b33a-eda93d186ab4.png)
 

@@ -17,6 +17,22 @@
   -webkit-text-fill-color: transparent;
 }
 
+@keyframes timer_alert {
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.danger-text {
+  color: #f53e3e;
+  animation-name: timer_alert;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
 .danger {
   background-color: #e57373 !important;
 }
@@ -26,6 +42,14 @@
 
 .outlined-answer {
   border: 2px solid black !important;
+}
+
+.question-selected {
+  background-color: rgba(19, 29, 50, 1) !important;
+}
+
+.question-attempted {
+  background-color: rgba(111, 49, 154, 1) !important;
 }
 
 .custom-shape-divider-bottom-footer {

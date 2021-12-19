@@ -66,7 +66,6 @@ export const loadUser = () => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  console.log("''''''''''''''''''''");
   const body = { token: tokenAccess };
   try {
     const res = await axios.post(
@@ -85,7 +84,6 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: AUTH_FAILURE,
     });
-    console.log("''''''''''''''''''''");
 
     dispatch(clearQuiz());
     // dispatch(

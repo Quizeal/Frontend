@@ -1,5 +1,5 @@
-import React, { useEffect, Fragment } from 'react';
-import { useParams } from 'react-router';
+import React, { useEffect, Fragment } from "react";
+import { useParams } from "react-router";
 import {
   Grow,
   makeStyles,
@@ -7,7 +7,7 @@ import {
   Divider,
   Typography,
   Paper,
-} from '@material-ui/core';
+} from "@material-ui/core";
 import {
   Chart,
   BarSeries,
@@ -15,43 +15,43 @@ import {
   ArgumentAxis,
   ValueAxis,
   Tooltip,
-} from '@devexpress/dx-react-chart-material-ui';
-import { Animation } from '@devexpress/dx-react-chart';
-import { EventTracker } from '@devexpress/dx-react-chart';
-import QAList from '../quiz/QAList';
-import OptionsStatus from './OptionsStatus';
+} from "@devexpress/dx-react-chart-material-ui";
+import { Animation } from "@devexpress/dx-react-chart";
+import { EventTracker } from "@devexpress/dx-react-chart";
+import QAList from "../quiz/QAList";
+import OptionsStatus from "./OptionsStatus";
 
 // REDUX
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { viewQuizReport } from '../../actions/quiz';
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { viewQuizReport } from "../../actions/quiz";
 
 const useStyles = makeStyles((theme) => ({
   section: {
-    padding: '30px',
-    maxWidth: '100%',
+    padding: "30px",
+    maxWidth: "100%",
   },
   divider: {
-    margin: '20px',
-    [theme.breakpoints.down('sm')]: {
-      visibility: 'hidden !important',
+    margin: "20px",
+    [theme.breakpoints.down("sm")]: {
+      visibility: "hidden !important",
     },
   },
   paper: {
     height: 145,
     width: 145,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       height: 160,
       width: 160,
     },
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
   sectionRight: {
-    flex: '10',
-    height: '85vh',
-    overflow: 'scroll',
+    flex: "10",
+    height: "85vh",
+    overflow: "scroll",
   },
 }));
 
@@ -64,21 +64,20 @@ const QuizReport = ({
   const params = useParams();
   const classes = useStyles();
   useEffect(() => {
-    document.title = 'Quizeal | Quiz Report';
+    document.title = "Quizeal | Quiz Report";
     viewQuizReport(params.quiz_id, user.username);
   }, [viewQuizReport, params.quiz_id, user]);
 
   const data = view_Quiz_Report;
 
   const dataG = [
-    { category: 'Topper', marks: data ? data.topper_marks : 0 },
-    { category: 'Me', marks: data ? data.user_marks : 0 },
-    { category: 'Top 10% Average', marks: data ? data.top_10_percentile : 0 },
+    { category: "Topper", marks: data ? data.topper_marks : 0 },
+    { category: "Me", marks: data ? data.user_marks : 0 },
+    { category: "Top 10% Average", marks: data ? data.top_10_percentile : 0 },
   ];
-
   return (
     <Fragment>
-      {!loading && (
+      {!loading && data && (
         <Grid
           container
           spacing={5}
@@ -91,7 +90,7 @@ const QuizReport = ({
                 <Grid item>
                   <Grow
                     in={true}
-                    style={{ transformOrigin: '0 0 0' }}
+                    style={{ transformOrigin: "0 0 0" }}
                     timeout={1000}
                   >
                     <Paper className={classes.paper}>
@@ -107,7 +106,7 @@ const QuizReport = ({
                 <Grid item>
                   <Grow
                     in={true}
-                    style={{ transformOrigin: '0 0 0' }}
+                    style={{ transformOrigin: "0 0 0" }}
                     timeout={2000}
                   >
                     <Paper className={classes.paper}>
@@ -123,7 +122,7 @@ const QuizReport = ({
                 <Grid item>
                   <Grow
                     in={true}
-                    style={{ transformOrigin: '0 0 0' }}
+                    style={{ transformOrigin: "0 0 0" }}
                     timeout={3000}
                   >
                     <Paper className={classes.paper}>
@@ -164,7 +163,7 @@ const QuizReport = ({
               <Typography
                 variant='h4'
                 align='center'
-                style={{ paddingBottom: '20px' }}
+                style={{ paddingBottom: "20px" }}
               >
                 Question and Answers
               </Typography>
@@ -196,6 +195,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { viewQuizReport })(QuizReport);
-
-// TODO
-// --> Time Format
