@@ -27,7 +27,7 @@ const accessToken = () => async (dispatch) => {
   if (!tokenRefresh) {
     return console.log("ACCESS TOKEN COULDN'T FOUND", tokenRefresh);
   }
-  const body = JSON.stringify({ refresh: tokenRefresh });
+  const body = { refresh: tokenRefresh };
   try {
     const res = await axios.post(
       "https://quizeal-backend.herokuapp.com/token-refresh/",
@@ -182,10 +182,10 @@ export const changePassword = (formData) => async (dispatch) => {
     },
   };
   dispatch(setLoading(true));
-  const body = JSON.stringify({
+  const body = {
     ...formData,
     token: localStorage["token-access"],
-  });
+  };
   try {
     await axios.post(
       "https://quizeal-backend.herokuapp.com/change-password/",
