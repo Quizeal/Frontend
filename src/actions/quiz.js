@@ -134,7 +134,6 @@ export const createQuiz = (username, quiz) => async (dispatch) => {
     dispatch(setMyAlert("Quiz Created Successfully"));
     return res.data;
   } catch (error) {
-    console.log(error.response);
     dispatch(setLoading(false));
     dispatch(
       setMyAlert(error.response.data.detail || error.response.statusText)
@@ -181,9 +180,6 @@ export const submitQuiz = (responses, username, id) => async (dispatch) => {
   };
   const body = responses;
   try {
-    console.log(
-      `https://quizeal-backend.herokuapp.com/submit-quiz/${body.username}/${id}`
-    );
     const res = await axios.post(
       `https://quizeal-backend.herokuapp.com/submit-quiz/${body.username}/${id}`,
       body,
@@ -194,10 +190,9 @@ export const submitQuiz = (responses, username, id) => async (dispatch) => {
     dispatch(setMyAlert(res.data.detail));
   } catch (error) {
     dispatch(setLoading(false));
-    console.log("gggg", error.response);
-    // dispatch(
-    //   setMyAlert(error.response.data.detail || error.response.statusText)
-    // );
+    dispatch(
+      setMyAlert(error.response.data.detail || error.response.statusText)
+    );
   }
 };
 
