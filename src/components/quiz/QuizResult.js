@@ -91,52 +91,56 @@ const QuizResult = ({ quizResult, loading, user, get_quiz_result }) => {
 
   return (
     <Fragment>
-      {/* {!loading && ( */}
-      <Grid container justifyContent="center">
-        <Grow in={true} timeout={2000}>
-          <Grid item xs={12}>
-            <Typography variant="h4" align="center" style={{ padding: "20px" }}>
-              Quiz Result
-            </Typography>
-          </Grid>
-        </Grow>
-        <Grow in={true} timeout={1000}>
-          <Grid item xs={11}>
-            {get_quiz_result && get_quiz_result.students.length ? (
-              <DataGrid
-                components={{ Toolbar: CustomToolbar }}
-                rows={get_quiz_result.students}
-                columns={column}
-                pageSize={10}
-                autoHeight
-                pagination
-                autoPageSize
-                checkboxSelection
-                sortModel={sortModel}
-                disableSelectionOnClick
-              />
-            ) : (
-              <InfoCard
-                msg={
-                  get_quiz_result
-                    ? "No Students has given this Quiz."
-                    : "Quiz Does not Exists."
-                }
-                detail={
-                  get_quiz_result
-                    ? "Please share the quiz code."
-                    : "Please create Quiz."
-                }
-                copyClipboard={get_quiz_result}
-                copyText={params.quiz_id}
-                gif="noData.gif"
-                buttons={buttons}
-              />
-            )}
-          </Grid>
-        </Grow>
-      </Grid>
-      {/* )} */}
+      {!loading && (
+        <Grid container justifyContent="center">
+          <Grow in={true} timeout={2000}>
+            <Grid item xs={12}>
+              <Typography
+                variant="h4"
+                align="center"
+                style={{ padding: "20px" }}
+              >
+                Quiz Result
+              </Typography>
+            </Grid>
+          </Grow>
+          <Grow in={true} timeout={1000}>
+            <Grid item xs={11}>
+              {get_quiz_result && get_quiz_result.students.length ? (
+                <DataGrid
+                  components={{ Toolbar: CustomToolbar }}
+                  rows={get_quiz_result.students}
+                  columns={column}
+                  pageSize={10}
+                  autoHeight
+                  pagination
+                  autoPageSize
+                  checkboxSelection
+                  sortModel={sortModel}
+                  disableSelectionOnClick
+                />
+              ) : (
+                <InfoCard
+                  msg={
+                    get_quiz_result
+                      ? "No Students has given this Quiz."
+                      : "Quiz Does not Exists."
+                  }
+                  detail={
+                    get_quiz_result
+                      ? "Please share the quiz code."
+                      : "Please create Quiz."
+                  }
+                  copyClipboard={get_quiz_result}
+                  copyText={params.quiz_id}
+                  gif="noData.gif"
+                  buttons={buttons}
+                />
+              )}
+            </Grid>
+          </Grow>
+        </Grid>
+      )}
     </Fragment>
   );
 };

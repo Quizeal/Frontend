@@ -1,6 +1,6 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import React, {Fragment, useState, useEffect} from "react";
+import {useHistory} from "react-router";
+import {Link} from "react-router-dom";
 import {
   Grid,
   TextField,
@@ -14,23 +14,23 @@ import {
   Typography,
   Grow,
   makeStyles,
-} from '@material-ui/core';
-import SendIcon from '@material-ui/icons/Send';
-import MySnackbar from '../layout/MySnackbar';
+} from "@material-ui/core";
+import SendIcon from "@material-ui/icons/Send";
+import MySnackbar from "../layout/MySnackbar";
 
 // REDUX
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   root: {
-    gap: '20px',
-    alignItems: 'center',
-    margin: '20px',
+    gap: "20px",
+    alignItems: "center",
+    margin: "20px",
   },
   cardBox: {
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
   },
   card: {
     maxWidth: 345,
@@ -40,14 +40,14 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard = ({ auth: { user } }) => {
+const Dashboard = ({auth: {user}}) => {
   const classes = useStyles();
   const history = useHistory();
-  const [quizCode, setQuizCode] = useState('');
-  const [alert, setAlert] = React.useState({ status: false, msg: '' });
+  const [quizCode, setQuizCode] = useState("");
+  const [alert, setAlert] = React.useState({status: false, msg: ""});
 
   const handleClose = () => {
-    setAlert({ ...alert, status: false });
+    setAlert({...alert, status: false});
   };
 
   const onChange = (e) => {
@@ -59,20 +59,20 @@ const Dashboard = ({ auth: { user } }) => {
       setAlert({
         ...alert,
         status: true,
-        msg: 'Invalid code or you might be not signed in with correct account',
+        msg: "Invalid code or you might be not signed in with correct account",
       });
       return;
     }
     history.push(`/quiz/${quizCode}`);
   };
   useEffect(() => {
-    document.title = 'Quizeal | Dashboard';
+    document.title = "Quizeal | Dashboard";
   }, []);
   return (
     <Fragment>
       <Grid container justifyContent='center'>
         <Grid container justifyContent='center' className={classes.root}>
-          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1000}>
+          <Grow in={true} style={{transformOrigin: "0 0 0"}} timeout={1000}>
             <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
               <Card className={classes.card}>
                 {/* <CardActionArea> */}
@@ -98,7 +98,7 @@ const Dashboard = ({ auth: { user } }) => {
                 <CardActions>
                   <Link
                     to={`/my-quizzes/${user && user.username}`}
-                    className={'styleLink'}
+                    className={"styleLink"}
                   >
                     <Button size='small' color='primary' variant='contained'>
                       See my quizzes
@@ -108,7 +108,7 @@ const Dashboard = ({ auth: { user } }) => {
               </Card>
             </Grid>
           </Grow>
-          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1500}>
+          <Grow in={true} style={{transformOrigin: "0 0 0"}} timeout={1500}>
             <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
               <Card className={classes.card}>
                 {/* <CardActionArea> */}
@@ -133,7 +133,7 @@ const Dashboard = ({ auth: { user } }) => {
                 </CardContent>
                 {/* </CardActionArea> */}
                 <CardActions>
-                  <Link to='/create-quiz' className={'styleLink'}>
+                  <Link to='/create-quiz' className={"styleLink"}>
                     <Button size='small' color='primary' variant='contained'>
                       Create now
                     </Button>
@@ -142,7 +142,7 @@ const Dashboard = ({ auth: { user } }) => {
               </Card>
             </Grid>
           </Grow>
-          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2000}>
+          <Grow in={true} style={{transformOrigin: "0 0 0"}} timeout={2000}>
             <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
               <Card className={classes.card}>
                 {/* <CardActionArea> */}
@@ -185,7 +185,7 @@ const Dashboard = ({ auth: { user } }) => {
           </Grow>
         </Grid>
         <Grid container justifyContent='center' className={classes.root}>
-          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2500}>
+          <Grow in={true} style={{transformOrigin: "0 0 0"}} timeout={2500}>
             <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
               <Card className={classes.card}>
                 {/* <CardActionArea> */}
@@ -209,7 +209,7 @@ const Dashboard = ({ auth: { user } }) => {
                 </CardContent>
                 {/* </CardActionArea> */}
                 <CardActions>
-                  <Link to='/me' className={'styleLink'}>
+                  <Link to='/me' className={"styleLink"}>
                     <Button size='small' color='primary' variant='contained'>
                       Go to Profile
                     </Button>
@@ -218,7 +218,7 @@ const Dashboard = ({ auth: { user } }) => {
               </Card>
             </Grid>
           </Grow>
-          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={3000}>
+          <Grow in={true} style={{transformOrigin: "0 0 0"}} timeout={3000}>
             <Grid item xs={12} sm={6} md={3} className={classes.cardBox}>
               <Card className={classes.card}>
                 {/* <CardActionArea> */}
@@ -241,7 +241,7 @@ const Dashboard = ({ auth: { user } }) => {
                 </CardContent>
                 {/* </CardActionArea> */}
                 <CardActions>
-                  <Link to='/setting' className={'styleLink'}>
+                  <Link to='/settings' className={"styleLink"}>
                     <Button size='small' color='primary' variant='contained'>
                       Settings
                     </Button>
