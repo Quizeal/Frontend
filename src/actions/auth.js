@@ -135,7 +135,7 @@ export const signup = (formData) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  const body = JSON.stringify(formData);
+  const body = formData;
   try {
     const res = await axios.post(
       "https://quizeal-backend.herokuapp.com/register/",

@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { myQuizzes, deleteQuiz } from "../../actions/quiz";
 import InfoCard from "../layout/InfoCard";
+import { secondsToMinutes } from "date-fns";
 
 // Model for byDefault Sorting Table
 const sortModel = [
@@ -76,9 +77,9 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
         return (
           <Fragment>
             <ButtonGroup
-              variant="contained"
-              color="primary"
-              aria-label="text primary button group"
+              variant='contained'
+              color='primary'
+              aria-label='text primary button group'
             >
               <Button endIcon={<LinkIcon />}>
                 <Link
@@ -112,7 +113,6 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
       field: "quiz_token",
       headerName: "ID",
       flex: 1,
-
       headerAlign: "center",
       align: "center",
     },
@@ -147,7 +147,7 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
       flex: 0.75,
       headerAlign: "center",
       align: "center",
-      valueGetter: (params) => `${params.row.duration / 60} min`,
+      valueGetter: (params) => `${secondsToMinutes(params.row.duration)} min`,
     },
     {
       field: "total_marks",
@@ -161,16 +161,16 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
       headerName: "Actions",
       description: "This column is not sortable.",
       sortable: false,
-      flex: 1.25,
+      flex: 2,
       headerAlign: "center",
       align: "center",
       renderCell: (params) => {
         return (
           <Fragment>
             <ButtonGroup
-              variant="contained"
-              color="primary"
-              aria-label="text primary button group"
+              variant='contained'
+              color='primary'
+              aria-label='text primary button group'
             >
               <Button endIcon={<LinkIcon />}>
                 <Link
@@ -247,12 +247,12 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
   return (
     <Fragment>
       {!loading && (
-        <Grid container justifyContent="center">
+        <Grid container justifyContent='center'>
           <Grow in={true} timeout={2000}>
             <Grid item xs={12}>
               <Typography
-                variant="h4"
-                align="center"
+                variant='h4'
+                align='center'
                 style={{ padding: "20px" }}
               >
                 My Quizzes
@@ -262,8 +262,8 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
           <Grow in={true} timeout={1000}>
             <Grid item xs={11}>
               <ButtonGroup
-                color="primary"
-                aria-label="outlined primary button group"
+                color='primary'
+                aria-label='outlined primary button group'
                 style={{ paddingBottom: "10px" }}
               >
                 <Button
@@ -293,12 +293,12 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
               ) : (
                 <InfoCard
                   msg={`No ${quizSelected} Quizzes found`}
-                  detail={`You have not ${quizSelected} any quiz. Pls ${
-                    quizSelected === "attempted" ? "attemp" : "create"
-                  } any quiz in order to
-                  have record.`}
+                  detail={`You have not ${quizSelected} any quiz. Please ${
+                    quizSelected === "attempted" ? "attempt" : "create"
+                  } the quiz in order to
+                  have records.`}
                   buttons={buttons[quizSelected]}
-                  gif="noData.gif"
+                  gif='noData.gif'
                 />
               )}
             </Grid>
