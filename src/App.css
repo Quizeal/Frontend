@@ -44,6 +44,14 @@
   border: 2px solid black !important;
 }
 
+.question-selected {
+  background-color: rgba(19, 29, 50, 1) !important;
+}
+
+.question-attempted {
+  background-color: rgba(111, 49, 154, 1) !important;
+}
+
 .custom-shape-divider-bottom-footer {
   /* position: absolute; */
   bottom: 0;
