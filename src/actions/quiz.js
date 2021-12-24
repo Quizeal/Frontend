@@ -186,9 +186,14 @@ export const submitQuiz = (responses, username, id) => async (dispatch) => {
       config
     );
     dispatch(setLoading(false));
-
+    dispatch({
+      type: CLEAR_QUIZ,
+    });
     dispatch(setMyAlert(res.data.detail));
   } catch (error) {
+    dispatch({
+      type: CLEAR_QUIZ,
+    });
     dispatch(setLoading(false));
     dispatch(
       setMyAlert(error.response.data.detail || error.response.statusText)

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from "react";
 import {
   Grid,
   TextField,
@@ -13,42 +13,42 @@ import {
   DialogContentText,
   DialogTitle,
   makeStyles,
-} from '@material-ui/core';
-import DateFnsUtils from '@date-io/date-fns';
-import { format, isFuture, isValid } from 'date-fns';
+} from "@material-ui/core";
+import DateFnsUtils from "@date-io/date-fns";
+import { format, isFuture, isValid } from "date-fns";
 import {
   KeyboardTimePicker,
   KeyboardDateTimePicker,
   MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-import QAList from '../QAList';
-import AddQuestion from './AddQuestion';
-import MySnackbar from '../../layout/MySnackbar';
-import InfoCard from '../../layout/InfoCard';
+} from "@material-ui/pickers";
+import QAList from "../QAList";
+import AddQuestion from "./AddQuestion";
+import MySnackbar from "../../layout/MySnackbar";
+import InfoCard from "../../layout/InfoCard";
 
 // REDUX
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { createQuiz } from '../../../actions/quiz';
-import { useHistory } from 'react-router';
-import OptionsStatus from '../OptionsStatus';
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { createQuiz } from "../../../actions/quiz";
+import { useHistory } from "react-router";
+import OptionsStatus from "../OptionsStatus";
 
 const useStyles = makeStyles((theme) => ({
   sectionDetail: {
-    padding: '20px',
+    padding: "20px",
     paddingBottom: 0,
-    maxWidth: '100%',
-    alignContent: 'center',
-    alignItems: 'center',
+    maxWidth: "100%",
+    alignContent: "center",
+    alignItems: "center",
   },
   divider: {
-    margin: '20px',
+    margin: "20px",
   },
   section1: {
-    display: 'flex',
+    display: "flex",
   },
   alert: {
-    margin: '20px',
+    margin: "20px",
   },
 }));
 
@@ -59,10 +59,10 @@ const CreateQuiz = ({ user, createQuiz }) => {
   const [selectedDateTime, handleDateTimeChange] = useState(null);
   const [selectedDuration, handleDurationChange] = useState(null);
   const [open, setOpen] = useState(false);
-  const [alert, setAlert] = useState({ status: false, msg: '' });
+  const [alert, setAlert] = useState({ status: false, msg: "" });
 
   const [newQuiz, updateQuiz] = useState({
-    quiz_name: '',
+    quiz_name: "",
     questions: [],
   });
 
@@ -95,7 +95,7 @@ const CreateQuiz = ({ user, createQuiz }) => {
     setAlert({
       ...alert,
       status: true,
-      msg: 'Question deleted successfully!',
+      msg: "Question deleted successfully!",
     });
   };
 
@@ -113,20 +113,20 @@ const CreateQuiz = ({ user, createQuiz }) => {
       setAlert({
         ...alert,
         status: true,
-        msg: 'Please fill the required fields',
+        msg: "Please fill the required fields",
       });
       return;
     }
     if (!isValid(selectedDuration)) {
-      setAlert({ ...alert, status: true, msg: 'Invalid Time Format' });
+      setAlert({ ...alert, status: true, msg: "Invalid Time Format" });
       return;
     }
     if (!isValid(selectedDateTime) || !isFuture(selectedDateTime)) {
-      setAlert({ ...alert, status: true, msg: 'Invalid Date Time Format' });
+      setAlert({ ...alert, status: true, msg: "Invalid Date Time Format" });
       return;
     }
     if (!questions.length > 0) {
-      setAlert({ ...alert, status: true, msg: 'Please add Questions' });
+      setAlert({ ...alert, status: true, msg: "Please add Questions" });
       return;
     }
     questions.forEach((e) => {
@@ -134,9 +134,9 @@ const CreateQuiz = ({ user, createQuiz }) => {
     });
 
     const date_time = {
-      date: format(selectedDateTime, 'yyy-MM-dd'),
-      start_time: format(selectedDateTime, 'HH:mm'),
-      duration: format(selectedDuration, 'mm:ss'),
+      date: format(selectedDateTime, "yyy-MM-dd"),
+      start_time: format(selectedDateTime, "HH:mm"),
+      duration: format(selectedDuration, "mm:ss"),
     };
     const res = await createQuiz(user && user.username, {
       ...newQuiz,
@@ -152,12 +152,12 @@ const CreateQuiz = ({ user, createQuiz }) => {
   const { questions, quiz_name } = newQuiz;
 
   useEffect(() => {
-    document.title = 'Quizeal | Create Quiz';
+    document.title = "Quizeal | Create Quiz";
   }, []);
 
   const buttons = [
     {
-      name: 'View Quiz',
+      name: "View Quiz",
       onClick: () => history.push(`/quiz-view/${quizCreated.data.quiz_token}`),
     },
   ];
@@ -165,7 +165,7 @@ const CreateQuiz = ({ user, createQuiz }) => {
     <Fragment>
       {!quizCreated.status ? (
         <Fragment>
-          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1000}>
+          <Grow in={true} style={{ transformOrigin: "0 0 0" }} timeout={1000}>
             <Grid
               container
               spacing={5}
@@ -191,7 +191,7 @@ const CreateQuiz = ({ user, createQuiz }) => {
                   <KeyboardTimePicker
                     ampm={false}
                     openTo='hours'
-                    views={['minutes', 'seconds']}
+                    views={["minutes", "seconds"]}
                     format='mm:ss'
                     required
                     inputVariant='outlined'
@@ -220,11 +220,11 @@ const CreateQuiz = ({ user, createQuiz }) => {
             </Grid>
           </Grow>
           <Divider variant='middle' className={classes.divider} />
-          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1500}>
+          <Grow in={true} style={{ transformOrigin: "0 0 0" }} timeout={1500}>
             <Grid
               container
               justifyContent='space-around'
-              style={{ gap: '10px' }}
+              style={{ gap: "10px" }}
             >
               <ButtonGroup
                 color='primary'
@@ -258,7 +258,7 @@ const CreateQuiz = ({ user, createQuiz }) => {
                   <Typography
                     variant='h5'
                     align='center'
-                    style={{ paddingBottom: '20px' }}
+                    style={{ paddingBottom: "20px" }}
                   >
                     Questions Added
                   </Typography>
@@ -268,7 +268,7 @@ const CreateQuiz = ({ user, createQuiz }) => {
                 <Typography
                   variant='h5'
                   align='center'
-                  style={{ paddingBottom: '20px' }}
+                  style={{ paddingBottom: "20px" }}
                 >
                   No Questions Added
                 </Typography>
@@ -297,7 +297,7 @@ const CreateQuiz = ({ user, createQuiz }) => {
             </DialogActions>
           </Dialog>
           <Divider variant='middle' className={classes.divider} />
-          <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2000}>
+          <Grow in={true} style={{ transformOrigin: "0 0 0" }} timeout={2000}>
             <Grid container justifyContent='center'>
               <AddQuestion addQuestion={addQuestion} />
             </Grid>
@@ -305,9 +305,9 @@ const CreateQuiz = ({ user, createQuiz }) => {
         </Fragment>
       ) : (
         <InfoCard
-          msg={quizCreated.status && 'Quiz Created Successfully'}
+          msg={quizCreated.status && "Quiz Created Successfully"}
           detail='Please copy the Quiz Token given below in order to give the Quiz Test.'
-          gif={'success.gif'}
+          gif={"success.gif"}
           buttons={buttons}
           copyClipboard={true}
           copyText={quizCreated.data.quiz_token}
