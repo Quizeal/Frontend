@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getQuizTest, submitQuiz } from "../../../actions/quiz";
 import MyTimer from "../../layout/MyTimer";
+import QuizPanel from "../../layout/QuizPanel";
 
 const QuizTest = ({
   auth: { user },
@@ -68,19 +69,14 @@ const QuizTest = ({
   };
   const time = new Date();
   return (
-    <Container>
+    <Fragment>
       {!loading && data && (
-        <Fragment>
-          <Grid
-            container
-            style={{
-              gap: "40px",
-              margin: "10px 0",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            spacing={10}
-          >
+        <Container
+          maxWidth='xl'
+          spacing={5}
+          style={{ display: "flex", gap: "60px", margin: "30px" }}
+        >
+          <Grid item sm={12} md={9}>
             <Grid item>
               <Typography variant='h6'>Quiz Name - {data.quiz_name}</Typography>
               <Typography variant='h6'>
@@ -91,55 +87,63 @@ const QuizTest = ({
                 {`${moment.utc(+data.duration * 1000).format("HH:mm:ss")}`}
               </Typography>
             </Grid>
-            <MyTimer
-              expiryTimestamp={time.setSeconds(
-                time.getSeconds() + +data.duration
-              )}
-              autoStart={true}
-              onExpire={() => onSubmit()}
-            />
-          </Grid>
-          <span>
-            <Typography variant='h4' component='span'>
-              {activeStep + 1}
-            </Typography>
-            {`/${data.questions.length}`}
-          </span>
-          <Card>
-            <CardContent>
-              {data && data.questions[activeStep].question_name}
-            </CardContent>
+            <span>
+              <Typography variant='h4' component='span'>
+                {activeStep + 1}
+              </Typography>
+              {`/${data.questions.length}`}
+            </span>
+            <Card>
+              <CardContent>
+                {data && data.questions[activeStep].question_name}
+              </CardContent>
+              <Divider />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "20px",
+                  gap: "10px",
+                }}
+              >
+                <SelectOption
+                  options={data && data.questions[activeStep].options}
+                  type={data && data.questions[activeStep].question_type}
+                  update={updateOption}
+                  qId={data.questions[activeStep].id}
+                />
+              </div>
+            </Card>
             <Divider />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                padding: "20px",
-                gap: "10px",
-              }}
-            >
-              <SelectOption
-                options={data && data.questions[activeStep].options}
-                type={data && data.questions[activeStep].question_type}
-                update={updateOption}
-                qId={data.questions[activeStep].id}
+            <div style={{ margin: "10px" }}>
+              <StepperProgress
+                length={data && data.questions.length}
+                next={handleNext}
+                activeStep={activeStep}
               />
             </div>
-          </Card>
-          <Divider />
-          <div style={{ margin: "10px" }}>
-            <StepperProgress
-              length={data && data.questions.length}
-              next={handleNext}
+            <Button variant='contained' color='primary' onClick={onSubmit}>
+              Submit Quiz
+            </Button>
+          </Grid>
+          <Grid item md={3}>
+            <QuizPanel
+              questions={data.questions}
               activeStep={activeStep}
-            />
-          </div>
-          <Button variant='contained' color='primary' onClick={onSubmit}>
-            Submit Quiz
-          </Button>
-        </Fragment>
+              responses={responses}
+            >
+              <MyTimer
+                expiryTimestamp={time.setSeconds(
+                  time.getSeconds() + +data.duration
+                )}
+                autoStart={true}
+                onExpire={() => onSubmit()}
+              />
+            </QuizPanel>
+          </Grid>
+        </Container>
       )}
-    </Container>
+    </Fragment>
   );
 };
 
@@ -161,4 +165,3 @@ export default connect(mapStateToProps, { getQuizTest, submitQuiz })(QuizTest);
 
 // TODO
 // --> Add Proper Msg about quiz start/end
-// --> Add Timer

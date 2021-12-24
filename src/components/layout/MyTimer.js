@@ -10,7 +10,7 @@ export default function MyTimer({ expiryTimestamp, onExpire }) {
   return (
     <div style={{ textAlign: "center" }}>
       <div
-        style={{ fontSize: "100px" }}
+        style={{ fontSize: "50px" }}
         className={`${minutes === 0 && seconds <= 5 && "danger-text"}`}
       >
         <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
