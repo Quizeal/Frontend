@@ -74,7 +74,7 @@ const QuizTest = ({
         <Container
           maxWidth='xl'
           spacing={5}
-          style={{ display: "flex", gap: "60px", margin: "30px" }}
+          style={{ display: "flex", gap: "60px", margin: "70px 30px" }}
         >
           <Grid item sm={12} md={9}>
             <Grid item>
