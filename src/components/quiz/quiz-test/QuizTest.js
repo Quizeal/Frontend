@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { Fragment, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import {
   CardContent,
   Container,
@@ -8,15 +8,16 @@ import {
   Button,
   Grid,
   Typography,
-} from '@material-ui/core';
-// import CircularTimer from './CircularTimer';
-import SelectOption from './SelectOption';
-import StepperProgress from './StepperProgress';
+} from "@material-ui/core";
+import SelectOption from "./SelectOption";
+import StepperProgress from "./StepperProgress";
+import moment from "moment";
 
 // REDUX
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { getQuizTest, submitQuiz } from '../../../actions/quiz';
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getQuizTest, submitQuiz } from "../../../actions/quiz";
+import MyTimer from "../../layout/MyTimer";
 
 const QuizTest = ({
   auth: { user },
@@ -30,7 +31,7 @@ const QuizTest = ({
   const [responses, setResponses] = useState([]);
 
   useEffect(() => {
-    document.title = 'Quizeal | Quiz Test';
+    document.title = "Quizeal | Quiz Test";
     getQuizTest(user && user.username, params.quiz_id);
   }, [getQuizTest, user, params.quiz_id]);
 
@@ -65,6 +66,7 @@ const QuizTest = ({
     };
     submitQuiz(res, params.username, params.quiz_id);
   };
+  const time = new Date();
   return (
     <Container>
       {!loading && data && (
@@ -72,23 +74,30 @@ const QuizTest = ({
           <Grid
             container
             style={{
-              gap: '40px',
-              margin: '10px 0',
-              justifyContent: 'center',
-              alignItems: 'center',
+              gap: "40px",
+              margin: "10px 0",
+              justifyContent: "center",
+              alignItems: "center",
             }}
             spacing={10}
           >
             <Grid item>
+              <Typography variant='h6'>Quiz Name - {data.quiz_name}</Typography>
               <Typography variant='h6'>
-                Quiz Name - {'Maths Olympiad'}
+                Organizer Name - {data.username}
               </Typography>
-              <Typography variant='h6'>Organizer Name - {'CBSE'}</Typography>
-              <Typography variant='h6'>Quiz Duration - {'5 min'}</Typography>
+              <Typography variant='h6'>
+                Quiz Duration -{" "}
+                {`${moment.utc(+data.duration * 1000).format("HH:mm:ss")}`}
+              </Typography>
             </Grid>
-            {/* <Grid item>
-              <CircularTimer />
-            </Grid> */}
+            <MyTimer
+              expiryTimestamp={time.setSeconds(
+                time.getSeconds() + +data.duration
+              )}
+              autoStart={true}
+              onExpire={() => onSubmit()}
+            />
           </Grid>
           <span>
             <Typography variant='h4' component='span'>
@@ -103,10 +112,10 @@ const QuizTest = ({
             <Divider />
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                padding: '20px',
-                gap: '10px',
+                display: "flex",
+                flexDirection: "column",
+                padding: "20px",
+                gap: "10px",
               }}
             >
               <SelectOption
@@ -118,7 +127,7 @@ const QuizTest = ({
             </div>
           </Card>
           <Divider />
-          <div style={{ margin: '10px' }}>
+          <div style={{ margin: "10px" }}>
             <StepperProgress
               length={data && data.questions.length}
               next={handleNext}

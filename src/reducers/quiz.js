@@ -10,7 +10,7 @@ import {
   GET_QUIZ_TEST_FAILURE,
   QUIZ_RESULT_FAILURE,
   QUIZ_RESULT_SUCCESS,
-} from '../actions/type';
+} from "../actions/type";
 
 const initialState = {
   quizzes: {
@@ -46,6 +46,8 @@ export default function myQuizzes(state = initialState, action) {
         },
         view_Quiz: null,
         view_Quiz_Report: null,
+        get_Quiz_Test: null,
+        get_quiz_result: null,
       };
     case QUIZ_RESULT_SUCCESS:
       return {

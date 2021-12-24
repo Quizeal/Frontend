@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { myQuizzes, deleteQuiz } from "../../actions/quiz";
 import InfoCard from "../layout/InfoCard";
-import { secondsToMinutes } from "date-fns";
+import moment from "moment";
 
 // Model for byDefault Sorting Table
 const sortModel = [
@@ -147,7 +147,8 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
       flex: 0.75,
       headerAlign: "center",
       align: "center",
-      valueGetter: (params) => `${secondsToMinutes(params.row.duration)} min`,
+      valueGetter: (params) =>
+        moment.utc(+params.row.duration * 1000).format("HH:mm:ss"),
     },
     {
       field: "total_marks",
