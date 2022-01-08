@@ -122,4 +122,4 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           # no restore-keys here, so we only accept this exact version
-      - run: yarb run build --if-present
+      - run: yarn run build --if-present
