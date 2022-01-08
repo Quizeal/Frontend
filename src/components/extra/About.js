@@ -17,12 +17,12 @@ const About = () => {
   return (
     <Fragment>
       <Grow in={true} timeout={1000}>
-        <Container component='main' maxWidth='md' spacing={5}>
-          <Typography variant='h4' align='center'>
+        <Container component="main" maxWidth="md" spacing={5}>
+          <Typography variant="h4" align="center">
             About
           </Typography>
           <Divider className={classes.divider} />
-          <Typography variant='paragraph'>
+          <Typography variant="paragraph">
             The ultimate Quiz taking platform for the present times.
           </Typography>
         </Container>

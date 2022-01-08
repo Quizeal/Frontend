@@ -56,32 +56,32 @@ function App() {
           <MiniDrawer>
             <MyAlert />
             <Switch>
-              <Route exact path='/' component={Home} />
-              <Route exact path='/login' component={Login} />
-              <Route exact path='/signup' component={Signup} />
-              <Route exact path='/feedback' component={Feedback} />
-              <Route exact path='/developers' component={Developers} />
-              <Route exact path='/about' component={About} />
-              <PrivateRoute exact path='/me' component={Me} />
-              <PrivateRoute exact path='/settings' component={Setting} />
-              <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/feedback" component={Feedback} />
+              <Route exact path="/developers" component={Developers} />
+              <Route exact path="/about" component={About} />
+              <PrivateRoute exact path="/me" component={Me} />
+              <PrivateRoute exact path="/settings" component={Setting} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute
                 exact
-                path='/my-quizzes/:username'
+                path="/my-quizzes/:username"
                 component={MyQuizzes}
               />
-              <PrivateRoute exact path='/create-quiz' component={CreateQuiz} />
-              <PrivateRoute exact path='/quiz/:quiz_id' component={QuizTest} />
-              <PrivateRoute path='/quiz-view/:quiz_id' component={QuizView} />
+              <PrivateRoute exact path="/create-quiz" component={CreateQuiz} />
+              <PrivateRoute exact path="/quiz/:quiz_id" component={QuizTest} />
+              <PrivateRoute path="/quiz-view/:quiz_id" component={QuizView} />
               <PrivateRoute
-                path='/quiz-report/:quiz_id'
+                path="/quiz-report/:quiz_id"
                 component={QuizReport}
               />
               <PrivateRoute
-                path='/quiz-result/:quiz_id'
+                path="/quiz-result/:quiz_id"
                 component={QuizResult}
               />
-              <Route path='*' component={Error} />
+              <Route path="*" component={Error} />
             </Switch>
           </MiniDrawer>
           <Footer />

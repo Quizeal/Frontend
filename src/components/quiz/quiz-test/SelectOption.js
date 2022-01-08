@@ -21,13 +21,13 @@ export default function ToggleButtons(props) {
           value={singleCorrect}
           exclusive
           onChange={handleSingle}
-          aria-label='text alignment'
+          aria-label="text alignment"
           style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
         >
           {props.options.map((o) => (
             <ToggleButton
               value={o.option_name}
-              aria-label='left aligned'
+              aria-label="left aligned"
               key={o.id}
               style={{
                 borderLeftColor: 'rgba(0, 0, 0, 0.12)',
@@ -43,13 +43,13 @@ export default function ToggleButtons(props) {
         <ToggleButtonGroup
           value={multiCorrect}
           onChange={handleMulti}
-          aria-label='text formatting'
+          aria-label="text formatting"
           style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
         >
           {props.options.map((o) => (
             <ToggleButton
               value={o.option_name}
-              aria-label='left aligned'
+              aria-label="left aligned"
               key={o.id}
               style={{
                 borderLeftColor: 'rgba(0, 0, 0, 0.12)',

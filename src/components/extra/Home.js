@@ -61,38 +61,38 @@ const Home = ({ auth: { isAuthenticated, user } }) => {
   }, []);
 
   if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (
     <Fragment>
-      <Grid container justifyContent='center' className={classes.section}>
+      <Grid container justifyContent="center" className={classes.section}>
         <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1000}>
           <Grid item xs={12} md={6} container>
             <Grid
               container
-              justifyContent='flex-start'
+              justifyContent="flex-start"
               style={{ gridGap: '20px', flexDirection: 'column' }}
             >
               <Grid style={{ display: 'flex', alignItems: 'baseline' }}>
                 {/* <img src={logo} alt='logo' width='20%' /> */}
                 <Typography
-                  variant='h1'
+                  variant="h1"
                   style={{ textTransform: 'uppercase' }}
-                  className='gradientText'
+                  className="gradientText"
                 >
                   Quizeal
                 </Typography>
               </Grid>
-              <Typography variant='h3'>
+              <Typography variant="h3">
                 The ultimate Quiz taking platform for the present times.
               </Typography>
               <Link
-                to='/signup'
+                to="/signup"
                 style={{ maxWidth: 'max-content' }}
                 className={'styleLink'}
               >
-                <Button variant='contained' color='primary'>
+                <Button variant="contained" color="primary">
                   Get Started
                 </Button>
               </Link>
@@ -105,17 +105,17 @@ const Home = ({ auth: { isAuthenticated, user } }) => {
                 }}
               >
                 <TextField
-                  id='outlined-basic'
-                  label='Add Quiz Code'
-                  variant='outlined'
+                  id="outlined-basic"
+                  label="Add Quiz Code"
+                  variant="outlined"
                   value={quizCode}
                   onChange={(e) => onChange(e)}
-                  size='small'
+                  size="small"
                 />
                 <IconButton
-                  color='primary'
-                  aria-label='add to shopping cart'
-                  disabled={!Boolean(quizCode)}
+                  color="primary"
+                  aria-label="add to shopping cart"
+                  disabled={!quizCode}
                   onClick={goToQuiz}
                 >
                   <SendIcon />
@@ -125,11 +125,11 @@ const Home = ({ auth: { isAuthenticated, user } }) => {
           </Grid>
         </Grow>
         <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={2000}>
-          <Grid item xs={12} md={6} justifyContent='center' container>
+          <Grid item xs={12} md={6} justifyContent="center" container>
             <img
-              src='/static/images/illustrations/home.png'
-              alt='home'
-              width='85%'
+              src="/static/images/illustrations/home.png"
+              alt="home"
+              width="85%"
             ></img>
           </Grid>
         </Grow>

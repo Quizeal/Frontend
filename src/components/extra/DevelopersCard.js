@@ -58,8 +58,8 @@ const DevelopersCard = (props) => {
           <Chip
             icon={<GitHubIcon />}
             label={props.github}
-            component='a'
-            variant='outlined'
+            component="a"
+            variant="outlined"
             href={`https://github.com/${props.github}`}
             clickable
           ></Chip>

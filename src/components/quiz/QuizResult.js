@@ -1,18 +1,18 @@
-import React, { useEffect, Fragment } from "react";
-import { useParams } from "react-router";
-import { useHistory } from "react-router-dom";
-import { Typography, Grid, Grow } from "@material-ui/core";
+import React, { useEffect, Fragment } from 'react';
+import { useParams } from 'react-router';
+import { useHistory } from 'react-router-dom';
+import { Typography, Grid, Grow } from '@material-ui/core';
 import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
-} from "@material-ui/data-grid";
-import InfoCard from "../layout/InfoCard";
+} from '@material-ui/data-grid';
+import InfoCard from '../layout/InfoCard';
 
 // REDUX
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { quizResult } from "../../actions/quiz";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { quizResult } from '../../actions/quiz';
 
 function CustomToolbar() {
   return (
@@ -25,50 +25,50 @@ function CustomToolbar() {
 // Model for byDefault Sorting Table
 const sortModel = [
   {
-    field: "marks",
-    sort: "desc",
+    field: 'marks',
+    sort: 'desc',
   },
 ];
 
 const column = [
   {
-    field: "name",
-    headerName: "Name",
+    field: 'name',
+    headerName: 'Name',
     flex: 1,
 
-    headerAlign: "center",
-    align: "center",
+    headerAlign: 'center',
+    align: 'center',
   },
 
   {
-    field: "username",
-    type: "id",
-    headerName: "Username",
+    field: 'username',
+    type: 'id',
+    headerName: 'Username',
     flex: 1,
-    headerAlign: "center",
-    align: "center",
+    headerAlign: 'center',
+    align: 'center',
   },
   {
-    field: "email",
-    headerName: "Email",
-    type: "email",
+    field: 'email',
+    headerName: 'Email',
+    type: 'email',
     flex: 1,
-    headerAlign: "center",
-    align: "center",
+    headerAlign: 'center',
+    align: 'center',
   },
   {
-    field: "marks",
-    headerName: "Marks",
+    field: 'marks',
+    headerName: 'Marks',
     flex: 1,
-    headerAlign: "center",
-    align: "center",
+    headerAlign: 'center',
+    align: 'center',
   },
   {
-    field: "rank",
-    headerName: "Rank",
+    field: 'rank',
+    headerName: 'Rank',
     flex: 0.75,
-    headerAlign: "center",
-    align: "center",
+    headerAlign: 'center',
+    align: 'center',
   },
 ];
 
@@ -78,14 +78,14 @@ const QuizResult = ({ quizResult, loading, user, get_quiz_result }) => {
   const params = useParams();
   const history = useHistory();
   useEffect(() => {
-    document.title = "Quizeal | Quiz Result";
+    document.title = 'Quizeal | Quiz Result';
     quizResult(user && user.username, params.quiz_id);
   }, [quizResult, params.quiz_id, user]);
 
   const buttons = [
     {
-      name: "Create Quiz",
-      onClick: () => history.push("/create-quiz"),
+      name: 'Create Quiz',
+      onClick: () => history.push('/create-quiz'),
     },
   ];
 
@@ -98,7 +98,7 @@ const QuizResult = ({ quizResult, loading, user, get_quiz_result }) => {
               <Typography
                 variant="h4"
                 align="center"
-                style={{ padding: "20px" }}
+                style={{ padding: '20px' }}
               >
                 Quiz Result
               </Typography>
@@ -123,13 +123,13 @@ const QuizResult = ({ quizResult, loading, user, get_quiz_result }) => {
                 <InfoCard
                   msg={
                     get_quiz_result
-                      ? "No Students has given this Quiz."
-                      : "Quiz Does not Exists."
+                      ? 'No Students has given this Quiz.'
+                      : 'Quiz Does not Exists.'
                   }
                   detail={
                     get_quiz_result
-                      ? "Please share the quiz code."
-                      : "Please create Quiz."
+                      ? 'Please share the quiz code.'
+                      : 'Please create Quiz.'
                   }
                   copyClipboard={get_quiz_result}
                   copyText={params.quiz_id}

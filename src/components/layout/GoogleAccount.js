@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 
 const useStyle = makeStyles((theme) => ({
   googleAccount: {
@@ -20,16 +19,16 @@ export default function GoogleAccount(props) {
   const classes = useStyle();
   return (
     <Button
-      type='submit'
+      type="submit"
       fullWidth
-      variant='contained'
-      color='primary'
+      variant="contained"
+      color="primary"
       onClick={props.click}
       className={classes.googleAccount}
       startIcon={
         <img
-          alt='Google Account'
-          src='https://img.icons8.com/fluent/48/000000/gmail-new.png'
+          alt="Google Account"
+          src="https://img.icons8.com/fluent/48/000000/gmail-new.png"
           className={classes.googleAccountImage}
         />
       }

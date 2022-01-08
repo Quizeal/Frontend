@@ -10,7 +10,7 @@ import {
   GET_QUIZ_TEST_FAILURE,
   QUIZ_RESULT_FAILURE,
   QUIZ_RESULT_SUCCESS,
-} from "../actions/type";
+} from '../actions/type';
 
 const initialState = {
   quizzes: {

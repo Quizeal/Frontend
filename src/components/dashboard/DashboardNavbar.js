@@ -46,20 +46,20 @@ const DashboardNavbar = ({ user, ...props }) => {
           padding: '20px 0',
         }}
       >
-        <Avatar alt='Remy Sharp' src='/static/images/avatar.jpg' />
+        <Avatar alt="Remy Sharp" src="/static/images/avatar.jpg" />
         <Typography style={{ fontWeight: 'bold' }}>
           {/* {user.first_name + ' ' + user.last_name} */}Divyam Tayal
         </Typography>
         <Typography style={{ fontWeight: 'lighter' }}>Student</Typography>
       </div>
       <Divider style={{ backgroundColor: '#ffffff5c' }} />
-      <List component='nav' aria-label='main mailbox folders'>
-        <Link to='/dashboard' className={'styleLink'}>
+      <List component="nav" aria-label="main mailbox folders">
+        <Link to="/dashboard" className={'styleLink'}>
           <ListItem button onClick={closeNav}>
             <ListItemIcon style={{ color: 'white' }}>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary='Dashboard' />
+            <ListItemText primary="Dashboard" />
           </ListItem>
         </Link>
         <Link
@@ -70,34 +70,34 @@ const DashboardNavbar = ({ user, ...props }) => {
             <ListItemIcon style={{ color: 'white' }}>
               <FormatListBulletedIcon />
             </ListItemIcon>
-            <ListItemText primary='My Quizzes' />
+            <ListItemText primary="My Quizzes" />
           </ListItem>
         </Link>
-        <Link to='/create-quiz' className={'styleLink'}>
+        <Link to="/create-quiz" className={'styleLink'}>
           <ListItem button onClick={closeNav}>
             <ListItemIcon style={{ color: 'white' }}>
               <CreateIcon />
             </ListItemIcon>
-            <ListItemText primary='Create Quiz' />
+            <ListItemText primary="Create Quiz" />
           </ListItem>
         </Link>
       </List>
       <Divider style={{ backgroundColor: '#ffffff5c' }} />
-      <List component='nav' aria-label='secondary mailbox folder'>
-        <Link to='/me' className={'styleLink'}>
+      <List component="nav" aria-label="secondary mailbox folder">
+        <Link to="/me" className={'styleLink'}>
           <ListItem button onClick={closeNav}>
             <ListItemIcon style={{ color: 'white' }}>
               <PersonIcon />
             </ListItemIcon>
-            <ListItemText primary='Profile' />
+            <ListItemText primary="Profile" />
           </ListItem>
         </Link>
-        <Link to='/setting' className={'styleLink'}>
+        <Link to="/setting" className={'styleLink'}>
           <ListItem button onClick={closeNav}>
             <ListItemIcon style={{ color: 'white' }}>
               <SettingsIcon />
             </ListItemIcon>
-            <ListItemText primary='Setting' />
+            <ListItemText primary="Setting" />
           </ListItem>
         </Link>
       </List>

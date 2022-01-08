@@ -44,8 +44,8 @@ export default function QAList(props) {
   };
 
   return (
-    <Slide in={true} direction='up' timeout={1000 * (props.i + 1)}>
-      <Card className={classes.qACard} variant='outlined'>
+    <Slide in={true} direction="up" timeout={1000 * (props.i + 1)}>
+      <Card className={classes.qACard} variant="outlined">
         <CardContent>{question_name}</CardContent>
         <Divider />
         <Grid container className={classes.root}>
@@ -53,9 +53,9 @@ export default function QAList(props) {
             return (
               <div className={classes.option} key={index}>
                 <Button
-                  variant='contained'
+                  variant="contained"
                   disabled
-                  size='small'
+                  size="small"
                   // color='primary'
                   className={`${option.is_marked && 'outlined-answer'} ${
                     classes.optionStyle
@@ -71,8 +71,8 @@ export default function QAList(props) {
         {edit ? (
           <CardActions className={classes.qActionStyle}>
             <Button
-              color='primary'
-              variant='contained'
+              color="primary"
+              variant="contained"
               onClick={() => props.deleteQuestion(props.qaSet.id)}
             >
               Delete

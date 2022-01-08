@@ -73,10 +73,10 @@ const Setting = ({ changePassword, deleteAccount, auth: { user } }) => {
   return (
     <Fragment>
       <Grow in={true} timeout={1000}>
-        <Container component='main' maxWidth='sm'>
+        <Container component="main" maxWidth="sm">
           <Card style={{ margin: '20px' }}>
             <CardContent>
-              <Typography variant='h5' color='error'>
+              <Typography variant="h5" color="error">
                 Change Password
               </Typography>
             </CardContent>
@@ -84,41 +84,41 @@ const Setting = ({ changePassword, deleteAccount, auth: { user } }) => {
             <CardContent>
               <TextField
                 onChange={onChange}
-                id='outlined-basic'
-                label='Old Password'
-                variant='outlined'
+                id="outlined-basic"
+                label="Old Password"
+                variant="outlined"
                 fullWidth
                 required
-                type='password'
-                name='old_password'
+                type="password"
+                name="old_password"
                 style={{ marginBottom: '10px' }}
               />
               <TextField
                 onChange={onChange}
-                id='outlined-basic'
-                label='New Password'
-                variant='outlined'
+                id="outlined-basic"
+                label="New Password"
+                variant="outlined"
                 fullWidth
                 required
-                type='password'
-                name='new_password'
+                type="password"
+                name="new_password"
                 style={{ marginBottom: '10px' }}
               />
               <TextField
                 onChange={onChange}
-                id='outlined-basic'
-                label='Confirm New Password'
-                variant='outlined'
-                type='password'
+                id="outlined-basic"
+                label="Confirm New Password"
+                variant="outlined"
+                type="password"
                 required
-                name='confirm_new_password'
+                name="confirm_new_password"
                 fullWidth
               />
             </CardContent>
             <CardActions>
               <Button
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 style={{ backgroundColor: '#f44336' }}
                 onClick={update}
               >
@@ -128,7 +128,7 @@ const Setting = ({ changePassword, deleteAccount, auth: { user } }) => {
           </Card>
           <Card style={{ margin: '20px' }}>
             <CardContent>
-              <Typography variant='h5' color='error'>
+              <Typography variant="h5" color="error">
                 Delete Account
               </Typography>
             </CardContent>
@@ -138,8 +138,8 @@ const Setting = ({ changePassword, deleteAccount, auth: { user } }) => {
             </CardContent>
             <CardActions>
               <Button
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 style={{ backgroundColor: '#f44336' }}
                 onClick={deleteAccount}
               >

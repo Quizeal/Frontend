@@ -1,7 +1,7 @@
-import axios from "axios";
-import { setLoading } from "./loading";
-import { setMyAlert } from "./myAlert";
-import setAuthToken from "../utils/setAuthToken";
+import axios from 'axios';
+import { setLoading } from './loading';
+import { setMyAlert } from './myAlert';
+import setAuthToken from '../utils/setAuthToken';
 import {
   CLEAR_QUIZ,
   GET_QUIZ_TEST_FAILURE,
@@ -14,12 +14,12 @@ import {
   VIEW_QUIZ_REPORT_FAILURE,
   VIEW_QUIZ_REPORT_SUCCESS,
   VIEW_QUIZ_SUCCESS,
-} from "./type";
-import { shuffle } from "../utils/extraFunctions";
+} from './type';
+import { shuffle } from '../utils/extraFunctions';
 
 export const quizResult = (username, id) => async (dispatch) => {
   dispatch(setLoading(true));
-  setAuthToken(localStorage["token-access"]);
+  setAuthToken(localStorage['token-access']);
   try {
     const res = await axios.get(
       `https://quizeal-backend.herokuapp.com/quiz-result/${username}/${id}`
@@ -43,7 +43,7 @@ export const quizResult = (username, id) => async (dispatch) => {
 // DONE
 export const myQuizzes = (username) => async (dispatch) => {
   dispatch(setLoading(true));
-  setAuthToken(localStorage["token-access"]);
+  setAuthToken(localStorage['token-access']);
   try {
     const res = await axios.get(
       `https://quizeal-backend.herokuapp.com/my-quizes/${username}`
@@ -67,7 +67,7 @@ export const myQuizzes = (username) => async (dispatch) => {
 // DONE
 export const viewQuiz = (username, quizId) => async (dispatch) => {
   dispatch(setLoading(true));
-  setAuthToken(localStorage["token-access"]);
+  setAuthToken(localStorage['token-access']);
   try {
     const res = await axios.get(
       `https://quizeal-backend.herokuapp.com/view-quiz/${username}/${quizId}`
@@ -91,13 +91,13 @@ export const viewQuiz = (username, quizId) => async (dispatch) => {
 // DONE
 export const viewQuizReport = (id, username) => async (dispatch) => {
   dispatch(setLoading(true));
-  setAuthToken(localStorage["token-access"]);
+  setAuthToken(localStorage['token-access']);
   try {
     const res = await axios.get(
       `https://quizeal-backend.herokuapp.com/quiz-report/${username}/${id}`
     );
     dispatch(setLoading(false));
-    console.log("QUIZ REPORT FETCHED SUCCESSFULLY");
+    console.log('QUIZ REPORT FETCHED SUCCESSFULLY');
     dispatch({
       type: VIEW_QUIZ_REPORT_SUCCESS,
       payload: res.data.data,
@@ -119,7 +119,7 @@ export const createQuiz = (username, quiz) => async (dispatch) => {
   dispatch(setLoading(true));
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -131,7 +131,7 @@ export const createQuiz = (username, quiz) => async (dispatch) => {
       config
     );
     dispatch(setLoading(false));
-    dispatch(setMyAlert("Quiz Created Successfully"));
+    dispatch(setMyAlert('Quiz Created Successfully'));
     return res.data;
   } catch (error) {
     dispatch(setLoading(false));
@@ -145,12 +145,12 @@ export const createQuiz = (username, quiz) => async (dispatch) => {
 // DONE
 export const getQuizTest = (username, id) => async (dispatch) => {
   dispatch(setLoading(true));
-  setAuthToken(localStorage["token-access"]);
+  setAuthToken(localStorage['token-access']);
   try {
-    let res = await axios.get(
+    const res = await axios.get(
       `https://quizeal-backend.herokuapp.com/get-quiz/${username}/${id}`
     );
-    console.log("QUIZ LOADED SUCCESSFULLY");
+    console.log('QUIZ LOADED SUCCESSFULLY');
     dispatch(setLoading(false));
     res.data.data.questions = shuffle(res.data.data.questions);
     dispatch({
@@ -159,7 +159,7 @@ export const getQuizTest = (username, id) => async (dispatch) => {
     });
   } catch (error) {
     dispatch(setLoading(false));
-    console.log("QUIZ LOADED FAILED");
+    console.log('QUIZ LOADED FAILED');
     dispatch({
       type: GET_QUIZ_TEST_FAILURE,
     });
@@ -171,11 +171,11 @@ export const getQuizTest = (username, id) => async (dispatch) => {
 
 // DONE
 export const submitQuiz = (responses, username, id) => async (dispatch) => {
-  setAuthToken(localStorage["token-access"]);
+  setAuthToken(localStorage['token-access']);
   dispatch(setLoading(true));
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   const body = responses;
@@ -204,9 +204,9 @@ export const submitQuiz = (responses, username, id) => async (dispatch) => {
 // DONE
 export const deleteQuiz = (username, id, type) => async (dispatch) => {
   dispatch(setLoading(true));
-  setAuthToken(localStorage["token-access"]);
+  setAuthToken(localStorage['token-access']);
   try {
-    let res = await axios.get(
+    const res = await axios.get(
       `https://quizeal-backend.herokuapp.com/delete-${type}/${username}/${id}`
     );
     console.log(`QUIZ ${type} DELETED SUCCESSFULLY`);
@@ -215,7 +215,7 @@ export const deleteQuiz = (username, id, type) => async (dispatch) => {
     dispatch(myQuizzes(username));
   } catch (error) {
     dispatch(setLoading(false));
-    console.log("QUIZ DELETED FAILED", error.response);
+    console.log('QUIZ DELETED FAILED', error.response);
     dispatch(
       setMyAlert(error.response.data.detail || error.response.statusText)
     );

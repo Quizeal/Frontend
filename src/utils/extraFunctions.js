@@ -8,11 +8,11 @@ export const UnAuthorized = (path) => {
 };
 
 export const shuffle = (array) => {
-  var currentIndex = array.length,
-    randomIndex;
+  let currentIndex = array.length;
+  let randomIndex;
 
   // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
+  while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;

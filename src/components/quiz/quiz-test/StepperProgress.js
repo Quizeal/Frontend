@@ -15,14 +15,14 @@ export default function StepperProgress(props) {
 
   return (
     <MobileStepper
-      variant='progress'
+      variant="progress"
       steps={props.length}
-      position='static'
+      position="static"
       activeStep={props.activeStep}
       className={classes.root}
       nextButton={
         <Button
-          size='small'
+          size="small"
           onClick={props.next}
           disabled={props.activeStep === props.length - 1}
         >
@@ -35,7 +35,7 @@ export default function StepperProgress(props) {
         </Button>
       }
       backButton={
-        <Button size='small' disabled>
+        <Button size="small" disabled>
           {theme.direction === 'rtl' ? (
             <KeyboardArrowRight />
           ) : (

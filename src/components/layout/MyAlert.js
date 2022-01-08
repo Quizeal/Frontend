@@ -12,13 +12,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SlideTransition(props) {
-  return <Slide {...props} direction='left' />;
+  return <Slide {...props} direction="left" />;
 }
 
 const MyAlert = ({ myAlert }) => {
   const classes = useStyles();
   return (
-    <Grid container justifyContent='center' style={{ margin: '20px' }}>
+    <Grid container justifyContent="center" style={{ margin: '20px' }}>
       <Grid item xs={10} sm={8}>
         {myAlert.map((a) => (
           <Snackbar

@@ -42,43 +42,43 @@ const Developers = ({ githubProfile }) => {
         <Grow in={true} timeout={1000}>
           <Grid
             container
-            component='main'
-            maxWidth='md'
+            component="main"
+            maxWidth="md"
             className={classes.section}
-            justifyContent='space-around'
-            alignItems='center'
+            justifyContent="space-around"
+            alignItems="center"
           >
             <Grid item xs={12}>
-              <Typography variant='h4' align='center'>
+              <Typography variant="h4" align="center">
                 Developers
               </Typography>
             </Grid>
-            <Grid item xs={12} md={6} justifyContent='center' container>
+            <Grid item xs={12} md={6} justifyContent="center" container>
               <img
-                src='/static/images/illustrations/developers.png'
-                alt='developers'
-                width='85%'
+                src="/static/images/illustrations/developers.png"
+                alt="developers"
+                width="85%"
               ></img>
             </Grid>
             <Grid item xs={12} md={6}>
               {dev &&
                 dev.map((d, i) => {
                   return (
-                    <Fragment>
+                    <Fragment key={`${dev}_i`}>
                       <Grid
                         container
                         style={{ gap: '20px', flexDirection: 'column' }}
-                        justifyContent='center'
+                        justifyContent="center"
                       >
                         <DevelopersCard
                           key={i}
                           email={d.email}
                           name={d.name}
                           avatar={d.avatar_url}
-                          location='India'
-                          college='Punjab Engineering College, PEC'
+                          location="India"
+                          college="Punjab Engineering College, PEC"
                           github={d.login}
-                          linkedin='daretobedifferent18'
+                          linkedin="daretobedifferent18"
                           twitter={d.twitter_username}
                         />
                       </Grid>
