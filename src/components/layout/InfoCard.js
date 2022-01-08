@@ -22,18 +22,18 @@ export default function InfoCard(props) {
   const classes = useStyles();
 
   return (
-    <Grid container justifyContent='center'>
+    <Grid container justifyContent="center">
       <Card className={classes.root}>
         <CardMedia
           className={classes.media}
           image={`/static/images/${props.gif}`}
-          title='Contemplative Reptile'
+          title="Contemplative Reptile"
         />
         <CardContent>
-          <Typography gutterBottom variant='h5' component='h2'>
+          <Typography gutterBottom variant="h5" component="h2">
             {props.msg}
           </Typography>
-          <Typography variant='body2' color='textSecondary' component='p'>
+          <Typography variant="body2" color="textSecondary" component="p">
             {props.detail}
           </Typography>
         </CardContent>
@@ -43,9 +43,10 @@ export default function InfoCard(props) {
             props.buttons.map((b) => {
               return (
                 <Button
-                  size='small'
-                  variant='contained'
-                  color='primary'
+                  key={b}
+                  size="small"
+                  variant="contained"
+                  color="primary"
                   onClick={b.onClick}
                 >
                   {b.name}

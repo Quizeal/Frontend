@@ -88,7 +88,7 @@ const Signup = ({ signup, auth, props }) => {
       confirmPassword,
       username,
     } = form;
-    var pattern = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
+    const pattern = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
     if (!username || !email || !password || !first_name) {
       setAlert({
         ...alert,
@@ -138,7 +138,7 @@ const Signup = ({ signup, auth, props }) => {
     });
     setSignUp({
       ...signUp,
-      status: res === 200 ? true : false,
+      status: res === 200,
     });
   };
 
@@ -147,7 +147,7 @@ const Signup = ({ signup, auth, props }) => {
   }, []);
 
   if (auth.isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to="/dashboard" />;
   }
 
   const buttons = [
@@ -163,25 +163,25 @@ const Signup = ({ signup, auth, props }) => {
           <Grow in={true} timeout={500}>
             <Grid
               container
-              component='main'
-              maxWidth='xs'
+              component="main"
+              maxWidth="xs"
               className={classes.section}
-              justifyContent='space-around'
-              alignItems='center'
+              justifyContent="space-around"
+              alignItems="center"
             >
               <CssBaseline />
-              <Grid item xs={12} md={6} justifyContent='center' container>
+              <Grid item xs={12} md={6} justifyContent="center" container>
                 <img
-                  src='/static/images/illustrations/signup.png'
-                  alt='signup'
-                  width='85%'
+                  src="/static/images/illustrations/signup.png"
+                  alt="signup"
+                  width="85%"
                 ></img>
               </Grid>
               <Grid item xs={12} md={4}>
                 <div className={classes.paper}>
-                  <img src={logo} alt='logo' height='40' width='40' />
+                  <img src={logo} alt="logo" height="40" width="40" />
 
-                  <Typography component='h1' variant='h5'>
+                  <Typography component="h1" variant="h5">
                     Sign up
                   </Typography>
                   <form className={classes.form} noValidate>
@@ -189,95 +189,95 @@ const Signup = ({ signup, auth, props }) => {
                       <Grid item xs={12}>
                         <TextField
                           onChange={onChange}
-                          variant='outlined'
+                          variant="outlined"
                           required
                           fullWidth
-                          id='username'
-                          label='SID'
-                          name='username'
+                          id="username"
+                          label="SID"
+                          name="username"
                           autoFocus
                         />
                       </Grid>
                       <Grid item xs={12} sm={6}>
                         <TextField
                           onChange={onChange}
-                          autoComplete='fname'
-                          name='first_name'
-                          variant='outlined'
+                          autoComplete="fname"
+                          name="first_name"
+                          variant="outlined"
                           required
                           fullWidth
-                          label='First Name'
+                          label="First Name"
                         />
                       </Grid>
                       <Grid item xs={12} sm={6}>
                         <TextField
                           onChange={onChange}
-                          variant='outlined'
+                          variant="outlined"
                           fullWidth
-                          id='last_name'
-                          label='Last Name'
-                          name='last_name'
+                          id="last_name"
+                          label="Last Name"
+                          name="last_name"
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
                           onChange={onChange}
-                          variant='outlined'
+                          variant="outlined"
                           required
                           fullWidth
-                          id='email'
-                          label='Email Address'
-                          name='email'
+                          id="email"
+                          label="Email Address"
+                          name="email"
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
                           onChange={onChange}
-                          variant='outlined'
+                          variant="outlined"
                           required
                           fullWidth
-                          name='password'
-                          label='Password'
-                          type='password'
+                          name="password"
+                          label="Password"
+                          type="password"
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
                           onChange={onChange}
-                          variant='outlined'
+                          variant="outlined"
                           required
                           fullWidth
-                          name='confirmPassword'
-                          label='Confirm Password'
-                          type='password'
+                          name="confirmPassword"
+                          label="Confirm Password"
+                          type="password"
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <FormControlLabel
                           control={
                             <Checkbox
-                              value='allowExtraEmails'
-                              color='primary'
+                              value="allowExtraEmails"
+                              color="primary"
                             />
                           }
-                          label='I want to receive inspiration, marketing promotions and updates via email.'
+                          label="I want to receive inspiration, marketing promotions and updates via email."
                         />
                       </Grid>
                     </Grid>
                     <Button
                       fullWidth
-                      variant='contained'
-                      color='primary'
+                      variant="contained"
+                      color="primary"
                       className={classes.submit}
                       onClick={onSubmit}
                     >
                       Sign Up
                     </Button>
-                    <Grid container justifyContent='flex-end'>
+                    <Grid container justifyContent="flex-end">
                       <Grid item>
                         Already have an account?{' '}
                         <Link
-                          to='/login'
+                          to="/login"
                           className={'styleLink'}
                           style={{ fontWeight: 700 }}
                         >
@@ -287,16 +287,16 @@ const Signup = ({ signup, auth, props }) => {
                     </Grid>
                   </form>
                 </div>
-                <Divider variant='middle' className={classes.divider} />
+                <Divider variant="middle" className={classes.divider} />
                 <Box mt={5}>
                   <Typography
-                    variant='body2'
-                    color='textSecondary'
-                    align='center'
+                    variant="body2"
+                    color="textSecondary"
+                    align="center"
                   >
                     {'Copyright © '}
                     <Link
-                      to='/'
+                      to="/"
                       className={'styleLink'}
                       style={{ fontWeight: 700 }}
                     >
@@ -313,9 +313,9 @@ const Signup = ({ signup, auth, props }) => {
       ) : (
         <InfoCard
           buttons={buttons}
-          msg='Signup Successfully'
-          detail='Your account is created succesfully, Please Login to Continue.'
-          gif='success.gif'
+          msg="Signup Successfully"
+          detail="Your account is created succesfully, Please Login to Continue."
+          gif="success.gif"
         />
       )}
       <MySnackbar alert={alert} close={handleClose} />

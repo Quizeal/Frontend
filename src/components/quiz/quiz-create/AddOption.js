@@ -29,12 +29,12 @@ const useStyles = makeStyles((theme) => ({
 export default function AddOption(props) {
   const classes = useStyles();
   return (
-    <Grid container justifyContent='center'>
+    <Grid container justifyContent="center">
       <Grid item xs={11} sm={11} md={8} lg={6} className={classes.option}>
         <TextField
-          id='basic'
+          id="basic"
           label={`Option ${props.number + 1}`}
-          variant='outlined'
+          variant="outlined"
           name={props.number}
           multiline
           value={props.option.option_name}
@@ -42,22 +42,22 @@ export default function AddOption(props) {
           onChange={(e) => props.updateOption(e)}
         />
         <Tooltip
-          title='Turn ON, if this is the correct option.'
-          aria-label='add'
+          title="Turn ON, if this is the correct option."
+          aria-label="add"
           placement={'top'}
         >
           <Switch
             checked={props.option.is_correct}
             onChange={(e) => props.updateOption(e, 'toggleAnswer')}
             name={props.number}
-            color='primary'
+            color="primary"
             inputProps={{ 'aria-label': 'primary checkbox' }}
           />
         </Tooltip>
         {props.count > 1 ? (
-          <Tooltip title='Delete Option' aria-label='add' placement={'top'}>
+          <Tooltip title="Delete Option" aria-label="add" placement={'top'}>
             <IconButton
-              aria-label='delete'
+              aria-label="delete"
               onClick={() => props.deleteOption(props.option.id)}
             >
               <CancelSharpIcon />

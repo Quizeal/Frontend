@@ -30,26 +30,26 @@ const ProfileMenu = ({ auth: { isAuthenticated, user }, logout }) => {
       {isAuthenticated ? (
         <Fragment>
           <Button
-            aria-controls='simple-menu'
-            aria-haspopup='true'
+            aria-controls="simple-menu"
+            aria-haspopup="true"
             onClick={handleClick}
           >
             <Avatar
               alt={user && user.username}
-              src='/static/images/avatar.jpg'
+              src="/static/images/avatar.jpg"
             />
           </Button>
           <Menu
-            id='simple-menu'
+            id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <Link to='/me' className={'styleLink'}>
+            <Link to="/me" className={'styleLink'}>
               <MenuItem onClick={handleClose}>Profile</MenuItem>
             </Link>
-            <Link to='/settings' className={'styleLink'}>
+            <Link to="/settings" className={'styleLink'}>
               <MenuItem onClick={handleClose}>My account</MenuItem>
             </Link>
             <MenuItem onClick={onLogout}>Logout</MenuItem>

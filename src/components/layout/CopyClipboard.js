@@ -16,16 +16,16 @@ const CopyClipboard = (props) => {
   };
 
   return (
-    <Grid container justifyContent='center' alignItems='center'>
+    <Grid container justifyContent="center" alignItems="center">
       <TextField
-        variant='outlined'
-        size='small'
+        variant="outlined"
+        size="small"
         value={props.copyText}
         disabled
       />
       <IconButton
-        color='primary'
-        aria-label='add to shopping cart'
+        color="primary"
+        aria-label="add to shopping cart"
         onClick={onCopy}
       >
         <FileCopyIcon />

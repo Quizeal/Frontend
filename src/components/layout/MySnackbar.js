@@ -23,12 +23,12 @@ export default function MySnackbar(props) {
         action={
           <React.Fragment>
             <IconButton
-              size='small'
-              aria-label='close'
-              color='inherit'
+              size="small"
+              aria-label="close"
+              color="inherit"
               onClick={handleClose}
             >
-              <CloseIcon fontSize='small' />
+              <CloseIcon fontSize="small" />
             </IconButton>
           </React.Fragment>
         }

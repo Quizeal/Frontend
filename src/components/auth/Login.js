@@ -77,8 +77,10 @@ const Login = ({ login, auth, ...props }) => {
   const onSubmit = async () => {
     // Validations
     const { password, username } = form;
-    var patternEmail = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
-    var patternCheckEmail = new RegExp(/@/);
+    const patternEmail = new RegExp(
+      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+    );
+    const patternCheckEmail = new RegExp(/@/);
     if (!username || !password) {
       setAlert({
         ...alert,
@@ -127,52 +129,52 @@ const Login = ({ login, auth, ...props }) => {
       <Grow in={true} timeout={500}>
         <Grid
           container
-          component='main'
-          maxWidth='xs'
+          component="main"
+          maxWidth="xs"
           className={classes.section}
-          justifyContent='space-around'
-          alignItems='center'
+          justifyContent="space-around"
+          alignItems="center"
         >
           <CssBaseline />
           <Grid item xs={12} md={4}>
             <div className={`${classes.paper} ${classes.section1}`}>
-              <img src={logo} alt='logo' height='40' width='40' />
-              <Typography component='h1' variant='h5'>
+              <img src={logo} alt="logo" height="40" width="40" />
+              <Typography component="h1" variant="h5">
                 Log in
               </Typography>
               <form className={classes.form} noValidate>
                 <Grid item xs={12}>
                   <TextField
                     onChange={onChange}
-                    variant='outlined'
+                    variant="outlined"
                     required
                     fullWidth
-                    id='username'
-                    label='SID or Email'
+                    id="username"
+                    label="SID or Email"
                     autoFocus
-                    name='username'
+                    name="username"
                   />
                 </Grid>
                 <TextField
-                  variant='outlined'
-                  margin='normal'
+                  variant="outlined"
+                  margin="normal"
                   required
                   fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
+                  name="password"
+                  label="Password"
+                  type="password"
                   onChange={onChange}
                 />
                 {/* This will be implemented later {Remember me} */}
                 <FormControlLabel
-                  control={<Checkbox value='remember' color='primary' />}
-                  label='Remember me'
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
                 />
                 <Button
                   // type='submit'
                   fullWidth
-                  variant='contained'
-                  color='primary'
+                  variant="contained"
+                  color="primary"
                   className={classes.submit}
                   onClick={onSubmit}
                 >
@@ -181,7 +183,7 @@ const Login = ({ login, auth, ...props }) => {
                 <Grid container>
                   <Grid item xs>
                     <Link
-                      to='#'
+                      to="#"
                       className={'styleLink'}
                       style={{ fontWeight: 700 }}
                     >
@@ -191,7 +193,7 @@ const Login = ({ login, auth, ...props }) => {
                   <Grid item>
                     Don't have an account?
                     <Link
-                      to='/signup'
+                      to="/signup"
                       className={'styleLink'}
                       style={{ fontWeight: 700 }}
                     >
@@ -202,12 +204,12 @@ const Login = ({ login, auth, ...props }) => {
                 </Grid>
               </form>
             </div>
-            <Divider variant='middle' className={classes.divider} />
+            <Divider variant="middle" className={classes.divider} />
             <Box mt={8}>
-              <Typography variant='body2' color='textSecondary' align='center'>
+              <Typography variant="body2" color="textSecondary" align="center">
                 {'Copyright © '}
                 <Link
-                  to='/'
+                  to="/"
                   className={'styleLink'}
                   style={{ fontWeight: 700 }}
                 >
@@ -218,11 +220,11 @@ const Login = ({ login, auth, ...props }) => {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6} justifyContent='center' container>
+          <Grid item xs={12} md={6} justifyContent="center" container>
             <img
-              src='/static/images/illustrations/login.png'
-              alt='login'
-              width='85%'
+              src="/static/images/illustrations/login.png"
+              alt="login"
+              width="85%"
             ></img>
           </Grid>
         </Grid>

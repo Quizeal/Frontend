@@ -4,22 +4,22 @@ import { Box, CircularProgress, Typography } from '@material-ui/core';
 
 function CircularProgressWithLabel(props) {
   return (
-    <Box position='relative' display='inline-flex'>
-      <CircularProgress size='10rem' variant='determinate' {...props} />
+    <Box position="relative" display="inline-flex">
+      <CircularProgress size="10rem" variant="determinate" {...props} />
       <Box
         top={0}
         left={0}
         bottom={0}
         right={0}
-        position='absolute'
-        display='flex'
-        alignItems='center'
-        justifyContent='center'
+        position="absolute"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
       >
         <Typography
-          variant='body1'
-          component='div'
-          color='textSecondary'
+          variant="body1"
+          component="div"
+          color="textSecondary"
           style={{ fontSize: '4rem', fontWeight: 'lighter' }}
         >{`${Math.round(props.value)}`}</Typography>
       </Box>

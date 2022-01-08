@@ -99,61 +99,61 @@ const Feedback = ({ feedback }) => {
         <Grow in={true} timeout={1000}>
           <Grid
             container
-            component='main'
+            component="main"
             className={classes.section}
-            justifyContent='space-around'
-            alignItems='center'
+            justifyContent="space-around"
+            alignItems="center"
           >
             <Grid item xs={12}>
-              <Typography variant='h4' align='center'>
+              <Typography variant="h4" align="center">
                 We would like your feedback to improve our website.
               </Typography>
             </Grid>
             {/* <Divider className={classes.divider} /> */}
             <CssBaseline />
-            <Grid sm={8} md={5} item justifyContent='center'>
+            <Grid sm={8} md={5} item justifyContent="center">
               <img
-                src='/static/images/illustrations/feedback.png'
-                alt='feedback'
-                width='100%'
+                src="/static/images/illustrations/feedback.png"
+                alt="feedback"
+                width="100%"
               ></img>
             </Grid>
             <Grid item>
               <Grow in={true} timeout={2000}>
                 <div className={classes.paper}>
-                  <Typography variant='h5' align='center'>
+                  <Typography variant="h5" align="center">
                     Will you Come back?
                   </Typography>
                   <Rating
-                    name='likeness'
+                    name="likeness"
                     defaultValue={form.likeness}
-                    size='large'
+                    size="large"
                     onChange={(e) => onChange(e)}
                     getLabelText={(value) => customIcons[value].label}
                     IconContainerComponent={IconContainer}
                   />
-                  <Typography variant='h5' align='center'>
+                  <Typography variant="h5" align="center">
                     How will you rate our website?
                   </Typography>
                   <Rating
                     value={form.rating}
-                    name='rating'
+                    name="rating"
                     style={{ fontSize: '5.5vw' }}
                     onChange={(e) => onChange(e)}
                   />
                   <TextField
-                    variant='outlined'
-                    margin='normal'
+                    variant="outlined"
+                    margin="normal"
                     fullWidth
                     minRows={3}
                     multiline
-                    name='answer'
+                    name="answer"
                     onChange={(e) => onChange(e)}
-                    label='Explain your Answer'
+                    label="Explain your Answer"
                   />
                   <Button
-                    variant='contained'
-                    color='primary'
+                    variant="contained"
+                    color="primary"
                     className={classes.submit}
                     onClick={submit}
                   >

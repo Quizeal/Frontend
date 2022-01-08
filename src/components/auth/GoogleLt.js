@@ -12,7 +12,7 @@ function GoogleLt() {
     <div>
       <GoogleLogout
         clientId={clientId}
-        buttonText='LOGOUT'
+        buttonText="LOGOUT"
         onLogoutSuccess={onSuccess}
       ></GoogleLogout>
     </div>

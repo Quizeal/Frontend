@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { Fragment, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   CardContent,
   Container,
@@ -8,17 +8,17 @@ import {
   Button,
   Grid,
   Typography,
-} from "@material-ui/core";
-import SelectOption from "./SelectOption";
-import StepperProgress from "./StepperProgress";
-import moment from "moment";
+} from '@material-ui/core';
+import SelectOption from './SelectOption';
+import StepperProgress from './StepperProgress';
+import moment from 'moment';
 
 // REDUX
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { getQuizTest, submitQuiz } from "../../../actions/quiz";
-import MyTimer from "../../layout/MyTimer";
-import QuizPanel from "../../layout/QuizPanel";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getQuizTest, submitQuiz } from '../../../actions/quiz';
+import MyTimer from '../../layout/MyTimer';
+import QuizPanel from '../../layout/QuizPanel';
 
 const QuizTest = ({
   auth: { user },
@@ -32,7 +32,7 @@ const QuizTest = ({
   const [responses, setResponses] = useState([]);
 
   useEffect(() => {
-    document.title = "Quizeal | Quiz Test";
+    document.title = 'Quizeal | Quiz Test';
     getQuizTest(user && user.username, params.quiz_id);
   }, [getQuizTest, user, params.quiz_id]);
 
@@ -41,7 +41,7 @@ const QuizTest = ({
   };
 
   const updateOption = (o, id, type) => {
-    let newA = responses;
+    const newA = responses;
     if (type === 1) {
       const oIndex = newA.findIndex((a) => a.question_id === id);
       if (oIndex !== -1) {
@@ -72,23 +72,23 @@ const QuizTest = ({
     <Fragment>
       {!loading && data && (
         <Container
-          maxWidth='xl'
+          maxWidth="xl"
           spacing={5}
-          style={{ display: "flex", gap: "60px", margin: "70px 30px" }}
+          style={{ display: 'flex', gap: '60px', margin: '70px 30px' }}
         >
           <Grid item sm={12} md={9}>
             <Grid item>
-              <Typography variant='h6'>Quiz Name - {data.quiz_name}</Typography>
-              <Typography variant='h6'>
+              <Typography variant="h6">Quiz Name - {data.quiz_name}</Typography>
+              <Typography variant="h6">
                 Organizer Name - {data.username}
               </Typography>
-              <Typography variant='h6'>
-                Quiz Duration -{" "}
-                {`${moment.utc(+data.duration * 1000).format("HH:mm:ss")}`}
+              <Typography variant="h6">
+                Quiz Duration -{' '}
+                {`${moment.utc(+data.duration * 1000).format('HH:mm:ss')}`}
               </Typography>
             </Grid>
             <span>
-              <Typography variant='h4' component='span'>
+              <Typography variant="h4" component="span">
                 {activeStep + 1}
               </Typography>
               {`/${data.questions.length}`}
@@ -100,10 +100,10 @@ const QuizTest = ({
               <Divider />
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: "20px",
-                  gap: "10px",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: '20px',
+                  gap: '10px',
                 }}
               >
                 <SelectOption
@@ -115,14 +115,14 @@ const QuizTest = ({
               </div>
             </Card>
             <Divider />
-            <div style={{ margin: "10px" }}>
+            <div style={{ margin: '10px' }}>
               <StepperProgress
                 length={data && data.questions.length}
                 next={handleNext}
                 activeStep={activeStep}
               />
             </div>
-            <Button variant='contained' color='primary' onClick={onSubmit}>
+            <Button variant="contained" color="primary" onClick={onSubmit}>
               Submit Quiz
             </Button>
           </Grid>

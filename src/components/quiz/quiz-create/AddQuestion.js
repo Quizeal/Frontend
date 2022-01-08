@@ -209,27 +209,27 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
       <Card>
         <CardContent>
           <TextField
-            id='outlined-basic'
-            label='Question'
-            variant='outlined'
+            id="outlined-basic"
+            label="Question"
+            variant="outlined"
             multiline
             minRows={2}
-            name='question_name'
+            name="question_name"
             value={question_name}
             fullWidth={true}
             onChange={(e) => onChange(e)}
           />
         </CardContent>
-        <Divider variant='middle' />
+        <Divider variant="middle" />
         <CardActions
           style={{ justifyContent: 'space-between', alignItems: 'start' }}
         >
           <Fab
-            size='medium'
-            color='primary'
-            aria-label='add'
+            size="medium"
+            color="primary"
+            aria-label="add"
             onClick={addOption}
-            variant='extended'
+            variant="extended"
           >
             Add Option
             <AddIcon />
@@ -238,28 +238,28 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
             style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
           >
             <TextField
-              id='basic'
-              size='small'
-              label='Question Marks'
-              variant='outlined'
-              name='question_marks'
-              type='number'
+              id="basic"
+              size="small"
+              label="Question Marks"
+              variant="outlined"
+              name="question_marks"
+              type="number"
               InputProps={{ inputProps: { min: 1, max: 10 } }}
               value={question_marks}
               onChange={(e) => onChange(e)}
             />
             <TextField
-              id='outlined-select-currency-native'
+              id="outlined-select-currency-native"
               select
-              label='Question Type'
-              name='question_type'
+              label="Question Type"
+              name="question_type"
               value={question_type}
-              size='small'
+              size="small"
               onChange={(e) => onChange(e)}
               SelectProps={{
                 native: true,
               }}
-              variant='outlined'
+              variant="outlined"
             >
               {questionType.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -269,7 +269,7 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
             </TextField>
           </div>
         </CardActions>
-        <Grid container className={classes.root} justifyContent='center'>
+        <Grid container className={classes.root} justifyContent="center">
           {options.map((option, index) => {
             return (
               <AddOption
@@ -283,12 +283,12 @@ const AddQuestion = ({ setMyAlert, ...props }) => {
             );
           })}
         </Grid>
-        <Divider variant='middle' />
+        <Divider variant="middle" />
         <CardActions className={classes.qActionStyle}>
           <ButtonGroup
-            variant='contained'
-            color='primary'
-            aria-label='contained primary button group'
+            variant="contained"
+            color="primary"
+            aria-label="contained primary button group"
           >
             <Button onClick={onSubmit}>Add</Button>
             <Button onClick={clearQuestionDetails}>Clear</Button>

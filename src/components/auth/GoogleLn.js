@@ -33,7 +33,7 @@ function GoogleLn() {
             click={renderProps.onClick}
           />
         )}
-        buttonText='LOGIN'
+        buttonText="LOGIN"
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={'single_host_origin'}

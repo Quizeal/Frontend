@@ -6,12 +6,12 @@ import {
   USER_LOADED,
   AUTH_FAILURE,
   LOGOUT,
-} from "../actions/type";
-import setAuthToken from "../utils/setAuthToken";
-import axios from "axios";
-import { setMyAlert } from "./myAlert";
-import { setLoading } from "./loading";
-import { clearQuiz } from "./quiz";
+} from '../actions/type';
+import setAuthToken from '../utils/setAuthToken';
+import axios from 'axios';
+import { setMyAlert } from './myAlert';
+import { setLoading } from './loading';
+import { clearQuiz } from './quiz';
 
 let AccessTimer = null;
 
@@ -20,35 +20,35 @@ let AccessTimer = null;
 const accessToken = () => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
-  const tokenRefresh = localStorage["token-refresh"];
+  const tokenRefresh = localStorage['token-refresh'];
   if (!tokenRefresh) {
     return console.log("ACCESS TOKEN COULDN'T FOUND", tokenRefresh);
   }
   const body = { refresh: tokenRefresh };
   try {
     const res = await axios.post(
-      "https://quizeal-backend.herokuapp.com/token-refresh/",
+      'https://quizeal-backend.herokuapp.com/token-refresh/',
       body,
       config
     );
-    console.log("ACCESS TOKEN REFRESH SUCCESS");
+    console.log('ACCESS TOKEN REFRESH SUCCESS');
 
     const { access, refresh } = res.data;
-    localStorage["token-access"] = access;
-    localStorage["token-refresh"] = refresh;
+    localStorage['token-access'] = access;
+    localStorage['token-refresh'] = refresh;
 
     setAuthToken(access);
   } catch (error) {
-    console.log("ACCESS TOKEN REFRESH FAILED", error.response);
+    console.log('ACCESS TOKEN REFRESH FAILED', error.response);
   }
 };
 
 // Add Error Handling
 export const loadUser = () => async (dispatch) => {
-  const tokenAccess = localStorage["token-access"];
+  const tokenAccess = localStorage['token-access'];
 
   if (tokenAccess) {
     dispatch(setLoading(true));
@@ -63,13 +63,13 @@ export const loadUser = () => async (dispatch) => {
 
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   const body = { token: tokenAccess };
   try {
     const res = await axios.post(
-      "https://quizeal-backend.herokuapp.com/load-user/",
+      'https://quizeal-backend.herokuapp.com/load-user/',
       body,
       config
     );
@@ -97,13 +97,13 @@ export const login = (username, password) => async (dispatch) => {
   dispatch(setLoading(true));
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   const body = { username, password };
   try {
     const res = await axios.post(
-      "https://quizeal-backend.herokuapp.com/login/",
+      'https://quizeal-backend.herokuapp.com/login/',
       body,
       config
     );
@@ -113,7 +113,7 @@ export const login = (username, password) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(loadUser());
-    dispatch(setMyAlert("Login Successfully"));
+    dispatch(setMyAlert('Login Successfully'));
   } catch (err) {
     dispatch(setLoading(false));
     dispatch({
@@ -130,13 +130,13 @@ export const signup = (formData) => async (dispatch) => {
   dispatch(setLoading(true));
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   const body = formData;
   try {
     const res = await axios.post(
-      "https://quizeal-backend.herokuapp.com/register/",
+      'https://quizeal-backend.herokuapp.com/register/',
       body,
       config
     );
@@ -145,7 +145,7 @@ export const signup = (formData) => async (dispatch) => {
       type: SIGNUP_SUCCESS,
       payload: res.data,
     });
-    dispatch(setMyAlert("Signup Successfully, Please login to continue."));
+    dispatch(setMyAlert('Signup Successfully, Please login to continue.'));
     return res.status;
   } catch (err) {
     dispatch(setLoading(false));
@@ -169,30 +169,30 @@ export const logout = (msg) => (dispatch) => {
   });
   clearInterval(AccessTimer);
   dispatch(clearQuiz());
-  dispatch(setMyAlert(msg || "Logout Successfully"));
+  dispatch(setMyAlert(msg || 'Logout Successfully'));
 };
 
 // Done
 export const changePassword = (formData) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   dispatch(setLoading(true));
   const body = {
     ...formData,
-    token: localStorage["token-access"],
+    token: localStorage['token-access'],
   };
   try {
     await axios.post(
-      "https://quizeal-backend.herokuapp.com/change-password/",
+      'https://quizeal-backend.herokuapp.com/change-password/',
       body,
       config
     );
     dispatch(setLoading(false));
-    dispatch(logout("Password Changed Successfully"));
-    dispatch(setMyAlert("Password Successfully Updated, Please Login again."));
+    dispatch(logout('Password Changed Successfully'));
+    dispatch(setMyAlert('Password Successfully Updated, Please Login again.'));
   } catch (err) {
     const error = err.response.data;
     dispatch(setLoading(false));
@@ -205,7 +205,7 @@ export const changePassword = (formData) => async (dispatch) => {
 // DONE
 export const githubProfile = () => async (dispatch) => {
   dispatch(setLoading(true));
-  const team = ["daretobedifferent18", "daksh001b", "siegefried2001"];
+  const team = ['daretobedifferent18', 'daksh001b', 'siegefried2001'];
   try {
     const resO = team.map(async (username) => {
       const res = await axios.get(`https://api.github.com/users/${username}`);
@@ -222,17 +222,17 @@ export const githubProfile = () => async (dispatch) => {
 
 // DO AFTER DONE AT BACKEND
 export const updateProfile = (formData) => async (dispatch) => {
-  console.log("PROFILE UPDATED SUCCESSFULLY", formData);
+  console.log('PROFILE UPDATED SUCCESSFULLY', formData);
 };
 
 // DO AFTER DONE AT BACKEND
 export const feedback = (formData) => async (dispatch) => {
-  console.log("FEEDBACK SUBMITTED SUCCESSFULLY", formData);
+  console.log('FEEDBACK SUBMITTED SUCCESSFULLY', formData);
 };
 
 // DO AFTER DONE AT BACKEND
 export const deleteAccount = (formData) => (dispatch) => {
-  console.log("ACCOUNT DELETED SUCCESSFULLY");
+  console.log('ACCOUNT DELETED SUCCESSFULLY');
 };
 
 // TODO

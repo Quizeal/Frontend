@@ -17,7 +17,7 @@ const Loading = ({ loading }) => {
   return (
     <div>
       <Backdrop className={classes.backdrop} open={loading}>
-        <CircularProgress color='primary' />
+        <CircularProgress color="primary" />
       </Backdrop>
     </div>
   );

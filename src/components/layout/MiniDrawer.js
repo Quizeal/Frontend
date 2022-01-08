@@ -175,25 +175,25 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
       <CssBaseline />
       <AppBar
         elevation={0}
-        position='fixed'
+        position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
       >
         <Toolbar>
           <IconButton
-            color='inherit'
-            aria-label='open drawer'
+            color="inherit"
+            aria-label="open drawer"
             onClick={handleDrawerOpen}
-            edge='start'
+            edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
-          <Grid container justifyContent='space-between' alignItems='center'>
-            <Typography variant='h6' noWrap>
+          <Grid container justifyContent="space-between" alignItems="center">
+            <Typography variant="h6" noWrap>
               <Link
-                to='/'
+                to="/"
                 className={'styleLink'}
                 style={{
                   color: 'white',
@@ -201,9 +201,9 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
                 }}
               >
                 <img
-                  width='35px'
+                  width="35px"
                   src={logo}
-                  alt='Logo'
+                  alt="Logo"
                   style={{ paddingRight: '2px' }}
                 />
                 uizeaL
@@ -216,8 +216,8 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
 
       <Drawer
         className={classes.drawer}
-        variant='persistent'
-        anchor='left'
+        variant="persistent"
+        anchor="left"
         open={open}
         classes={{
           paper: classes.drawerPaper,
@@ -237,6 +237,7 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
           {isAuthenticated
             ? AuthenticatedList.map((list) => (
                 <Link
+                  key={list.path}
                   to={list.path}
                   className={'styleLink'}
                   onClick={handleDrawerClose}
@@ -244,7 +245,7 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
                   <Tooltip
                     TransitionComponent={Zoom}
                     title={list.label}
-                    placement='right'
+                    placement="right"
                     disableHoverListener={open}
                   >
                     <ListItem button key={list.label}>
@@ -256,6 +257,7 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
               ))
             : UnAuthenticatedList.map((list) => (
                 <Link
+                  key={list.path}
                   to={list.path}
                   className={'styleLink'}
                   onClick={handleDrawerClose}
@@ -263,7 +265,7 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
                   <Tooltip
                     TransitionComponent={Zoom}
                     title={list.label}
-                    placement='right'
+                    placement="right"
                     disableHoverListener={open}
                   >
                     <ListItem button key={list.label}>
@@ -278,6 +280,7 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
         <List>
           {commontList.map((list) => (
             <Link
+              key={list.path}
               to={list.path}
               className={'styleLink'}
               onClick={handleDrawerClose}
@@ -285,7 +288,7 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
               <Tooltip
                 TransitionComponent={Zoom}
                 title={list.label}
-                placement='right'
+                placement="right"
                 disableHoverListener={open}
               >
                 <ListItem button key={list.label}>

@@ -60,30 +60,30 @@ const Me = ({ auth: { user }, updateProfile }) => {
   return (
     <Fragment>
       <Grow in={true} timeout={1000}>
-        <Grid container justifyContent='center'>
-          <Grid container justifyContent='center' className={classes.root}>
+        <Grid container justifyContent="center">
+          <Grid container justifyContent="center" className={classes.root}>
             <Grid item sm={12} md={5} className={classes.cardBox}>
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardMedia
                     className={classes.media}
-                    image='/static/images/avatar.jpg'
-                    title='Contemplative Reptile'
+                    image="/static/images/avatar.jpg"
+                    title="Contemplative Reptile"
                   />
                   <CardContent>
                     <Typography
                       gutterBottom
-                      variant='h5'
-                      component='h2'
-                      align='center'
+                      variant="h5"
+                      component="h2"
+                      align="center"
                     >
                       {(user && user.username) || 'Name'}
                     </Typography>
                     <Typography
-                      variant='body2'
-                      color='textSecondary'
-                      component='p'
-                      align='center'
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                      align="center"
                     >
                       Student
                     </Typography>
@@ -94,7 +94,7 @@ const Me = ({ auth: { user }, updateProfile }) => {
             <Grid item xs={12} sm={8} md={5} className={classes.cardBox}>
               <Card className={classes.root}>
                 <CardContent>
-                  <Typography variant='h5'>Edit Profile</Typography>
+                  <Typography variant="h5">Edit Profile</Typography>
                 </CardContent>
                 <Divider />
                 <CardContent>
@@ -102,24 +102,24 @@ const Me = ({ auth: { user }, updateProfile }) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         onChange={onChange}
-                        autoComplete='fname'
-                        name='first_name'
+                        autoComplete="fname"
+                        name="first_name"
                         value={form.first_name}
-                        variant='outlined'
+                        variant="outlined"
                         required
                         fullWidth
-                        label='First Name'
+                        label="First Name"
                         disabled
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
                         onChange={onChange}
-                        variant='outlined'
+                        variant="outlined"
                         fullWidth
-                        id='last_name'
-                        label='Last Name'
-                        name='last_name'
+                        id="last_name"
+                        label="Last Name"
+                        name="last_name"
                         value={form.last_name}
                         disabled
                       />
@@ -127,12 +127,12 @@ const Me = ({ auth: { user }, updateProfile }) => {
                     <Grid item sm={4} xs={12}>
                       <TextField
                         onChange={onChange}
-                        variant='outlined'
+                        variant="outlined"
                         required
                         fullWidth
-                        id='username'
-                        label='SID'
-                        name='username'
+                        id="username"
+                        label="SID"
+                        name="username"
                         value={form.username}
                         disabled
                       />
@@ -140,56 +140,56 @@ const Me = ({ auth: { user }, updateProfile }) => {
                     <Grid item sm={8} xs={12}>
                       <TextField
                         onChange={onChange}
-                        variant='outlined'
+                        variant="outlined"
                         required
                         fullWidth
-                        id='email'
-                        label='Email Address'
-                        name='email'
+                        id="email"
+                        label="Email Address"
+                        name="email"
                         value={form.email}
                         disabled
                       />
                     </Grid>
                     <Grid item sm={8} xs={12}>
                       <TextField
-                        id='outlined-basic'
-                        label='University/School'
-                        variant='outlined'
+                        id="outlined-basic"
+                        label="University/School"
+                        variant="outlined"
                         fullWidth
-                        name='university'
+                        name="university"
                         value={form.university}
                         onChange={onChange}
                       />
                     </Grid>
                     <Grid item sm={4} xs={12}>
                       <TextField
-                        id='outlined-basic'
-                        label='Course'
-                        variant='outlined'
+                        id="outlined-basic"
+                        label="Course"
+                        variant="outlined"
                         fullWidth
-                        name='course'
+                        name="course"
                         value={form.course}
                         onChange={onChange}
                       />
                     </Grid>
                     <Grid item xs={6}>
                       <TextField
-                        id='outlined-basic'
-                        label='State'
-                        variant='outlined'
+                        id="outlined-basic"
+                        label="State"
+                        variant="outlined"
                         fullWidth
-                        name='state'
+                        name="state"
                         value={form.state}
                         onChange={onChange}
                       />
                     </Grid>
                     <Grid item xs={6}>
                       <TextField
-                        id='outlined-basic'
-                        label='Country'
-                        variant='outlined'
+                        id="outlined-basic"
+                        label="Country"
+                        variant="outlined"
                         fullWidth
-                        name='country'
+                        name="country"
                         value={form.country}
                         onChange={onChange}
                       />
@@ -198,7 +198,7 @@ const Me = ({ auth: { user }, updateProfile }) => {
                 </CardContent>
                 <Divider />
                 <CardActions>
-                  <Button color='primary' variant='contained' onClick={update}>
+                  <Button color="primary" variant="contained" onClick={update}>
                     Update
                   </Button>
                 </CardActions>
