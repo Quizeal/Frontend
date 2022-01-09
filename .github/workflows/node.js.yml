@@ -9,117 +9,117 @@ on:
   pull_request:
     branches: [main]
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     strategy:
-#       matrix:
-#         node-version: [14.x, 16.x]
-#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: ${{ matrix.node-version }}
-#           cache: 'npm'
-
-#       - name: Install dependencies
-#         run: npm install
-
-#       - name: Linting
-#         run: npm run lint
-
-#       - name: Run the tests and generate coverage report
-#         run: npm test -- --coverage
-
-#       - name: Upload coverage to Codecov
-#         uses: codecov/codecov-action@v1
-
-#       - name: Build
-#         run: npm run build --if-present
 jobs:
-  install:
-    name: Install Dependencies
+  build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        id: cache
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        if: steps.cache.outputs.cache-hit != 'true'
-        with:
-          node-version: 14.x
-      - run: yarn
-        if: steps.cache.outputs.cache-hit != 'true'
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-  lint:
-    name: Lint
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          # no restore-keys here, so we only accept this exact version
-      - run: yarn lint
+      - name: Install dependencies
+        run: npm install
 
-  test:
-    name: Test
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          # no restore-keys here, so we only accept this exact version
-      - run: yarn test -- --coverage
+      - name: Linting
+        run: npm run lint
 
-      - name: Code Coverage
+      - name: Run the tests and generate coverage report
+        run: npm test -- --coverage
+
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
 
-  build:
-    name: Build
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          # no restore-keys here, so we only accept this exact version
-      - run: yarn run build --if-present
+      - name: Build
+        run: npm run build --if-present
+# jobs:
+#   install:
+#     name: Install Dependencies
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/cache@v2
+#         id: cache
+#         with:
+#           path: node_modules
+#           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-yarn
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v1
+#         if: steps.cache.outputs.cache-hit != 'true'
+#         with:
+#           node-version: 14.x
+#       - run: yarn
+#         if: steps.cache.outputs.cache-hit != 'true'
+
+# lint:
+#   name: Lint
+#   needs: install
+#   runs-on: ubuntu-latest
+#   steps:
+#     - uses: actions/checkout@v2
+#       with:
+#         fetch-depth: 0
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v1
+#       with:
+#         node-version: 14.x
+#     - uses: actions/cache@v2
+#       id: cache
+#       with:
+#         path: node_modules
+#         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#         # no restore-keys here, so we only accept this exact version
+#     - run: yarn lint
+
+# test:
+#   name: Test
+#   needs: install
+#   runs-on: ubuntu-latest
+#   steps:
+#     - uses: actions/checkout@v2
+#       with:
+#         fetch-depth: 0
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v1
+#       with:
+#         node-version: 14.x
+#     - uses: actions/cache@v2
+#       id: cache
+#       with:
+#         path: node_modules
+#         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#         # no restore-keys here, so we only accept this exact version
+#     - run: yarn test -- --coverage
+
+#     - name: Code Coverage
+#       uses: codecov/codecov-action@v1
+
+# build:
+#   name: Build
+#   needs: install
+#   runs-on: ubuntu-latest
+#   steps:
+#     - uses: actions/checkout@v2
+#       with:
+#         fetch-depth: 0
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v1
+#       with:
+#         node-version: 14.x
+#     - uses: actions/cache@v2
+#       id: cache
+#       with:
+#         path: node_modules
+#         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#         # no restore-keys here, so we only accept this exact version
+#     - run: yarn run build --if-present
