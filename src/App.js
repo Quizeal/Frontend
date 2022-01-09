@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MyQuizzes from './components/quiz/MyQuizzes';
-import './App.css';
+import './styles/App.scss';
 import Error from './components/error/Error';
 import MyAlert from './components/layout/MyAlert';
 import Home from './components/extra/Home';

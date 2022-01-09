@@ -194,7 +194,7 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
             <Typography variant="h6" noWrap>
               <Link
                 to="/"
-                className={'styleLink'}
+                className={'style-link'}
                 style={{
                   color: 'white',
                   textTransform: 'uppercase',
@@ -239,7 +239,7 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
                 <Link
                   key={list.path}
                   to={list.path}
-                  className={'styleLink'}
+                  className={'style-link'}
                   onClick={handleDrawerClose}
                 >
                   <Tooltip
@@ -259,7 +259,7 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
                 <Link
                   key={list.path}
                   to={list.path}
-                  className={'styleLink'}
+                  className={'style-link'}
                   onClick={handleDrawerClose}
                 >
                   <Tooltip
@@ -282,7 +282,7 @@ const MiniDrawer = ({ auth: { isAuthenticated, user }, ...props }) => {
             <Link
               key={list.path}
               to={list.path}
-              className={'styleLink'}
+              className={'style-link'}
               onClick={handleDrawerClose}
             >
               <Tooltip

@@ -184,7 +184,7 @@ const Login = ({ login, auth, ...props }) => {
                   <Grid item xs>
                     <Link
                       to="#"
-                      className={'styleLink'}
+                      className={'style-link'}
                       style={{ fontWeight: 700 }}
                     >
                       Forgot password?
@@ -194,7 +194,7 @@ const Login = ({ login, auth, ...props }) => {
                     Don't have an account?
                     <Link
                       to="/signup"
-                      className={'styleLink'}
+                      className={'style-link'}
                       style={{ fontWeight: 700 }}
                     >
                       {' '}
@@ -210,7 +210,7 @@ const Login = ({ login, auth, ...props }) => {
                 {'Copyright © '}
                 <Link
                   to="/"
-                  className={'styleLink'}
+                  className={'style-link'}
                   style={{ fontWeight: 700 }}
                 >
                   Quizeal

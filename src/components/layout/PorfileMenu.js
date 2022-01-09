@@ -46,10 +46,10 @@ const ProfileMenu = ({ auth: { isAuthenticated, user }, logout }) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <Link to="/me" className={'styleLink'}>
+            <Link to="/me" className={'style-link'}>
               <MenuItem onClick={handleClose}>Profile</MenuItem>
             </Link>
-            <Link to="/settings" className={'styleLink'}>
+            <Link to="/settings" className={'style-link'}>
               <MenuItem onClick={handleClose}>My account</MenuItem>
             </Link>
             <MenuItem onClick={onLogout}>Logout</MenuItem>

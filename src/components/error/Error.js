@@ -51,7 +51,7 @@ const Error = () => {
             >
               (This site is under construction)
             </Typography>
-            <Link to="/" className={'styleLink'}>
+            <Link to="/" className={'style-link'}>
               <Button color="primary" variant="contained">
                 Home
               </Button>

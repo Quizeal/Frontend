@@ -83,7 +83,7 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
             >
               <Button endIcon={<LinkIcon />}>
                 <Link
-                  className={'styleLink'}
+                  className={'style-link'}
                   to={`/quiz-report/${params.row.quiz_token}`}
                 >
                   Open
@@ -175,7 +175,7 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
             >
               <Button endIcon={<LinkIcon />}>
                 <Link
-                  className={'styleLink'}
+                  className={'style-link'}
                   to={`/quiz-view/${params.row.quiz_token}`}
                 >
                   View
@@ -196,7 +196,7 @@ const MyQuizzes = ({ myQuizzes, deleteQuiz, quizzes, loading, user }) => {
               </Button>
               <Button endIcon={<AssessmentIcon />}>
                 <Link
-                  className={'styleLink'}
+                  className={'style-link'}
                   to={`/quiz-result/${params.row.quiz_token}`}
                 >
                   Results
