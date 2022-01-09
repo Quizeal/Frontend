@@ -81,22 +81,22 @@ const Footer = () => {
               >
                 <Grid item>
                   <div>
-                    <a href="/" className="styleLink">
+                    <a href="/" className="style-link">
                       Home
                     </a>
                   </div>
                   <div>
-                    <a href="/about" className="styleLink">
+                    <a href="/about" className="style-link">
                       About
                     </a>
                   </div>
                   <div>
-                    <a href="/developers" className="styleLink">
+                    <a href="/developers" className="style-link">
                       Developers
                     </a>
                   </div>
                   <div>
-                    <a href="/feedback" className="styleLink">
+                    <a href="/feedback" className="style-link">
                       Feedback
                     </a>
                   </div>
@@ -121,7 +121,7 @@ const Footer = () => {
                       {'Made with'} &#10084;{' '}
                       <a
                         href="/"
-                        className={'styleLink'}
+                        className={'style-link'}
                         style={{ fontWeight: 700 }}
                       >
                         Quizeal.

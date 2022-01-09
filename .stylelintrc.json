@@ -1,0 +1,31 @@
+{
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier"],
+  "rules": {
+    "comment-no-empty": true,
+    "no-duplicate-at-import-rules": true,
+    "no-duplicate-selectors": true,
+    "no-extra-semicolons": true,
+    "alpha-value-notation": "number",
+    "color-function-notation": "legacy",
+    "color-named": "never",
+    "length-zero-no-unit": true,
+    "font-weight-notation": "numeric",
+    "number-max-precision": 2,
+    "no-unknown-animations": true,
+    "font-family-name-quotes": "always-unless-keyword",
+    "number-leading-zero": "never",
+    "number-no-trailing-zeros": true,
+    "custom-property-empty-line-before": "never",
+    "declaration-block-semicolon-newline-after": "always",
+    "declaration-block-trailing-semicolon": "always",
+    "block-closing-brace-empty-line-before": "never",
+    "block-closing-brace-newline-after": "always",
+    "block-opening-brace-newline-after": "always",
+    "rule-empty-line-before": "always",
+    "max-empty-lines": 1,
+    "no-eol-whitespace": true,
+    "no-empty-first-line": true,
+    "indentation": 2,
+    "string-quotes": "single"
+  }
+}

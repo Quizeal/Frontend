@@ -79,7 +79,7 @@ const Home = ({ auth: { isAuthenticated, user } }) => {
                 <Typography
                   variant="h1"
                   style={{ textTransform: 'uppercase' }}
-                  className="gradientText"
+                  className="gradient-text"
                 >
                   Quizeal
                 </Typography>
@@ -90,7 +90,7 @@ const Home = ({ auth: { isAuthenticated, user } }) => {
               <Link
                 to="/signup"
                 style={{ maxWidth: 'max-content' }}
-                className={'styleLink'}
+                className={'style-link'}
               >
                 <Button variant="contained" color="primary">
                   Get Started

@@ -54,7 +54,7 @@ const DashboardNavbar = ({ user, ...props }) => {
       </div>
       <Divider style={{ backgroundColor: '#ffffff5c' }} />
       <List component="nav" aria-label="main mailbox folders">
-        <Link to="/dashboard" className={'styleLink'}>
+        <Link to="/dashboard" className={'style-link'}>
           <ListItem button onClick={closeNav}>
             <ListItemIcon style={{ color: 'white' }}>
               <DashboardIcon />
@@ -64,7 +64,7 @@ const DashboardNavbar = ({ user, ...props }) => {
         </Link>
         <Link
           to={`/my-quizzes/${user && user.username}`}
-          className={'styleLink'}
+          className={'style-link'}
         >
           <ListItem button onClick={closeNav}>
             <ListItemIcon style={{ color: 'white' }}>
@@ -73,7 +73,7 @@ const DashboardNavbar = ({ user, ...props }) => {
             <ListItemText primary="My Quizzes" />
           </ListItem>
         </Link>
-        <Link to="/create-quiz" className={'styleLink'}>
+        <Link to="/create-quiz" className={'style-link'}>
           <ListItem button onClick={closeNav}>
             <ListItemIcon style={{ color: 'white' }}>
               <CreateIcon />
@@ -84,7 +84,7 @@ const DashboardNavbar = ({ user, ...props }) => {
       </List>
       <Divider style={{ backgroundColor: '#ffffff5c' }} />
       <List component="nav" aria-label="secondary mailbox folder">
-        <Link to="/me" className={'styleLink'}>
+        <Link to="/me" className={'style-link'}>
           <ListItem button onClick={closeNav}>
             <ListItemIcon style={{ color: 'white' }}>
               <PersonIcon />
@@ -92,7 +92,7 @@ const DashboardNavbar = ({ user, ...props }) => {
             <ListItemText primary="Profile" />
           </ListItem>
         </Link>
-        <Link to="/setting" className={'styleLink'}>
+        <Link to="/setting" className={'style-link'}>
           <ListItem button onClick={closeNav}>
             <ListItemIcon style={{ color: 'white' }}>
               <SettingsIcon />

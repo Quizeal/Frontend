@@ -278,7 +278,7 @@ const Signup = ({ signup, auth, props }) => {
                         Already have an account?{' '}
                         <Link
                           to="/login"
-                          className={'styleLink'}
+                          className={'style-link'}
                           style={{ fontWeight: 700 }}
                         >
                           Login
@@ -297,7 +297,7 @@ const Signup = ({ signup, auth, props }) => {
                     {'Copyright © '}
                     <Link
                       to="/"
-                      className={'styleLink'}
+                      className={'style-link'}
                       style={{ fontWeight: 700 }}
                     >
                       Quizeal
