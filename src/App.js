@@ -18,7 +18,7 @@ import Loading from './components/layout/Loading';
 import Feedback from './components/extra/Feedback';
 import Me from './components/extra/Me';
 import Setting from './components/extra/Setting';
-import Developers from './components/extra/Developers';
+// import Developers from './components/extra/Developers';
 import About from './components/extra/About';
 import MiniDrawer from './components/layout/MiniDrawer';
 import Footer from './components/layout/Footer';
@@ -60,7 +60,7 @@ function App() {
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/feedback" component={Feedback} />
-              <Route exact path="/developers" component={Developers} />
+              {/* <Route exact path="/developers" component={Developers} /> */}
               <Route exact path="/about" component={About} />
               <PrivateRoute exact path="/me" component={Me} />
               <PrivateRoute exact path="/settings" component={Setting} />
