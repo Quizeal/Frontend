@@ -9,7 +9,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import MySnackbar from '../layout/MySnackbar';
-import Rating from '@material-ui/lab/Rating';
+import Rating from '@mui/lab/Rating';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
 import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';

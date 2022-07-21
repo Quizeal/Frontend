@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useParams } from 'react-router';
 import { Link, useHistory } from 'react-router-dom';
 import { Button, ButtonGroup, Typography, Grid, Grow } from '@material-ui/core';
-import { DataGrid } from '@material-ui/data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import LinkIcon from '@material-ui/icons/Link';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AssessmentIcon from '@material-ui/icons/Assessment';

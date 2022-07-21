@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@mui/lab/ToggleButtonGroup';
+import ToggleButton from '@mui/lab/ToggleButton';
 
 export default function ToggleButtons(props) {
   const { type } = props;

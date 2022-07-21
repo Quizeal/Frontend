@@ -6,7 +6,7 @@ import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
-} from '@material-ui/data-grid';
+} from '@mui/x-data-grid';
 import InfoCard from '../layout/InfoCard';
 
 // REDUX
