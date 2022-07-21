@@ -25,7 +25,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import LockIcon from '@material-ui/icons/Lock';
 import FeedbackIcon from '@material-ui/icons/Feedback';
-import CodeIcon from '@material-ui/icons/Code';
+// import CodeIcon from '@material-ui/icons/Code';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import CreateIcon from '@material-ui/icons/Create';
@@ -41,11 +41,11 @@ import PropTypes from 'prop-types';
 const drawerWidth = 240;
 
 const commontList = [
-  {
-    component: <CodeIcon />,
-    label: 'Developers',
-    path: '/developers',
-  },
+  // {
+  //   component: <CodeIcon />,
+  //   label: 'Developers',
+  //   path: '/developers',
+  // },
   {
     component: <FeedbackIcon />,
     label: 'Feedback',
