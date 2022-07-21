@@ -90,11 +90,11 @@ const Footer = () => {
                       About
                     </a>
                   </div>
-                  <div>
+                  {/* <div>
                     <a href="/developers" className="style-link">
                       Developers
                     </a>
-                  </div>
+                  </div> */}
                   <div>
                     <a href="/feedback" className="style-link">
                       Feedback
