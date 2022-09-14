@@ -6,8 +6,8 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
+  // FormControlLabel,
+  // Checkbox,
   Grid,
   Box,
   Typography,
@@ -252,7 +252,7 @@ const Signup = ({ signup, auth, props }) => {
                           type="password"
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      {/* <Grid item xs={12}>
                         <FormControlLabel
                           control={
                             <Checkbox
@@ -262,7 +262,7 @@ const Signup = ({ signup, auth, props }) => {
                           }
                           label="I want to receive inspiration, marketing promotions and updates via email."
                         />
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                     <Button
                       fullWidth

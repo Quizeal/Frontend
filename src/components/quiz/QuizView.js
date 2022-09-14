@@ -101,6 +101,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { viewQuiz })(QuizView);
-
-// TODO
-// --> Time Format

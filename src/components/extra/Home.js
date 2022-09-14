@@ -106,7 +106,7 @@ const Home = ({ auth: { isAuthenticated, user } }) => {
               >
                 <TextField
                   id="outlined-basic"
-                  label="Add Quiz Code"
+                  label="Enter Quiz Code"
                   variant="outlined"
                   value={quizCode}
                   onChange={(e) => onChange(e)}

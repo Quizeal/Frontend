@@ -195,7 +195,7 @@ const CreateQuiz = ({ user, createQuiz }) => {
                     format="mm:ss"
                     required
                     inputVariant="outlined"
-                    label="Quiz Duration"
+                    label="Quiz Duration (MM:SS)"
                     value={selectedDuration}
                     onChange={handleDurationChange}
                   />

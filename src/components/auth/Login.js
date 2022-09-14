@@ -4,8 +4,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Grid,
   Box,
   Typography,
@@ -165,11 +163,6 @@ const Login = ({ login, auth, ...props }) => {
                   type="password"
                   onChange={onChange}
                 />
-                {/* This will be implemented later {Remember me} */}
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
                 <Button
                   // type='submit'
                   fullWidth
@@ -181,15 +174,6 @@ const Login = ({ login, auth, ...props }) => {
                   LogIn
                 </Button>
                 <Grid container>
-                  <Grid item xs>
-                    <Link
-                      to="#"
-                      className={'style-link'}
-                      style={{ fontWeight: 700 }}
-                    >
-                      Forgot password?
-                    </Link>
-                  </Grid>
                   <Grid item>
                     Don't have an account?
                     <Link
